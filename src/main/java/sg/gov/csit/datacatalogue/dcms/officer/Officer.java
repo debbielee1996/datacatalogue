@@ -9,6 +9,7 @@ import sg.gov.csit.datacatalogue.dcms.acl.Acl;
 import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +20,16 @@ import java.util.List;
 @ToString
 public class Officer {
     @Id
+    @NotNull
     private String pf;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String email;
 
+    @NotNull
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "officer_ddcs",
@@ -31,12 +38,13 @@ public class Officer {
     @JsonManagedReference
     private List<Ddcs> ddcsList;
 
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "aclId", referencedColumnName = "aclId")
     @JsonManagedReference
     private Acl acl;
 
-    public Officer(String pf, String name, String email, String aclValue) {
+    public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String aclValue) {
         this.pf=pf;
         this.name=name;
         this.email=email;

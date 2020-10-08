@@ -1,7 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.dataset;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,15 +21,20 @@ import java.util.List;
 public class Dataset {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @NotNull
     private Long id;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String description;
 
+    @NotNull
     @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<DatasetAccess> datasetAccessList;
 
+    @NotNull
     @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<DataTable> dataTableList;

@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.datasetaccess;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,18 +18,21 @@ import javax.persistence.*;
 public class DatasetAccess {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @NotNull
     private int id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "datasetId")
     @JsonManagedReference
     private Dataset dataset;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private DatasetTypeEnum type;
     private String value;
 
-    public DatasetAccess(Dataset dataset, String daType, String daValue) {
+    public DatasetAccess(@NotNull Dataset dataset, @NotNull String daType, @NotNull String daValue) {
         this.dataset=dataset;
         this.value=daValue;
 

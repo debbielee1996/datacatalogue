@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import sg.gov.csit.datacatalogue.dcms.acl.AclRepository;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetRepository;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;

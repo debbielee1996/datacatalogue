@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.acl;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,16 +18,19 @@ import javax.persistence.*;
 public class Acl {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long aclId;
 
     @OneToOne(mappedBy = "acl",fetch = FetchType.LAZY)
     @JsonBackReference
+    @NotNull
     private Officer officer;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private AclRoleEnum aclRoleEnum;
 
-    public Acl(Officer officer, String aclValue) {
+    public Acl(@NotNull Officer officer, @NotNull String aclValue) {
         this.officer=officer;
         if (aclValue.equals("Public")) {
             this.aclRoleEnum=AclRoleEnum.PUBLIC;
