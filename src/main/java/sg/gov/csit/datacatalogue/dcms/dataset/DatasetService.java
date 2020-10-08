@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
+import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -18,19 +20,24 @@ public class DatasetService {
         return datasetRepository.findById(id).isPresent();
     }
 
-    public Optional<Dataset> getDataset(long datasetId) {
+    public Optional<Dataset> getDatasetById(long datasetId) {
         return datasetRepository.findById(datasetId);
     }
 
     public String createNewDataset(@NotNull String name, String description) {
-        datasetRepository.save(new Dataset(name, description));
-
-        DatabaseActions databaseActions = new DatabaseActions();
-        try {
-            System.out.println(databaseActions.createDatabase(name));
-        } catch (Exception e) {
-            System.out.println(e);
+        if (datasetRepository.findByName(name) == null) {
+            datasetRepository.save(new Dataset(name, description));
+            DatabaseActions databaseActions = new DatabaseActions();
+            try {
+                System.out.println(databaseActions.createDatabase(name));
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            return "Dataset created";
+        } else {
+            throw new DatasetExistsException(name);
         }
-        return "Dataset created";
     }
+
+    public List<Dataset> getAllDatasets() { return datasetRepository.findAll(); }
 }

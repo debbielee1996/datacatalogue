@@ -1,7 +1,9 @@
 package sg.gov.csit.datacatalogue.dcms.datasetaccess;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +26,7 @@ public class DatasetAccess {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "datasetId")
-    @JsonManagedReference
+    @JsonIgnore
     private Dataset dataset;
 
     @NotNull

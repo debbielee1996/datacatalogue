@@ -72,7 +72,7 @@ public class OfficerServiceTest {
 
         long datasetId = 321;
         doReturn(true).when(datasetService).IsDatasetInDatabase(anyLong());
-        doReturn(Optional.of(new Dataset("mock", "mock"))).when(datasetService).getDataset(anyLong());
+        doReturn(Optional.of(new Dataset("mock", "mock"))).when(datasetService).getDatasetById(anyLong());
 
         // act and assert
         assertThrows(DatasetAccessNotFoundException.class,
@@ -98,7 +98,7 @@ public class OfficerServiceTest {
         //act
         when(officerRepository.findById(pf)).thenReturn(Optional.of(mockOfficer));
         doReturn(true).when(datasetService).IsDatasetInDatabase(anyLong());
-        doReturn(Optional.of(dataset)).when(datasetService).getDataset(anyLong());
+        doReturn(Optional.of(dataset)).when(datasetService).getDatasetById(anyLong());
 
         // assert
         assertThrows(DatasetAccessNotFoundException.class,
@@ -130,7 +130,7 @@ public class OfficerServiceTest {
         //act
         when(officerRepository.findById(pf)).thenReturn(Optional.of(mockOfficer));
         doReturn(true).when(datasetService).IsDatasetInDatabase(anyLong());
-        doReturn(Optional.of(dataset)).when(datasetService).getDataset(anyLong());
+        doReturn(Optional.of(dataset)).when(datasetService).getDatasetById(anyLong());
 
         // assert
         assertThrows(DatasetAccessNotFoundException.class,
@@ -156,7 +156,7 @@ public class OfficerServiceTest {
         //act
         when(officerRepository.findById(pf)).thenReturn(Optional.of(mockOfficer));
         doReturn(true).when(datasetService).IsDatasetInDatabase(anyLong());
-        doReturn(Optional.of(dataset)).when(datasetService).getDataset(anyLong());
+        doReturn(Optional.of(dataset)).when(datasetService).getDatasetById(anyLong());
 
         // assert
         assertTrue(() -> officerService.ValidateOfficerDatasetAccess(pf, anyLong()));
@@ -184,7 +184,7 @@ public class OfficerServiceTest {
         //act
         when(officerRepository.findById(pf)).thenReturn(Optional.of(mockOfficer));
         doReturn(true).when(datasetService).IsDatasetInDatabase(anyLong());
-        doReturn(Optional.of(dataset)).when(datasetService).getDataset(anyLong());
+        doReturn(Optional.of(dataset)).when(datasetService).getDatasetById(anyLong());
 
         // assert
         assertTrue(() -> officerService.ValidateOfficerDatasetAccess(pf, anyLong()));

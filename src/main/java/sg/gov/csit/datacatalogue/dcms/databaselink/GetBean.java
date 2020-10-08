@@ -26,12 +26,6 @@ public class GetBean {
         this.currentDataBaseUrl = currentDataBaseUrl;
         this.userName = userName;
         this.password = password;
-
-        System.out.println(currentMavenProfile);
-        System.out.println(currentDataBaseDriver);
-        System.out.println(currentDataBaseUrl);
-        System.out.println(userName);
-        System.out.println(password);
     }
 
 }

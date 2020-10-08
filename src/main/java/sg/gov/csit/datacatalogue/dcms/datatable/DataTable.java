@@ -1,7 +1,9 @@
 package sg.gov.csit.datacatalogue.dcms.datatable;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +31,7 @@ public class DataTable {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "datasetId")
-    @JsonManagedReference
+    @JsonIgnore
     private Dataset dataset;
 
     public DataTable(String name, String description, @NotNull Dataset dataset) {

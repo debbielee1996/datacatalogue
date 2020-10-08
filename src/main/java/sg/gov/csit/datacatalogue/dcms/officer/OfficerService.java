@@ -27,7 +27,7 @@ public class OfficerService {
         if(IsOfficerInDatabase(pf)){
             if(datasetService.IsDatasetInDatabase(datasetId)){ // if dataset exists
                 // dataset and officer will already exist since prev check is done
-                Optional<Dataset> dataset = datasetService.getDataset(datasetId);
+                Optional<Dataset> dataset = datasetService.getDatasetById(datasetId);
                 List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
                 Optional<Officer> officer = getOfficer(pf);
                 List<Ddcs> ddcsList = officer.get().getDdcsList();
