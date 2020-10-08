@@ -1,19 +1,17 @@
 package sg.gov.csit.datacatalogue.dcms;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import sg.gov.csit.datacatalogue.dcms.acl.Acl;
 import sg.gov.csit.datacatalogue.dcms.acl.AclRepository;
-import sg.gov.csit.datacatalogue.dcms.acl.AclRoleEnum;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetRepository;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessRepository;
-import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetTypeEnum;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTableRepository;
 import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 import sg.gov.csit.datacatalogue.dcms.ddcs.DdcsRepository;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
@@ -28,15 +26,16 @@ import java.util.List;
 public class Dataseeder {
     private OfficerRepository officerRepository;
     private DdcsRepository ddcsRepository;
-    private AclRepository aclRepository;
     private DatasetRepository datasetRepository;
     private DatasetAccessRepository datasetAccessRepository;
+    private DataTableRepository dataTableRepository;
 
     List<String> officerIdList = new ArrayList<>();
     List<Integer> ddcsIdList = new ArrayList<>();
     List<Long> aclIdList = new ArrayList<>();
     List<Long> datasetIdList = new ArrayList<>();
     List<Integer> datasetAccessIdList = new ArrayList<>();
+    List<Long> dataTableIdList = new ArrayList<>();
 
     @EventListener
     public void seed(ContextRefreshedEvent event){
@@ -44,6 +43,7 @@ public class Dataseeder {
         seedOfficer();
         seedDataset();
         seedDatasetAccess();
+        seedDataTable();;
     }
 
     private void seedDdcs(){
@@ -134,9 +134,9 @@ public class Dataseeder {
         DatasetAccess datasetAccess1 = new DatasetAccess(dataset1, "Pf", "1001");
         DatasetAccess datasetAccess2 = new DatasetAccess(dataset1, "Pf", "1002");
         DatasetAccess datasetAccess3 = new DatasetAccess(dataset2, "Pf", "1003");
-        DatasetAccess datasetAccess4 = new DatasetAccess(dataset2, "Pf", "1001");
+        DatasetAccess datasetAccess4 = new DatasetAccess(dataset2, "Pf", "1004");
         DatasetAccess datasetAccess5 = new DatasetAccess(dataset2, "Ddcs", "1");
-        DatasetAccess datasetAccess6 = new DatasetAccess(dataset3, "Ddcs", "2");
+        DatasetAccess datasetAccess6 = new DatasetAccess(dataset3, "Ddcs", "5");
         DatasetAccess datasetAccess7 = new DatasetAccess(dataset3, "Ddcs", "3");
         DatasetAccess datasetAccess8 = new DatasetAccess(dataset3, "Pf", "1005");
         DatasetAccess datasetAccess9 = new DatasetAccess(dataset4, "Pf", "1005");
@@ -151,5 +151,44 @@ public class Dataseeder {
         datasetAccessRepository.save(datasetAccess8);
         datasetAccessRepository.save(datasetAccess9);
 
+        datasetAccessIdList.add(datasetAccess1.getId());
+        datasetAccessIdList.add(datasetAccess2.getId());
+        datasetAccessIdList.add(datasetAccess3.getId());
+        datasetAccessIdList.add(datasetAccess4.getId());
+        datasetAccessIdList.add(datasetAccess5.getId());
+        datasetAccessIdList.add(datasetAccess6.getId());
+        datasetAccessIdList.add(datasetAccess7.getId());
+        datasetAccessIdList.add(datasetAccess8.getId());
+        datasetAccessIdList.add(datasetAccess9.getId());
+    }
+
+    private void seedDataTable() {
+        // get all datasets
+        Dataset dataset1 = datasetRepository.getOne(datasetIdList.get(0));
+        Dataset dataset2 = datasetRepository.getOne(datasetIdList.get(1));
+        Dataset dataset3 = datasetRepository.getOne(datasetIdList.get(2));
+        Dataset dataset4 = datasetRepository.getOne(datasetIdList.get(3));
+        Dataset dataset5 = datasetRepository.getOne(datasetIdList.get(4));
+
+        DataTable dataTable1 = new DataTable("datatable1", "Furniture", dataset1);
+        DataTable dataTable2 = new DataTable("datatable2", "Outings", dataset2);
+        DataTable dataTable3 = new DataTable("datatable3", "Salary", dataset3);
+        DataTable dataTable4 = new DataTable("datatable4", "Expenses", dataset4);
+        DataTable dataTable5 = new DataTable("datatable5", "Operations", dataset5);
+        DataTable dataTable6 = new DataTable("datatable6", "Transport", dataset1);
+
+        dataTableRepository.save(dataTable1);
+        dataTableRepository.save(dataTable2);
+        dataTableRepository.save(dataTable3);
+        dataTableRepository.save(dataTable4);
+        dataTableRepository.save(dataTable5);
+        dataTableRepository.save(dataTable6);
+
+        dataTableIdList.add(dataTable1.getId());
+        dataTableIdList.add(dataTable2.getId());
+        dataTableIdList.add(dataTable3.getId());
+        dataTableIdList.add(dataTable4.getId());
+        dataTableIdList.add(dataTable5.getId());
+        dataTableIdList.add(dataTable6.getId());
     }
 }

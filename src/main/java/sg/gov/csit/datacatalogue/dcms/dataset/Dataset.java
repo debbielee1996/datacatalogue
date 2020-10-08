@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,9 +30,14 @@ public class Dataset {
     @JsonBackReference
     private List<DatasetAccess> datasetAccessList;
 
+    @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<DataTable> dataTableList;
+
     public Dataset(String name, String description) {
         this.name=name;
         this.description=description;
         this.datasetAccessList=new ArrayList<>();
+        this.dataTableList=new ArrayList<>();
     }
 }
