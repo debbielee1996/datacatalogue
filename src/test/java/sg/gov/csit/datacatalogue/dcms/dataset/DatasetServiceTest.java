@@ -23,7 +23,7 @@ public class DatasetServiceTest {
 
     @Test
     public void createNewDataset_GivenDatasetIdInDb_ShouldThrowException() {
-        // arrange
+        // arrange & act
         when(datasetRepository.findByName(anyString())).thenReturn(new Dataset());
 
         // assert
@@ -32,7 +32,7 @@ public class DatasetServiceTest {
 
     @Test
     public void createNewDataset_GivenDatasetIdNotInDb_ShouldReturnTrue() {
-        // arrange
+        // arrange & act
         when(datasetRepository.findByName(anyString())).thenReturn(null);
 
         // assert
