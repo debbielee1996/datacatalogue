@@ -22,7 +22,6 @@ public class OfficerService {
     @Autowired
     private final DatasetService datasetService;
 
-
     public boolean ValidateOfficerDatasetAccess(String pf, long datasetId) {
         if(IsOfficerInDatabase(pf)){
             if(datasetService.IsDatasetInDatabase(datasetId)){ // if dataset exists
@@ -46,14 +45,6 @@ public class OfficerService {
         }
     }
 
-    public Optional<Officer> getOfficer(String pf) {
-        return officerRepository.findById(pf);
-    }
-
-    public boolean IsOfficerInDatabase(String pf){
-        return officerRepository.findById(pf).isPresent();
-    }
-
     public boolean officerHasAccessForDatasetGiven(String pf, List<DatasetAccess> datasetAccessList, List<Ddcs> ddcsList) {
         for (DatasetAccess da:datasetAccessList) {
             // DatasetAccessService check
@@ -67,5 +58,11 @@ public class OfficerService {
         return false;
     }
 
+    public Optional<Officer> getOfficer(String pf) {
+        return officerRepository.findById(pf);
+    }
 
+    public boolean IsOfficerInDatabase(String pf){
+        return officerRepository.findById(pf).isPresent();
+    }
 }

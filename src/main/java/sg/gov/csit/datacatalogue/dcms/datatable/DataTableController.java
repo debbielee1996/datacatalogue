@@ -18,7 +18,7 @@ public class DataTableController {
     }
 
     @PostMapping("/upload-file")
-    public String uploadFile(@RequestParam("file") MultipartFile file,
+    public boolean uploadFile(@RequestParam("file") MultipartFile file,
                              @RequestParam("tableName") String tableName,
                              @RequestParam("datasetId") String datasetId,
                              @RequestParam("description") String description) throws Exception {

@@ -16,6 +16,7 @@ public class DatasetService {
     @Autowired
     private DatasetRepository datasetRepository;
 
+
     public boolean IsDatasetInDatabase(long id){
         return datasetRepository.findById(id).isPresent();
     }
@@ -24,7 +25,7 @@ public class DatasetService {
         return datasetRepository.findById(datasetId);
     }
 
-    public String createNewDataset(@NotNull String name, String description) {
+    public boolean createNewDataset(@NotNull String name, String description) {
         if (datasetRepository.findByName(name) == null) { // if dataset hasn't exist yet
             datasetRepository.save(new Dataset(name, description));
             DatabaseActions databaseActions = new DatabaseActions();
@@ -33,7 +34,8 @@ public class DatasetService {
             } catch (Exception e) {
                 System.out.println(e);
             }
-            return "Dataset created";
+            System.out.println("Dataset created");
+            return true;
         } else {
             throw new DatasetExistsException(name);
         }

@@ -41,7 +41,7 @@ public class DataTableService {
 
     public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
 
-    public String uploadFile(MultipartFile file, String tableName, String datasetId, String description) throws Exception {
+    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description) throws Exception {
         // get dataset and verify that it exists
         Optional<Dataset> dataset = datasetService.getDatasetById(Long.parseLong(datasetId));
         if (dataset.isEmpty()) {
@@ -61,9 +61,7 @@ public class DataTableService {
         String ext = FilenameUtils.getExtension(file.getOriginalFilename());
 
         // currently only deals with .csv formats
-        if (ext == null) {
-            return("Extension is null");
-        } else if (ext.equals("csv")) {
+        if (ext.equals("csv")) {
             CsvFormat format = getDelimiter(file); // gets delimiter from file
             CSVParser csvParser = CSVFormat.newFormat(format.getDelimiter()).parse(new BufferedReader(new InputStreamReader(file.getInputStream())));
             List<CSVRecord> records = csvParser.getRecords();
@@ -74,7 +72,7 @@ public class DataTableService {
             stringRecords.remove(0);
             System.out.println("csv operations completed");
         } else {
-            return("File format not supported yet");
+            throw new Exception("File format not supported yet");
         }
 
         // temp placement until user can choose their own header types
@@ -89,9 +87,10 @@ public class DataTableService {
             if (!dataTableExists) { // create dataTable object in db
                 dataTableRepository.save(new DataTable(tableName, description, dataset.get()));
             }
-            return "Successfully uploaded data file into db";
+            System.out.println("Successfully uploaded data file into db");
+            return true;
         } else {
-            return "Failed process. Please try again";
+            return false;
         }
 
     }

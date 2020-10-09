@@ -13,7 +13,7 @@ public class DatasetController {
     DatasetService datasetService;
 
     @PostMapping("/create-new-dataset")
-    public String createNewDataset(@RequestParam("name") String name,
+    public boolean createNewDataset(@RequestParam("name") String name,
                                    @RequestParam("description") String description) {
         return datasetService.createNewDataset(name, description);
     }

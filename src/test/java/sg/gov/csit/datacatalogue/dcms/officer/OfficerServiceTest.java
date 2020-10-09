@@ -1,4 +1,4 @@
-package sg.gov.csit.datacatalogue.dcms;
+package sg.gov.csit.datacatalogue.dcms.officer;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,9 +12,6 @@ import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.officer.Officer;
-import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
-import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
 import java.util.ArrayList;
 import java.util.List;
