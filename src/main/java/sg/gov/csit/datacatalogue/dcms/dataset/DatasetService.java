@@ -25,7 +25,7 @@ public class DatasetService {
     }
 
     public String createNewDataset(@NotNull String name, String description) {
-        if (datasetRepository.findByName(name) == null) {
+        if (datasetRepository.findByName(name) == null) { // if dataset hasn't exist yet
             datasetRepository.save(new Dataset(name, description));
             DatabaseActions databaseActions = new DatabaseActions();
             try {

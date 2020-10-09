@@ -37,21 +37,28 @@ public class DatabaseActions {
         }
     }
 
-    public boolean createDatatable(String tableName, List<String> headerList, List<String> headerTypes, List<List<String>> records, String datasetName) {
+    public boolean createDatatable(String tableName, List<String> headerList, List<String> headerTypes, List<List<String>> records, String datasetName, boolean dataTableExists) {
         Connection conn = null;
         try {
             conn = getConnection();
             String tableString = createTableString(headerList, headerTypes);
 
+            // drop table if it exists (this is for table updates)
+            if (dataTableExists) {
+                PreparedStatement drop = null;
+                drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
+                drop.executeUpdate();
+            }
+
+            // create table for insertion
             PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
             create.executeUpdate();
+
+            // insert values to table
             boolean insert = insertValuesToTable(tableName, headerList, records, datasetName);
-            //insert table function here
             if (insert) {
                 return true;
             }else{
-                //deleteTable(tableName);
-                //add delete table here
                 return false;
             }
         } catch (Exception e) {
@@ -64,14 +71,13 @@ public class DatabaseActions {
 
     private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName) {
         try{
-            Connection con = getConnection();
-            //create a string - comma separated
+            Connection conn = getConnection();
+            //create a string of the headers for the preparedStatement - comma separated
             String headerListCommaSeparated = String.join(",", headerList);
 
-            //set to 1 to avoid the headers
             for (int i = 0; i < records.size(); i++) {
                 PreparedStatement insert = null;
-                insert = con.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + String.join(",", records.get(i)) + ")");
+                insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + String.join(",", records.get(i)) + ")");
 
                 insert.executeUpdate();
                 System.out.println(insert);

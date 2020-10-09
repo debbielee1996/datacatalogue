@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.datatable;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvFormat;
@@ -15,6 +16,8 @@ import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
 import org.apache.commons.csv.CSVFormat;
+import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
+import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
 
 
 import java.io.BufferedReader;
@@ -38,28 +41,40 @@ public class DataTableService {
 
     public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
 
-    public String uploadFile(MultipartFile file, String tableName, String datasetId) throws Exception {
-        // get dataset
+    public String uploadFile(MultipartFile file, String tableName, String datasetId, String description) throws Exception {
+        // get dataset and verify that it exists
         Optional<Dataset> dataset = datasetService.getDatasetById(Long.parseLong(datasetId));
+        if (dataset.isEmpty()) {
+            throw new DatasetExistsException(datasetId);
+        }
+
+        // check if dataTable already exists
+        DataTable dataTable = dataTableRepository.findByName(tableName);
+        boolean dataTableExists = true; // set to true if dataTable doesn't exist
+        if (dataTable == null) { // dataTable hasn't existed yet
+            dataTableExists = false;
+        }
 
         // verify table
         List<String> headerList = new ArrayList<>();
         List<List<String>> stringRecords = new ArrayList<>();
-
         String ext = FilenameUtils.getExtension(file.getOriginalFilename());
 
+        // currently only deals with .csv formats
         if (ext == null) {
             return("Extension is null");
         } else if (ext.equals("csv")) {
-            CsvFormat format = getDelimiter(file);
+            CsvFormat format = getDelimiter(file); // gets delimiter from file
             CSVParser csvParser = CSVFormat.newFormat(format.getDelimiter()).parse(new BufferedReader(new InputStreamReader(file.getInputStream())));
             List<CSVRecord> records = csvParser.getRecords();
-            headerList = getListFromIterator(records.get(0).iterator());
-            stringRecords = getTableValuesFromCSV(records);
+            headerList = getListFromIterator(records.get(0).iterator()); // converts iterator to list of headers
+            stringRecords = getTableValuesFromCSV(records); // includes header as well
 
             // remove headers
             stringRecords.remove(0);
             System.out.println("csv operations completed");
+        } else {
+            return("File format not supported yet");
         }
 
         // temp placement until user can choose their own header types
@@ -68,12 +83,15 @@ public class DataTableService {
 
         // create table and insert values
         DatabaseActions databaseActions = new DatabaseActions();
-        boolean hasCreatedDatatable = databaseActions.createDatatable(tableName, headerList, headerTypes, stringRecords, dataset.get().getName());
+        boolean hasCreatedDatatable = databaseActions.createDatatable(tableName, headerList, headerTypes, stringRecords, dataset.get().getName(), dataTableExists);
 
         if (hasCreatedDatatable) {
-            return "hiiiiiiiiiiiiiiiiiiiiiiiii";
+            if (!dataTableExists) { // create dataTable object in db
+                dataTableRepository.save(new DataTable(tableName, description, dataset.get()));
+            }
+            return "Successfully uploaded data file into db";
         } else {
-            return "byeeeeeeeeeeeeeeeeeeeeeeee";
+            return "Failed process. Please try again";
         }
 
     }
@@ -88,8 +106,10 @@ public class DataTableService {
 
     //https://www.geeksforgeeks.org/convert-an-iterator-to-a-list-in-java/
     public static <T> List<T> getListFromIterator(Iterator<T> iterator) {
+        // convert iterator to iterable
         Iterable<T> iterable = () -> iterator;
 
+        // create list from iterable
         return StreamSupport
                 .stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
@@ -100,13 +120,12 @@ public class DataTableService {
         List<List<String>> values = new ArrayList<>();
 
         for (CSVRecord record: records) {
-            List<String> strings = new ArrayList<>();
+            List<String> strings = new ArrayList<>(); // each row in csv
             for (String string: getListFromIterator(record.iterator())) {
                 strings.add('\'' + string + '\'');
             }
             values.add(strings);
         }
-
         return values;
     }
 }

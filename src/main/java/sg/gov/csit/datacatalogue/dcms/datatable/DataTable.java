@@ -34,7 +34,7 @@ public class DataTable {
     @JsonIgnore
     private Dataset dataset;
 
-    public DataTable(String name, String description, @NotNull Dataset dataset) {
+    public DataTable(@NotNull String name, String description, @NotNull Dataset dataset) {
          this.name=name;
          this.description=description;
          this.dataset=dataset;
