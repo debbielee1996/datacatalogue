@@ -78,7 +78,7 @@ public class DataTableServiceTest {
         Dataset dataset = DataTableStubFactory.DATASET();
 
         // should change it soon
-        GetBean.currentMavenProfile = "development";
+        GetBean.currentMavenProfile = "test";
         GetBean.currentDataBaseDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         GetBean.currentDataBaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=false";
         GetBean.userName = "sa";
@@ -103,7 +103,7 @@ public class DataTableServiceTest {
         Dataset dataset = DataTableStubFactory.DATASET();
 
         // should change it soon
-        GetBean.currentMavenProfile = "development";
+        GetBean.currentMavenProfile = "test";
         GetBean.currentDataBaseDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         GetBean.currentDataBaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=false";
         GetBean.userName = "sa";
