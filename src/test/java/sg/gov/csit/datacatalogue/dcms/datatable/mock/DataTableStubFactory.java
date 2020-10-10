@@ -18,6 +18,6 @@ public class DataTableStubFactory {
     }
 
     public static Dataset DATASET() {
-        return new Dataset("dataset1", "mock dataset");
+        return new Dataset("DataTableSericeTest_dataset1", "mock dataset");
     }
 }

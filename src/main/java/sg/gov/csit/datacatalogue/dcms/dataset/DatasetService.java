@@ -30,12 +30,12 @@ public class DatasetService {
             datasetRepository.save(new Dataset(name, description));
             DatabaseActions databaseActions = new DatabaseActions();
             try {
-                System.out.println(databaseActions.createDatabase(name));
+                boolean hasCreatedDataset = databaseActions.createDatabase(name);
+                return hasCreatedDataset; // will get here if its true
             } catch (Exception e) {
                 System.out.println(e);
+                return false; // this means that dataset doesn't exist but the db for this dataset is alr created which is not possible unless you run the test multiple times
             }
-            System.out.println("Dataset created");
-            return true;
         } else {
             throw new DatasetExistsException(name);
         }
