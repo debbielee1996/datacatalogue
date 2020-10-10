@@ -62,7 +62,7 @@ public class DatasetServiceTest {
 
     // clean up db with new datasets (databases) created
     @AfterAll
-    public static void setUp() throws SQLException {
+    public static void tearDown() throws SQLException {
         DatabaseActions databaseActions = new DatabaseActions();
         Connection conn = databaseActions.getConnection();
         PreparedStatement ps = null;
