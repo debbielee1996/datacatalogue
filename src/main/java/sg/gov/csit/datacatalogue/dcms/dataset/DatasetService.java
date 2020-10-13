@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 
 import javax.validation.constraints.NotNull;
@@ -42,4 +43,8 @@ public class DatasetService {
     }
 
     public List<Dataset> getAllDatasets() { return datasetRepository.findAll(); }
+
+    public List<DataTable> getDataTablesOfDataset(String datasetId) {
+        return datasetRepository.findById(Long.parseLong(datasetId)).get().getDataTableList();
+    }
 }
