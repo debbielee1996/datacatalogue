@@ -21,7 +21,8 @@ public class DataTableController {
     public boolean uploadFile(@RequestParam("file") MultipartFile file,
                              @RequestParam("tableName") String tableName,
                              @RequestParam("datasetId") String datasetId,
-                             @RequestParam("description") String description) throws Exception {
-        return dataTableService.uploadFile(file, tableName, datasetId, description);
+                             @RequestParam("description") String description,
+                              @RequestParam("dataTypes") List<String> dataTypes) throws Exception {
+        return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
     }
 }

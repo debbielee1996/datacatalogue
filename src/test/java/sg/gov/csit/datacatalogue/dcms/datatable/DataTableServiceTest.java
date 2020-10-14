@@ -74,7 +74,7 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
 
-        Assertions.assertThrows(DatasetExistsException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description));
+        Assertions.assertThrows(DatasetExistsException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>()));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class DataTableServiceTest {
         when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
 
         // assert
-        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description));
+        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>()));
     }
 
     @Test
@@ -103,6 +103,9 @@ public class DataTableServiceTest {
         String tableName = "DataTableServiceTest_mock1";
         String datasetId = "1";
         String description = "This is a mock datatable";
+        List<String> dataTypes = new ArrayList<>();
+        dataTypes.add("Text");
+        dataTypes.add("Text");
 
         Dataset dataset = DataTableStubFactory.DATASET();
 
@@ -112,7 +115,7 @@ public class DataTableServiceTest {
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
 
-        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description));
+        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
     }
 
     @Test
@@ -123,6 +126,9 @@ public class DataTableServiceTest {
         String tableName = "DataTableServiceTest_mock2";
         String datasetId = "1";
         String description = "This is a mock datatable";
+        List<String> dataTypes = new ArrayList<>();
+        dataTypes.add("Text");
+        dataTypes.add("Text");
 
         Dataset dataset = DataTableStubFactory.DATASET();
 
@@ -132,7 +138,7 @@ public class DataTableServiceTest {
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(null);
 
-        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description));
+        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
     }
 
     // clean up db with new datatables (tables) created

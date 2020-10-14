@@ -46,7 +46,7 @@ public class DataTableService {
 
     public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
 
-    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description) {
+    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes) {
         // get dataset and verify that it exists
         Optional<Dataset> dataset = datasetService.getDatasetById(Long.parseLong(datasetId));
         if (dataset.isEmpty()) {
@@ -83,7 +83,15 @@ public class DataTableService {
         }
         // temp placement until user can choose their own header types
         List<String> headerTypes = new ArrayList<>();
-        for (String s: headerList) { headerTypes.add(" varChar(255)"); }
+        for (String s: dataTypes) {
+            if (s.equals("Number")) {
+                headerTypes.add(" INT");
+            } else if (s.equals("Date")) {
+                headerTypes.add(" DATE");
+            } else {
+                headerTypes.add(" varChar(255)");
+            }
+        }
 
         // create table and insert values
         DatabaseActions databaseActions = new DatabaseActions();

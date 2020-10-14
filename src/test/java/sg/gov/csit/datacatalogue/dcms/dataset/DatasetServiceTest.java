@@ -1,13 +1,10 @@
 package sg.gov.csit.datacatalogue.dcms.dataset;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -46,7 +43,7 @@ public class DatasetServiceTest {
     }
 
     @Test
-    public void createNewDataset_GivenDatasetIdNotInDb_ShouldReturnTrue() throws SQLException {
+    public void createNewDataset_GivenDatasetIdNotInDb_ShouldReturnTrue() {
         // arrange & act
         when(datasetRepository.findByName(anyString())).thenReturn(null);
         datasetsCreated.add("DatasetServiceTest_mockDatabase"); // add to list of datasets to be dropped after this class's tests is done
