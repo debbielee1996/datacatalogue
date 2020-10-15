@@ -1,10 +1,9 @@
 package sg.gov.csit.datacatalogue.dcms.datatable;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvFormat;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParser;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParserSettings;
@@ -16,22 +15,12 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
-import org.apache.commons.csv.CSVFormat;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -67,12 +56,14 @@ public class DataTableService {
         // currently only deals with .csv formats
         if (ext.equals("csv")) {
             try {
-                CsvFormat format = getDelimiter(file); // gets delimiter from file
-                CSVParser csvParser = CSVFormat.newFormat(format.getDelimiter()).parse(new BufferedReader(new InputStreamReader(file.getInputStream())));
-                List<CSVRecord> records = csvParser.getRecords();
-                headerList = getListFromIterator(records.get(0).iterator()); // converts iterator to list of headers
-                stringRecords = getTableValuesFromCSV(records); // includes header as well
-            } catch (IOException e) {
+                Reader reader = new InputStreamReader(file.getInputStream());
+                CSVReader csvReader = new CSVReader(reader);
+                List<String[]> stringRecordsArray = csvReader.readAll();
+                headerList = Arrays.asList(stringRecordsArray.get(0));
+                for (String[] array:stringRecordsArray) {
+                    stringRecords.add(Arrays.asList(array));
+                }
+            } catch (IOException | CsvException e) {
                 System.out.println(e);
             }
             // remove headers
@@ -81,6 +72,7 @@ public class DataTableService {
         } else {
             throw new IncorrectFileTypeException(ext);
         }
+
         // temp placement until user can choose their own header types
         List<String> headerTypes = new ArrayList<>();
         for (String s: dataTypes) {
@@ -106,43 +98,7 @@ public class DataTableService {
         } else {
             return false;
         }
-
     }
 
-    public CsvFormat getDelimiter(MultipartFile file) throws IOException {
-        CsvParserSettings settings = new CsvParserSettings();
-        settings.detectFormatAutomatically();
-        CsvParser parser = new CsvParser(settings);
-        List<String[]> rows = parser.parseAll(file.getInputStream());
-        return parser.getDetectedFormat();
-    }
-
-    //https://www.geeksforgeeks.org/convert-an-iterator-to-a-list-in-java/
-    public static <T> List<T> getListFromIterator(Iterator<T> iterator) {
-        // convert iterator to iterable
-        Iterable<T> iterable = () -> iterator;
-
-        // create list from iterable
-        return StreamSupport
-                .stream(iterable.spliterator(), false)
-                .collect(Collectors.toList());
-    }
-
-    //returns a 2D array
-    public List<List<String>> getTableValuesFromCSV(List<CSVRecord> records) {
-        List<List<String>> values = new ArrayList<>();
-
-        for (CSVRecord record: records) {
-            List<String> strings = new ArrayList<>(); // each row in csv
-            for (String string: getListFromIterator(record.iterator())) {
-                strings.add('\'' + string + '\'');
-            }
-            values.add(strings);
-        }
-        return values;
-    }
-
-    public List<String> getAllDataTableNames() {
-        return dataTableRepository.findAllDataTableNames();
-    }
+    public List<String> getAllDataTableNames() { return dataTableRepository.findAllDataTableNames(); }
 }

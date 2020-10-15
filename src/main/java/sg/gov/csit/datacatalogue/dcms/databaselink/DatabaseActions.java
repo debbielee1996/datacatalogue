@@ -1,10 +1,13 @@
 package sg.gov.csit.datacatalogue.dcms.databaselink;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DatabaseActions {
     public Connection getConnection() {
@@ -49,7 +52,7 @@ public class DatabaseActions {
                 drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
                 drop.executeUpdate();
             }
-
+            System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
             // create table for insertion
             PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
             create.executeUpdate();
@@ -77,8 +80,29 @@ public class DatabaseActions {
 
             for (int i = 0; i < records.size(); i++) {
                 PreparedStatement insert = null;
-                insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + String.join(",", records.get(i)) + ")");
-
+                List<String> subRecordList = records.get(i);
+                // goes through every string to check for single quotes. if yes then escape it
+                for (int j=0; j<subRecordList.size(); j++) {
+                    if (subRecordList.get(j).contains("'")) {
+                        String[] splitted = subRecordList.get(j).split("'");
+                        String newS = "";
+                        for (String split:splitted) {
+                            if(split=="'") {
+                                newS += "'";
+                            }
+                            newS += split;
+                        }
+                        subRecordList.set(j, newS);
+                    }
+                }
+                // add double quotes to all strings for insert statement
+                String subRecords = String.join("," ,
+                        records.get(i)
+                        .stream()
+                        .map(name -> ("'" + name + "'"))
+                        .collect(Collectors.toList())
+                );
+                insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
                 insert.executeUpdate();
                 System.out.println(insert);
             }
