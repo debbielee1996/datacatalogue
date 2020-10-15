@@ -4,6 +4,11 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvFormat;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParser;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParserSettings;
@@ -69,7 +74,38 @@ public class DataTableService {
             // remove headers
             stringRecords.remove(0);
             System.out.println("csv operations completed");
-        } else {
+        } else if (ext.equals("xls") || ext.equals("xlsx")) {
+            try {
+                Workbook workbook = new XSSFWorkbook(file.getInputStream());
+                Sheet sheet = workbook.getSheetAt(0);
+
+                Iterator<Row> rowIterator = sheet.iterator();
+                while(rowIterator.hasNext()) {
+                    Row row = rowIterator.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();
+                    List<String> rowList = new ArrayList<>();
+
+                    while(cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+                        switch (cell.getCellTypeEnum()) {
+                            case STRING:
+                                rowList.add(cell.getStringCellValue());
+                                break;
+                            case NUMERIC:
+                                rowList.add(Double.toString(cell.getNumericCellValue()));
+                                break;
+                        }
+                    }
+                    stringRecords.add(rowList);
+                }
+                headerList = stringRecords.get(0);
+                stringRecords.remove(0);
+                System.out.println("xlsx/xls operations completed");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }else {
             throw new IncorrectFileTypeException(ext);
         }
 
@@ -77,7 +113,7 @@ public class DataTableService {
         List<String> headerTypes = new ArrayList<>();
         for (String s: dataTypes) {
             if (s.equals("Number")) {
-                headerTypes.add(" INT");
+                headerTypes.add(" NUMERIC");
             } else if (s.equals("Date")) {
                 headerTypes.add(" DATE");
             } else {
