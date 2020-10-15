@@ -25,4 +25,9 @@ public class DataTableController {
                               @RequestParam("dataTypes") List<String> dataTypes) throws Exception {
         return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
     }
+
+    @GetMapping("/get-all-datatable-names")
+    public List<String> getAllDatatableNames() {
+        return dataTableService.getAllDataTableNames();
+    }
 }

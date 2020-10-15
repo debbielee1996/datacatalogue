@@ -47,4 +47,6 @@ public class DatasetService {
     public List<DataTable> getDataTablesOfDataset(String datasetId) {
         return datasetRepository.findById(Long.parseLong(datasetId)).get().getDataTableList();
     }
+
+    public List<String> getAllDatasetNames() { return datasetRepository.findAllDatasetName(); }
 }

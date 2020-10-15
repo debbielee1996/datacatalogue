@@ -141,4 +141,8 @@ public class DataTableService {
         }
         return values;
     }
+
+    public List<String> getAllDataTableNames() {
+        return dataTableRepository.findAllDataTableNames();
+    }
 }

@@ -28,4 +28,8 @@ public class DatasetController {
     public List<DataTable> getDataTablesOfDataset(@PathVariable("datasetId") String datasetId) {
         return datasetService.getDataTablesOfDataset(datasetId);
     }
+
+    // this method should not have any authentication because its to verify uniqueness of dataset names
+    @GetMapping("/get-all-dataset-names")
+    public List<String> getAllDatasetNames() { return datasetService.getAllDatasetNames(); }
 }
