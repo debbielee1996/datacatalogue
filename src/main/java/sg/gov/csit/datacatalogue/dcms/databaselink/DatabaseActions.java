@@ -1,7 +1,5 @@
 package sg.gov.csit.datacatalogue.dcms.databaselink;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -96,10 +94,8 @@ public class DatabaseActions {
                     .map(name -> ("'" + name + "'"))
                     .collect(Collectors.toList())
             );
-            System.out.println("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
             insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
             insert.executeUpdate();
-            System.out.println(insert);
         }
         System.out.println("Inserting of values completed");
         return true;

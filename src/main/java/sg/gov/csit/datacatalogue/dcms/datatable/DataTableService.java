@@ -3,16 +3,12 @@ package sg.gov.csit.datacatalogue.dcms.datatable;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
-import org.apache.commons.csv.CSVRecord;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvFormat;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParser;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.csv.CsvParserSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,13 +20,10 @@ import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
 
-
 import java.io.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
