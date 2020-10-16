@@ -4,6 +4,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -25,6 +26,7 @@ import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
 
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -92,7 +94,13 @@ public class DataTableService {
                                 rowList.add(cell.getStringCellValue());
                                 break;
                             case NUMERIC:
-                                rowList.add(Double.toString(cell.getNumericCellValue()));
+                                // checks if cell contains date format
+                                if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                                    rowList.add(new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue()));
+                                } else {
+                                    rowList.add(Double.toString(cell.getNumericCellValue()));
+                                }
+
                                 break;
                         }
                     }

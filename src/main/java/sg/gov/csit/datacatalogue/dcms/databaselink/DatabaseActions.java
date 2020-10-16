@@ -102,6 +102,7 @@ public class DatabaseActions {
                         .map(name -> ("'" + name + "'"))
                         .collect(Collectors.toList())
                 );
+                System.out.println("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
                 insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
                 insert.executeUpdate();
                 System.out.println(insert);

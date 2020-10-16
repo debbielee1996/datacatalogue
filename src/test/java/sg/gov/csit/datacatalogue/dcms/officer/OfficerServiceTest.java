@@ -50,7 +50,7 @@ public class OfficerServiceTest {
     public void ValidateOfficerDatasetAccess_GivenOfficerPfAndDatasetNotInDb_ShouldThrowException(){
         //arrange
         String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "System Admin");
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
         when(officerRepository.findById(pf)).thenReturn(Optional.of(mockOfficer));
 
         long datasetId = 321;
@@ -64,7 +64,7 @@ public class OfficerServiceTest {
     public void ValidateOfficerDatasetAccess_GivenOfficerPfAndNoDatasetAccess_ShouldThrowException(){
         // arrange
         String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "System Admin");
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
         when(officerRepository.findById(pf)).thenReturn(Optional.of(mockOfficer));
 
         long datasetId = 321;
@@ -81,7 +81,7 @@ public class OfficerServiceTest {
         // arrange
         // mock officer with Ddcs list
         String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "System Admin");
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
         List<Ddcs> ddcsList = new ArrayList<>();
         ddcsList.add(new Ddcs("CSIT","IT","ES","FPS"));
         mockOfficer.setDdcsList(ddcsList);
@@ -107,7 +107,7 @@ public class OfficerServiceTest {
         // arrange
         // mock officer with Ddcs list
         String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "System Admin");
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
         Ddcs ddcs = new Ddcs("CSIT","IT","ES","FPS");
         Ddcs ddcs2 = new Ddcs("CSIT","IT","ES","HCS"); // mock second Ddcs
         ddcs.setId(1);
@@ -139,7 +139,7 @@ public class OfficerServiceTest {
         // arrange
         // mock officer with Ddcs list
         String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "System Admin");
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
         List<Ddcs> ddcsList = new ArrayList<>();
         ddcsList.add(new Ddcs("CSIT","IT","ES","FPS"));
         mockOfficer.setDdcsList(ddcsList);
@@ -164,7 +164,7 @@ public class OfficerServiceTest {
         // arrange
         // mock officer with Ddcs list
         String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "System Admin");
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
         Ddcs ddcs = new Ddcs("CSIT","IT","ES","FPS");
         ddcs.setId(1);
 

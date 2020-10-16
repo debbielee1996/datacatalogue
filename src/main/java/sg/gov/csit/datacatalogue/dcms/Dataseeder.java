@@ -69,11 +69,11 @@ public class Dataseeder {
     }
 
     private void seedOfficer(){
-        Officer officer1 = new Officer("1001","dlsy","dsly@dev.gov.sg","Public");
-        Officer officer2 = new Officer("1002","lyf","lyf@dev.gov.sg","Public");
-        Officer officer3 = new Officer("1003","slwh","slwh@dev.gov.sg","Public");
-        Officer officer4 = new Officer("1004","gjq","gjq@dev.gov.sg","System Admin");
-        Officer officer5 = new Officer("1005","fcy","fcy@dev.gov.sg","System Admin");
+        Officer officer1 = new Officer("1001","dlsy","dsly@dev.gov.sg", "123","Public");
+        Officer officer2 = new Officer("1002","lyf","lyf@dev.gov.sg", "123","Public");
+        Officer officer3 = new Officer("1003","slwh","slwh@dev.gov.sg", "123","Public");
+        Officer officer4 = new Officer("1004","gjq","gjq@dev.gov.sg", "123","System Admin");
+        Officer officer5 = new Officer("1005","fcy","fcy@dev.gov.sg", "123","System Admin");
 
         // add ddcs
         Ddcs ddcs1 = ddcsRepository.getOne(ddcsIdList.get(0));

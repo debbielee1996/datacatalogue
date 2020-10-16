@@ -30,6 +30,9 @@ public class Officer {
     private String email;
 
     @NotNull
+    private String password;
+
+    @NotNull
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "officer_ddcs",
@@ -44,10 +47,11 @@ public class Officer {
     @JsonManagedReference
     private Acl acl;
 
-    public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String aclValue) {
+    public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String password, @NotNull String aclValue) {
         this.pf=pf;
         this.name=name;
         this.email=email;
+        this.password=password;
         this.ddcsList=new ArrayList<>();
         this.acl=new Acl(this, aclValue);
     }
