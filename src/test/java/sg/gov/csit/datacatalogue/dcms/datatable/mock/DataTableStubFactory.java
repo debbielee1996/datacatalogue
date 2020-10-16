@@ -12,6 +12,11 @@ public class DataTableStubFactory {
         return new FileInputStream(userDirectory+"\\src\\test\\java\\sg\\gov\\csit\\datacatalogue\\dcms\\datatable\\testfiles\\test.csv");
     }
 
+    public static FileInputStream FILESTREAM_XLSXFILE() throws FileNotFoundException {
+        String userDirectory = Paths.get("").toAbsolutePath().toString();
+        return new FileInputStream(userDirectory+"\\src\\test\\java\\sg\\gov\\csit\\datacatalogue\\dcms\\datatable\\testfiles\\test.xlsx");
+    }
+
     public static FileInputStream FILESTREAM_PDFFILE() throws FileNotFoundException {
         String userDirectory = Paths.get("").toAbsolutePath().toString();
         return new FileInputStream(userDirectory+"\\src\\test\\java\\sg\\gov\\csit\\datacatalogue\\dcms\\datatable\\testfiles\\test.pdf");

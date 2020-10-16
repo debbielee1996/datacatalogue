@@ -94,7 +94,6 @@ public class DataTableService {
                                 rowList.add(cell.getStringCellValue());
                                 break;
                             case NUMERIC:
-                                // checks if cell contains date format
                                 if (HSSFDateUtil.isCellDateFormatted(cell)) {
                                     rowList.add(new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue()));
                                 } else {

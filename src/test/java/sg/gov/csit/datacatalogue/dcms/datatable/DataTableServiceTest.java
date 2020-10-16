@@ -78,7 +78,7 @@ public class DataTableServiceTest {
     }
 
     @Test
-    public void uploadFile_GivenDatasetInDbAndFileExtIsNotCSV_ShouldThrowException() throws IOException {
+    public void uploadFile_GivenDatasetInDbAndFileExtIsNotCSVOrExcel_ShouldThrowException() throws IOException {
         // arrange
         // arrange mock .pdf file
         FileInputStream inputFile = DataTableStubFactory.FILESTREAM_PDFFILE();
@@ -96,7 +96,7 @@ public class DataTableServiceTest {
     }
 
     @Test
-    public void uploadFile_GivenDatasetIdInDbAndDataTableInDb_ShouldReturnTrue() throws IOException {
+    public void uploadFile_CSV_GivenDatasetIdInDbAndDataTableInDb_ShouldReturnTrue() throws IOException {
         // arrange
         FileInputStream inputFile = DataTableStubFactory.FILESTREAM_CSVFILE();
         MultipartFile file = new MockMultipartFile("file", "test.csv", "application/csv", inputFile);
@@ -119,7 +119,7 @@ public class DataTableServiceTest {
     }
 
     @Test
-    public void uploadFile_GivenDatasetIdInDbAndDataTableNotInDb_ShouldReturnTrue() throws IOException, SQLException {
+    public void uploadFile_CSV_GivenDatasetIdInDbAndDataTableNotInDb_ShouldReturnTrue() throws IOException, SQLException {
         // arrange
         FileInputStream inputFile = DataTableStubFactory.FILESTREAM_CSVFILE();
         MultipartFile file = new MockMultipartFile("file", "test.csv", "application/csv", inputFile);
@@ -129,6 +129,64 @@ public class DataTableServiceTest {
         List<String> dataTypes = new ArrayList<>();
         dataTypes.add("Text");
         dataTypes.add("Text");
+
+        Dataset dataset = DataTableStubFactory.DATASET();
+
+        datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
+
+        // act
+        when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
+        when(dataTableRepository.findByName(anyString())).thenReturn(null);
+
+        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
+    }
+
+    @Test
+    public void uploadFile_XLSX_GivenDatasetIdInDbAndDataTableInDb_ShouldReturnTrue() throws IOException {
+        // arrange
+        FileInputStream inputFile = DataTableStubFactory.FILESTREAM_XLSXFILE();
+        MultipartFile file = new MockMultipartFile("file", "test.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", inputFile);
+        String tableName = "DataTableServiceTest_mock3";
+        String datasetId = "1";
+        String description = "This is a mock datatable";
+        List<String> dataTypes = new ArrayList<>();
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Date");
+        dataTypes.add("Number");
+
+        Dataset dataset = DataTableStubFactory.DATASET();
+
+        datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
+
+        // act
+        when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
+        when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
+
+        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
+    }
+
+    @Test
+    public void uploadFile_XLSX_GivenDatasetIdInDbAndDataTableNotInDb_ShouldReturnTrue() throws IOException, SQLException {
+        // arrange
+        FileInputStream inputFile = DataTableStubFactory.FILESTREAM_XLSXFILE();
+        MultipartFile file = new MockMultipartFile("file", "test.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", inputFile);
+        String tableName = "DataTableServiceTest_mock4";
+        String datasetId = "1";
+        String description = "This is a mock datatable";
+        List<String> dataTypes = new ArrayList<>();
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Text");
+        dataTypes.add("Date");
+        dataTypes.add("Number");
 
         Dataset dataset = DataTableStubFactory.DATASET();
 

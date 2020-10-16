@@ -17,5 +17,4 @@ public class OfficerController {
                                                 @PathVariable("id") long datasetId){
         return officerService.ValidateOfficerDatasetAccess("1001",datasetId);
     }
-
 }
