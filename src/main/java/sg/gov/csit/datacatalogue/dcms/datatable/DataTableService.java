@@ -128,6 +128,9 @@ public class DataTableService {
         if (hasCreatedDatatable) {
             if (!dataTableExists) { // create dataTable object in db
                 dataTableRepository.save(new DataTable(tableName, description, dataset.get()));
+            } else { // overwrite existing description with new one
+                dataTable.setDescription(description);
+                dataTableRepository.save(dataTable);
             }
             System.out.println("Successfully uploaded data file into db");
             return true;
