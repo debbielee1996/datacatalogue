@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.datatable;
 
 
+import com.opencsv.exceptions.CsvException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -115,7 +116,20 @@ public class DataTableServiceTest {
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
 
-        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
+        Assertions.assertTrue(() -> {
+            try {
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            } catch (CsvException e) {
+                e.printStackTrace();
+                return false;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
     }
 
     @Test
@@ -138,7 +152,20 @@ public class DataTableServiceTest {
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(null);
 
-        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
+        Assertions.assertTrue(() -> {
+            try {
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            } catch (CsvException e) {
+                e.printStackTrace();
+                return false;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
     }
 
     @Test
@@ -167,7 +194,20 @@ public class DataTableServiceTest {
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
 
-        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
+        Assertions.assertTrue(() -> {
+            try {
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            } catch (CsvException e) {
+                e.printStackTrace();
+                return false;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
     }
 
     @Test
@@ -196,7 +236,20 @@ public class DataTableServiceTest {
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(null);
 
-        Assertions.assertTrue(() -> dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes));
+        Assertions.assertTrue(() -> {
+            try {
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            } catch (CsvException e) {
+                e.printStackTrace();
+                return false;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        });
     }
 
     // clean up db with new datatables (tables) created

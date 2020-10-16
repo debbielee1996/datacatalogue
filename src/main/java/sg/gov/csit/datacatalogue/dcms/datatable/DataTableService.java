@@ -26,6 +26,7 @@ import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
 
 
 import java.io.*;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,7 +43,7 @@ public class DataTableService {
 
     public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
 
-    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes) {
+    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes) throws IOException, CsvException, SQLException {
         // get dataset and verify that it exists
         Optional<Dataset> dataset = datasetService.getDatasetById(Long.parseLong(datasetId));
         if (dataset.isEmpty()) {
@@ -62,55 +63,47 @@ public class DataTableService {
         String ext = FilenameUtils.getExtension(file.getOriginalFilename());
         // currently only deals with .csv formats
         if (ext.equals("csv")) {
-            try {
-                Reader reader = new InputStreamReader(file.getInputStream());
-                CSVReader csvReader = new CSVReader(reader);
-                List<String[]> stringRecordsArray = csvReader.readAll();
-                headerList = Arrays.asList(stringRecordsArray.get(0));
-                for (String[] array:stringRecordsArray) {
-                    stringRecords.add(Arrays.asList(array));
-                }
-            } catch (IOException | CsvException e) {
-                System.out.println(e);
+            Reader reader = new InputStreamReader(file.getInputStream());
+            CSVReader csvReader = new CSVReader(reader);
+            List<String[]> stringRecordsArray = csvReader.readAll();
+            headerList = Arrays.asList(stringRecordsArray.get(0));
+            for (String[] array:stringRecordsArray) {
+                stringRecords.add(Arrays.asList(array));
             }
             // remove headers
             stringRecords.remove(0);
             System.out.println("csv operations completed");
         } else if (ext.equals("xls") || ext.equals("xlsx")) {
-            try {
-                Workbook workbook = new XSSFWorkbook(file.getInputStream());
-                Sheet sheet = workbook.getSheetAt(0);
+            Workbook workbook = new XSSFWorkbook(file.getInputStream());
+            Sheet sheet = workbook.getSheetAt(0);
 
-                Iterator<Row> rowIterator = sheet.iterator();
-                while(rowIterator.hasNext()) {
-                    Row row = rowIterator.next();
-                    Iterator<Cell> cellIterator = row.cellIterator();
-                    List<String> rowList = new ArrayList<>();
+            Iterator<Row> rowIterator = sheet.iterator();
+            while(rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                List<String> rowList = new ArrayList<>();
 
-                    while(cellIterator.hasNext()) {
-                        Cell cell = cellIterator.next();
-                        switch (cell.getCellTypeEnum()) {
-                            case STRING:
-                                rowList.add(cell.getStringCellValue());
-                                break;
-                            case NUMERIC:
-                                if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                                    rowList.add(new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue()));
-                                } else {
-                                    rowList.add(Double.toString(cell.getNumericCellValue()));
-                                }
+                while(cellIterator.hasNext()) {
+                    Cell cell = cellIterator.next();
+                    switch (cell.getCellTypeEnum()) {
+                        case STRING:
+                            rowList.add(cell.getStringCellValue());
+                            break;
+                        case NUMERIC:
+                            if (HSSFDateUtil.isCellDateFormatted(cell)) {
+                                rowList.add(new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue()));
+                            } else {
+                                rowList.add(Double.toString(cell.getNumericCellValue()));
+                            }
 
-                                break;
-                        }
+                            break;
                     }
-                    stringRecords.add(rowList);
                 }
-                headerList = stringRecords.get(0);
-                stringRecords.remove(0);
-                System.out.println("xlsx/xls operations completed");
-            } catch (IOException e) {
-                e.printStackTrace();
+                stringRecords.add(rowList);
             }
+            headerList = stringRecords.get(0);
+            stringRecords.remove(0);
+            System.out.println("xlsx/xls operations completed");
 
         }else {
             throw new IncorrectFileTypeException(ext);
