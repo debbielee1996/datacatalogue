@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.datatable.mock;
 
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +23,13 @@ public class DataTableStubFactory {
         return new FileInputStream(userDirectory+"\\src\\test\\java\\sg\\gov\\csit\\datacatalogue\\dcms\\datatable\\testfiles\\test.pdf");
     }
 
-    public static Dataset DATASET() {
-        return new Dataset("DataTableSericeTest_dataset1", "mock dataset");
+    public static Officer OFFICER() {
+        return new Officer("123","test","testEmail", "123", "System Admin");
     }
+
+    public static Dataset DATASET() {
+        return new Dataset("DataTableSericeTest_dataset1", "mock dataset", OFFICER());
+    }
+
+
 }

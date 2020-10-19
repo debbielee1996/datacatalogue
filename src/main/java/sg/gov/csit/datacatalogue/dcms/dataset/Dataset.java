@@ -2,12 +2,17 @@ package sg.gov.csit.datacatalogue.dcms.dataset;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -39,9 +44,16 @@ public class Dataset {
     @JsonBackReference
     private List<DataTable> dataTableList;
 
-    public Dataset(String name, String description) {
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "officerId")
+    @JsonIgnore
+    private Officer officer;
+
+    public Dataset(String name, String description, Officer officer) {
         this.name=name;
         this.description=description;
+        this.officer=officer;
         this.datasetAccessList=new ArrayList<>();
         this.dataTableList=new ArrayList<>();
     }

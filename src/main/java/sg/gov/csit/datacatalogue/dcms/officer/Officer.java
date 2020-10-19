@@ -1,11 +1,14 @@
 package sg.gov.csit.datacatalogue.dcms.officer;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.acl.Acl;
+import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 
 import javax.persistence.*;
@@ -47,6 +50,11 @@ public class Officer {
     @JsonManagedReference
     private Acl acl;
 
+    @NotNull
+    @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Dataset> datasetList;
+
     public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String password, @NotNull String aclValue) {
         this.pf=pf;
         this.name=name;
@@ -54,6 +62,7 @@ public class Officer {
         this.password=password;
         this.ddcsList=new ArrayList<>();
         this.acl=new Acl(this, aclValue);
+        this.datasetList=new ArrayList<>();
     }
 
     public void addDdcs(Ddcs ddcs) {

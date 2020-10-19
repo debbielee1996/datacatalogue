@@ -103,11 +103,18 @@ public class Dataseeder {
     }
 
     private void seedDataset() {
-        Dataset dataset1 = new Dataset("dataset1", "this is dataset1");
-        Dataset dataset2 = new Dataset("dataset2", "this is dataset2");
-        Dataset dataset3 = new Dataset("dataset3", "this is dataset3");
-        Dataset dataset4 = new Dataset("dataset4", "this is dataset4");
-        Dataset dataset5 = new Dataset("dataset5", "this is dataset5");
+        Officer officer1 = officerRepository.getOne(officerIdList.get(0));
+        Officer officer2 = officerRepository.getOne(officerIdList.get(1));
+        Officer officer3 = officerRepository.getOne(officerIdList.get(2));
+        Officer officer4 = officerRepository.getOne(officerIdList.get(3));
+        Officer officer5 = officerRepository.getOne(officerIdList.get(4));
+
+
+        Dataset dataset1 = new Dataset("dataset1", "this is dataset1", officer1);
+        Dataset dataset2 = new Dataset("dataset2", "this is dataset2", officer2);
+        Dataset dataset3 = new Dataset("dataset3", "this is dataset3", officer3);
+        Dataset dataset4 = new Dataset("dataset4", "this is dataset4", officer4);
+        Dataset dataset5 = new Dataset("dataset5", "this is dataset5", officer5);
 
         datasetRepository.save(dataset1);
         datasetRepository.save(dataset2);

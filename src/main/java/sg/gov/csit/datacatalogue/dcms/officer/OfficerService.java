@@ -19,44 +19,6 @@ import java.util.Optional;
 public class OfficerService {
     @Autowired
     private final OfficerRepository officerRepository;
-    @Autowired
-    private final DatasetService datasetService;
-
-    public boolean ValidateOfficerDatasetAccess(String pf, long datasetId) {
-        if(IsOfficerInDatabase(pf)){
-            if(datasetService.IsDatasetInDatabase(datasetId)){ // if dataset exists
-                // dataset and officer will already exist since prev check is done
-                Optional<Dataset> dataset = datasetService.getDatasetById(datasetId);
-                List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
-                Optional<Officer> officer = getOfficer(pf);
-                List<Ddcs> ddcsList = officer.get().getDdcsList();
-
-                // checks whether the officer is granted access based on his Ddcs/Acl
-                boolean officerHasAccess = officerHasAccessForDatasetGiven(pf, datasetAccessList, ddcsList);
-                if (!officerHasAccess) {
-                    throw new DatasetAccessNotFoundException(pf, datasetId);
-                }
-                return officerHasAccess;
-            }else{
-                throw new DatasetNotFoundException(datasetId);
-            }
-        }else{
-            throw new OfficerNotFoundException(pf);
-        }
-    }
-
-    public boolean officerHasAccessForDatasetGiven(String pf, List<DatasetAccess> datasetAccessList, List<Ddcs> ddcsList) {
-        for (DatasetAccess da:datasetAccessList) {
-            // DatasetAccessService check
-            // check if value is officer or ddcs first
-            if (da.getTypeInString().equals("Pf") & da.getValue().equals(pf)) { // if value is 'pf' check pf = pf (this officer's)
-                return true;
-            } else if (da.getTypeInString().equals("Ddcs") & ddcsList.stream().anyMatch(s -> Integer.toString(s.getId()).equals(da.getValue()))) { // if value is 'Ddcs' check if value exists in Ddcs
-                return true;
-            }
-        }
-        return false;
-    }
 
     public Optional<Officer> getOfficer(String pf) {
         return officerRepository.findById(pf);

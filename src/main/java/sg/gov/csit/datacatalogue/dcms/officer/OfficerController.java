@@ -11,10 +11,4 @@ public class OfficerController {
     @Autowired
     private OfficerService officerService;
 
-    @GetMapping("/dataset/{id}")
-    public boolean ValidateOfficerDatasetAccess(//@RequestAttribute("UUID") String txnId,
-                                                //@RequestAttribute("Pf") String pf,
-                                                @PathVariable("id") long datasetId){
-        return officerService.ValidateOfficerDatasetAccess("1001",datasetId);
-    }
 }

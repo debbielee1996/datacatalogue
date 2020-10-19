@@ -9,18 +9,28 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
 
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
+import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
+import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
+import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
+import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.officer.Officer;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class DatasetServiceTest {
@@ -28,6 +38,9 @@ public class DatasetServiceTest {
 
     @Mock
     DatasetRepository datasetRepository;
+
+    @Mock
+    OfficerService officerService;
 
     @InjectMocks
     DatasetService datasetService;
@@ -39,7 +52,17 @@ public class DatasetServiceTest {
         when(datasetRepository.findByName(anyString())).thenReturn(new Dataset());
 
         // assert
-        assertThrows(DatasetExistsException.class, () -> datasetService.createNewDataset("mock", ""));
+        assertThrows(DatasetExistsException.class, () -> datasetService.createNewDataset("mock", "", "123"));
+    }
+
+    @Test
+    public void createNewDataset_GivenDatasetIdInDbAndOfficerNotExists_ShouldThrowException() {
+        // arrange & act
+        when(datasetRepository.findByName(anyString())).thenReturn(null);
+        doReturn(Optional.<Officer>empty()).when(officerService).getOfficer(anyString());
+
+        // assert
+        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123"));
     }
 
     @Test
@@ -53,8 +76,171 @@ public class DatasetServiceTest {
         GetBean.currentDataBaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=false";
         GetBean.userName = "sa";
         GetBean.password = "Password1";
+
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+
+        // act
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(pf);
+
         // assert
-        assertTrue(() -> datasetService.createNewDataset("DatasetServiceTest_mockDatabase", ""));
+        assertTrue(() -> datasetService.createNewDataset("DatasetServiceTest_mockDatabase", "", pf));
+    }
+
+
+    @Test
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndOfficerNotInDb_ShouldThrowException(){
+        //arrange
+        String pf = "123";
+        long datasetId = 321;
+
+        // act and assert
+        assertThrows(OfficerNotFoundException.class,
+                () -> datasetService.ValidateOfficerDatasetAccess(pf,datasetId));
+    }
+
+    @Test
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndDatasetNotInDb_ShouldThrowException(){
+        //arrange
+        String pf = "123";
+        long datasetId = 321;
+
+        // act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.<Dataset>empty());
+
+        // assert
+        assertThrows(DatasetNotFoundException.class,
+                () -> datasetService.ValidateOfficerDatasetAccess(pf,datasetId));
+    }
+
+    @Test
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndNoDatasetAccess_ShouldThrowException(){
+        // arrange
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        long datasetId = 321;
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+
+        // act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
+
+        // assert
+        assertThrows(DatasetAccessNotFoundException.class,
+                () -> datasetService.ValidateOfficerDatasetAccess(pf,datasetId));
+    }
+
+    @Test
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfNotInDatasetAccess_ShouldThrowException(){
+        // arrange
+        // mock officer with Ddcs list
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        List<Ddcs> ddcsList = new ArrayList<>();
+        ddcsList.add(new Ddcs("CSIT","IT","ES","FPS"));
+        mockOfficer.setDdcsList(ddcsList);
+
+        // mock dataset with DatasetAccessList
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        List<DatasetAccess> datasetAccessList = new ArrayList<>();
+        datasetAccessList.add(new DatasetAccess(mockDataset, "Pf", "999"));
+        mockDataset.setDatasetAccessList(datasetAccessList);
+
+        //act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
+
+        // assert
+        assertThrows(DatasetAccessNotFoundException.class,
+                () -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
+    }
+
+    @Test
+    public void ValidateOfficerDatasetAccess_GivenOfficerDdcsNotInDatasetAccess_ShouldThrowException(){
+        // arrange
+        // mock officer with Ddcs list
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        Ddcs ddcs = new Ddcs("CSIT","IT","ES","FPS");
+        Ddcs ddcs2 = new Ddcs("CSIT","IT","ES","HCS"); // mock second Ddcs
+        ddcs.setId(1);
+        ddcs2.setId(2);
+
+        List<Ddcs> ddcsList = new ArrayList<>();
+        ddcsList.add(ddcs);
+        mockOfficer.setDdcsList(ddcsList);
+
+        // mock dataset with DatasetAccessList
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        List<DatasetAccess> datasetAccessList = new ArrayList<>();
+        // dataset has access for ddcs2 instead
+        datasetAccessList.add(new DatasetAccess(mockDataset, "Ddcs", "2"));
+        mockDataset.setDatasetAccessList(datasetAccessList);
+
+        //act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
+
+        // assert
+        assertThrows(DatasetAccessNotFoundException.class,
+                () -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
+    }
+
+    @Test
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndPfInDatasetAccess_ShouldReturnTrue(){
+        // arrange
+        // mock officer with Ddcs list
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        List<Ddcs> ddcsList = new ArrayList<>();
+        ddcsList.add(new Ddcs("CSIT","IT","ES","FPS"));
+        mockOfficer.setDdcsList(ddcsList);
+
+        // mock dataset with DatasetAccessList
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        List<DatasetAccess> datasetAccessList = new ArrayList<>();
+        datasetAccessList.add(new DatasetAccess(mockDataset, "Pf", "123"));
+        mockDataset.setDatasetAccessList(datasetAccessList);
+
+        //act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
+
+        // assert
+        assertTrue(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
+    }
+
+    @Test
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndDdcsInDatasetAccess_ShouldReturnTrue(){
+        // arrange
+        // mock officer with Ddcs list
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        Ddcs ddcs = new Ddcs("CSIT","IT","ES","FPS");
+        ddcs.setId(1);
+
+        List<Ddcs> ddcsList = new ArrayList<>();
+        ddcsList.add(ddcs);
+        mockOfficer.setDdcsList(ddcsList);
+
+        // mock dataset with DatasetAccessList
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        List<DatasetAccess> datasetAccessList = new ArrayList<>();
+        datasetAccessList.add(new DatasetAccess(mockDataset, "Ddcs", "1"));
+        mockDataset.setDatasetAccessList(datasetAccessList);
+
+        //act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
+
+        // assert
+        assertTrue(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
     }
 
     // clean up db with new datasets (databases) created
