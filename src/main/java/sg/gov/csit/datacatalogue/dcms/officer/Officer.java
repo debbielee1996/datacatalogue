@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.acl.Acl;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 
 import javax.persistence.*;
@@ -55,6 +56,11 @@ public class Officer {
     @JsonBackReference
     private List<Dataset> datasetList;
 
+    @NotNull
+    @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<DataTable> dataTableList;
+
     public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String password, @NotNull String aclValue) {
         this.pf=pf;
         this.name=name;
@@ -63,6 +69,7 @@ public class Officer {
         this.ddcsList=new ArrayList<>();
         this.acl=new Acl(this, aclValue);
         this.datasetList=new ArrayList<>();
+        this.dataTableList=new ArrayList<>();
     }
 
     public void addDdcs(Ddcs ddcs) {

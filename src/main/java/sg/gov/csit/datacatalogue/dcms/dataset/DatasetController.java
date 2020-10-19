@@ -42,4 +42,11 @@ public class DatasetController {
                                                 @PathVariable("id") long datasetId){
         return datasetService.ValidateOfficerDatasetAccess("1001",datasetId);
     }
+
+    @GetMapping("/officer-{pf}/get-all-datasets")
+    public List<Dataset> getDatasetsCreatedByOfficer(@PathVariable("pf") String pf) {
+        return datasetService.getDatasetsCreatedByOfficer(pf);
+    }
+
+
 }

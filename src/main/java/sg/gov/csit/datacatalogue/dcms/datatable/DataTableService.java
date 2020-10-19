@@ -19,6 +19,9 @@ import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
+import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.officer.Officer;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -34,9 +37,18 @@ public class DataTableService {
     @Autowired
     DatasetService datasetService;
 
+    @Autowired
+    OfficerService officerService;
+
     public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
 
-    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes) throws IOException, CsvException, SQLException {
+    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf) throws IOException, CsvException, SQLException {
+        // verify officer exists
+        Optional<Officer> officer = officerService.getOfficer(pf);
+        if (officer.isEmpty()) {
+            throw new OfficerNotFoundException(pf);
+        }
+
         // get dataset and verify that it exists
         Optional<Dataset> dataset = datasetService.getDatasetById(Long.parseLong(datasetId));
         if (dataset.isEmpty()) {
@@ -120,7 +132,7 @@ public class DataTableService {
 
         if (hasCreatedDatatable) {
             if (!dataTableExists) { // create dataTable object in db
-                dataTableRepository.save(new DataTable(tableName, description, dataset.get()));
+                dataTableRepository.save(new DataTable(tableName, description, dataset.get(), officer.get()));
             } else { // overwrite existing description with new one
                 dataTable.setDescription(description);
                 dataTableRepository.save(dataTable);

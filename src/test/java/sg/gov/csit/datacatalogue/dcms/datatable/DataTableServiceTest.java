@@ -19,6 +19,9 @@ import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 import sg.gov.csit.datacatalogue.dcms.datatable.mock.DataTableStubFactory;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
+import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.officer.Officer;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,6 +34,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,6 +46,9 @@ public class DataTableServiceTest {
 
     @Mock
     DatasetService datasetService;
+
+    @Mock
+    OfficerService officerService;
 
     @InjectMocks
     DataTableService dataTableService;
@@ -67,13 +74,37 @@ public class DataTableServiceTest {
     }
 
     @Test
-    public void uploadFile_GivenDatasetIdNotInDb_ShouldThrowException() {
+    public void uploadFile_GivenOfficerPfNotInDb_ShouldThrowException() {
+        // arrange
         MultipartFile file = null;
         String tableName = "mock";
         String datasetId = "1";
         String description = "This is a mock datatable";
+        String pf = "123";
 
-        Assertions.assertThrows(DatasetExistsException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>()));
+        // act
+        doReturn(Optional.<Officer>empty()).when(officerService).getOfficer(anyString());
+
+        // assert
+        Assertions.assertThrows(OfficerNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf));
+    }
+
+
+    @Test
+    public void uploadFile_GivenDatasetIdNotInDb_ShouldThrowException() {
+        // arrange
+        MultipartFile file = null;
+        String tableName = "mock";
+        String datasetId = "1";
+        String description = "This is a mock datatable";
+        String pf = "123";
+        Officer mockOfficer = DataTableStubFactory.OFFICER();
+
+        // act
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
+
+        // assert
+        Assertions.assertThrows(DatasetExistsException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf));
     }
 
     @Test
@@ -85,13 +116,16 @@ public class DataTableServiceTest {
         String tableName = "mock";
         String datasetId = "1";
         String description = "This is a mock datatable";
+        String pf = "123";
+        Officer mockOfficer = DataTableStubFactory.OFFICER();
 
         // act
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(new Dataset()));
         when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
 
         // assert
-        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>()));
+        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf));
     }
 
     @Test
@@ -109,14 +143,17 @@ public class DataTableServiceTest {
         Dataset dataset = DataTableStubFactory.DATASET();
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
+        String pf = "123";
+        Officer mockOfficer = DataTableStubFactory.OFFICER();
 
         // act
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -146,13 +183,17 @@ public class DataTableServiceTest {
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
+        String pf = "123";
+        Officer mockOfficer = DataTableStubFactory.OFFICER();
+
         // act
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(null);
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -188,13 +229,17 @@ public class DataTableServiceTest {
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
+        String pf = "123";
+        Officer mockOfficer = DataTableStubFactory.OFFICER();
+
         // act
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -230,13 +275,17 @@ public class DataTableServiceTest {
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
+        String pf = "123";
+        Officer mockOfficer = DataTableStubFactory.OFFICER();
+
         // act
+        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByName(anyString())).thenReturn(null);
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;

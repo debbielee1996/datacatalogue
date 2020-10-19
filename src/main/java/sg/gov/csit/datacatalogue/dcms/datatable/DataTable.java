@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
 import javax.persistence.*;
 
@@ -33,9 +34,16 @@ public class DataTable {
     @JsonIgnore
     private Dataset dataset;
 
-    public DataTable(@NotNull String name, String description, @NotNull Dataset dataset) {
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "officerId")
+    @JsonIgnore
+    private Officer officer;
+
+    public DataTable(@NotNull String name, String description, @NotNull Dataset dataset, @NotNull Officer officer) {
          this.name=name;
          this.description=description;
          this.dataset=dataset;
+         this.officer=officer;
      }
 }

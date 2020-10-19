@@ -100,4 +100,8 @@ public class DatasetService {
     }
 
     public List<String> getAllDatasetNames() { return datasetRepository.findAllDatasetName(); }
+
+    public List<Dataset> getDatasetsCreatedByOfficer(String pf) {
+        return datasetRepository.findByOfficerPf(pf);
+    }
 }

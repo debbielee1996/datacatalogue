@@ -13,4 +13,6 @@ public interface DatasetRepository extends JpaRepository<Dataset, Long> {
 
     @Query("Select name from Dataset")
     List<String> findAllDatasetName();
+
+    List<Dataset> findByOfficerPf(String pf);
 }

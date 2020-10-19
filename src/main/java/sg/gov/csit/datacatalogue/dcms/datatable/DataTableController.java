@@ -25,8 +25,11 @@ public class DataTableController {
                              @RequestParam("tableName") String tableName,
                              @RequestParam("datasetId") String datasetId,
                              @RequestParam("description") String description,
-                             @RequestParam("dataTypes") List<String> dataTypes) throws IOException, CsvException, SQLException {
-        return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes);
+                             @RequestParam("dataTypes") List<String> dataTypes
+//                              @RequestParam("pf") String pf
+    ) throws IOException, CsvException, SQLException {
+        String pf = "1001"; // hard code for now
+        return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
     }
 
     @GetMapping("/get-all-datatable-names")

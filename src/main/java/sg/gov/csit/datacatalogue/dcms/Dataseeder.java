@@ -109,7 +109,6 @@ public class Dataseeder {
         Officer officer4 = officerRepository.getOne(officerIdList.get(3));
         Officer officer5 = officerRepository.getOne(officerIdList.get(4));
 
-
         Dataset dataset1 = new Dataset("dataset1", "this is dataset1", officer1);
         Dataset dataset2 = new Dataset("dataset2", "this is dataset2", officer2);
         Dataset dataset3 = new Dataset("dataset3", "this is dataset3", officer3);
@@ -169,6 +168,13 @@ public class Dataseeder {
     }
 
     private void seedDataTable() {
+        // get all officers
+        Officer officer1 = officerRepository.getOne(officerIdList.get(0));
+        Officer officer2 = officerRepository.getOne(officerIdList.get(1));
+        Officer officer3 = officerRepository.getOne(officerIdList.get(2));
+        Officer officer4 = officerRepository.getOne(officerIdList.get(3));
+        Officer officer5 = officerRepository.getOne(officerIdList.get(4));
+
         // get all datasets
         Dataset dataset1 = datasetRepository.getOne(datasetIdList.get(0));
         Dataset dataset2 = datasetRepository.getOne(datasetIdList.get(1));
@@ -176,12 +182,12 @@ public class Dataseeder {
         Dataset dataset4 = datasetRepository.getOne(datasetIdList.get(3));
         Dataset dataset5 = datasetRepository.getOne(datasetIdList.get(4));
 
-        DataTable dataTable1 = new DataTable("datatable1", "Furniture", dataset1);
-        DataTable dataTable2 = new DataTable("datatable2", "Outings", dataset2);
-        DataTable dataTable3 = new DataTable("datatable3", "Salary", dataset3);
-        DataTable dataTable4 = new DataTable("datatable4", "Expenses", dataset4);
-        DataTable dataTable5 = new DataTable("datatable5", "Operations", dataset5);
-        DataTable dataTable6 = new DataTable("datatable6", "Transport", dataset1);
+        DataTable dataTable1 = new DataTable("datatable1", "Furniture", dataset1, officer1);
+        DataTable dataTable2 = new DataTable("datatable2", "Outings", dataset2, officer2);
+        DataTable dataTable3 = new DataTable("datatable3", "Salary", dataset3, officer3);
+        DataTable dataTable4 = new DataTable("datatable4", "Expenses", dataset4, officer4);
+        DataTable dataTable5 = new DataTable("datatable5", "Operations", dataset5, officer5);
+        DataTable dataTable6 = new DataTable("datatable6", "Transport", dataset1, officer1);
 
         dataTableRepository.save(dataTable1);
         dataTableRepository.save(dataTable2);
