@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
-import sg.gov.csit.datacatalogue.dcms.dataset.DatasetDto;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
