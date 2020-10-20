@@ -37,19 +37,21 @@ public class DatasetController {
     public List<String> getAllDatasetNames() { return datasetService.getAllDatasetNames(); }
 
     @GetMapping("/dataset/{id}")
-    public boolean ValidateOfficerDatasetAccess(//@RequestAttribute("UUID") String txnId,
-                                                //@RequestAttribute("Pf") String pf,
+    public boolean ValidateOfficerDatasetAccess(@RequestAttribute("txnId") String txnId,
+                                                @RequestAttribute("pf") String pf,
                                                 @PathVariable("id") long datasetId){
-        return datasetService.ValidateOfficerDatasetAccess("1001",datasetId);
+        return datasetService.ValidateOfficerDatasetAccess(pf,datasetId);
     }
 
-    @GetMapping("/officer-{pf}/get-all-datasets")
-    public List<Dataset> getDatasetsCreatedByOfficer(@PathVariable("pf") String pf) {
+    @GetMapping("/get-all-datasets-created")
+    public List<Dataset> getDatasetsCreatedByOfficer(@RequestAttribute("txnId") String txnId,
+                                                    @RequestAttribute("pf") String pf) {
         return datasetService.getDatasetsCreatedByOfficer(pf);
     }
 
     @GetMapping("/get-all-dataset-dtos")
-    public List<DatasetDto> getAllDatasetDtos() {
+    public List<DatasetDto> getAllDatasetDtos(@RequestAttribute("txnId") String txnId,
+                                              @RequestAttribute("pf") String pf) {
         return datasetService.getAllDatasetDtos();
     }
 }
