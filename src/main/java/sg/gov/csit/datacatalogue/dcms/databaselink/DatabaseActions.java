@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DatabaseActions {
     public Connection getConnection() {
@@ -72,26 +73,12 @@ public class DatabaseActions {
 
         for (int i = 0; i < records.size(); i++) {
             PreparedStatement insert = null;
-            List<String> subRecordList = records.get(i);
-            // goes through every string to check for single quotes. if yes then escape it
-            for (int j=0; j<subRecordList.size(); j++) {
-                if (subRecordList.get(j).contains("'")) {
-                    String[] splitted = subRecordList.get(j).split("'");
-                    String newS = "";
-                    for (String split:splitted) {
-                        if(split=="'") {
-                            newS += "'";
-                        }
-                        newS += split;
-                    }
-                    subRecordList.set(j, newS);
-                }
-            }
-            // add double quotes to all strings for insert statement
+            List<String> subRecordList = records.get(i); // every row of data
             String subRecords = String.join("," ,
                     records.get(i)
                     .stream()
-                    .map(name -> ("'" + name + "'"))
+                    .map(x -> x.contains("'") ? x.replace("'", "''"): x) // goes through every string to check for single quotes. if yes then escape it
+                    .map(name -> ("'" + name + "'")) // add double quotes to all strings for insert statement
                     .collect(Collectors.toList())
             );
             insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
@@ -99,7 +86,6 @@ public class DatabaseActions {
         }
         System.out.println("Inserting of values completed");
         return true;
-
     }
 
     //creates table string eg. firstname varchar(200), lastname varchar(200)

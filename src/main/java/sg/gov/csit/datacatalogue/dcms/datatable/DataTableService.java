@@ -9,12 +9,14 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.dataset.DatasetDto;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
@@ -27,6 +29,7 @@ import java.io.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -39,6 +42,9 @@ public class DataTableService {
 
     @Autowired
     OfficerService officerService;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
 
@@ -145,4 +151,17 @@ public class DataTableService {
     }
 
     public List<String> getAllDataTableNames() { return dataTableRepository.findAllDataTableNames(); }
+
+    public List<DataTableDto> getAllDataTableDtos() {
+        List<DataTable> dataTables = dataTableRepository.findAll();
+        return dataTables.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    // converts Dataset to DatasetDto
+    private DataTableDto convertToDto(DataTable dataTable) {
+        DataTableDto dataTableDto = modelMapper.map(dataTable, DataTableDto.class);
+        return dataTableDto;
+    }
 }

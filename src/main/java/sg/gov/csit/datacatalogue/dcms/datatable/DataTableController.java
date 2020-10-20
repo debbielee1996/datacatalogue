@@ -36,4 +36,9 @@ public class DataTableController {
     public List<String> getAllDatatableNames() {
         return dataTableService.getAllDataTableNames();
     }
+
+    @GetMapping("/get-all-datatable-dtos")
+    public List<DataTableDto> getAllDataTableDtos() {
+        return dataTableService.getAllDataTableDtos();
+    }
 }

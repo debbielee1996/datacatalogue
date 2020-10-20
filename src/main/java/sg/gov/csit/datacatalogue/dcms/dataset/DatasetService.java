@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.dataset;
 
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
@@ -15,8 +16,11 @@ import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -26,6 +30,9 @@ public class DatasetService {
 
     @Autowired
     private OfficerService officerService;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     public boolean IsDatasetInDatabase(long id){
@@ -103,5 +110,18 @@ public class DatasetService {
 
     public List<Dataset> getDatasetsCreatedByOfficer(String pf) {
         return datasetRepository.findByOfficerPf(pf);
+    }
+
+    public List<DatasetDto> getAllDatasetDtos() {
+        List<Dataset> datasets = datasetRepository.findAll();
+        return datasets.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    // converts Dataset to DatasetDto
+    private DatasetDto convertToDto(Dataset dataset) {
+        DatasetDto datasetDto = modelMapper.map(dataset, DatasetDto.class);
+        return datasetDto;
     }
 }

@@ -48,5 +48,8 @@ public class DatasetController {
         return datasetService.getDatasetsCreatedByOfficer(pf);
     }
 
-
+    @GetMapping("/get-all-dataset-dtos")
+    public List<DatasetDto> getAllDatasetDtos() {
+        return datasetService.getAllDatasetDtos();
+    }
 }
