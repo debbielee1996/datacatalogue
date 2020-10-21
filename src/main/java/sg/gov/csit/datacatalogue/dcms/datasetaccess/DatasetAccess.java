@@ -1,5 +1,6 @@
 package sg.gov.csit.datacatalogue.dcms.datasetaccess;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
 
@@ -25,7 +26,7 @@ public class DatasetAccess {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "datasetId")
-    @JsonIgnore
+    @JsonBackReference
     private Dataset dataset;
 
     @NotNull

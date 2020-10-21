@@ -3,6 +3,9 @@ package sg.gov.csit.datacatalogue.dcms.datatable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -12,6 +15,6 @@ public class DataTableDto {
     private String name;
     private String description;
     private String officerPf;
+    private Long datasetId;
     private String datasetName;
-
 }

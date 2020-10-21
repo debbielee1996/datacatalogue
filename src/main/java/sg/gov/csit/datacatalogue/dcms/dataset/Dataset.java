@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,18 +35,18 @@ public class Dataset {
 
     @NotNull
     @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<DatasetAccess> datasetAccessList;
 
     @NotNull
     @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<DataTable> dataTableList;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "officerId")
-    @JsonIgnore
+    @JsonBackReference
     private Officer officer;
 
     public Dataset(String name, String description, Officer officer) {

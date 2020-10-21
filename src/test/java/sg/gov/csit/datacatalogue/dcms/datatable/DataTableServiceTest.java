@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
@@ -17,6 +18,7 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 import sg.gov.csit.datacatalogue.dcms.datatable.mock.DataTableStubFactory;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
@@ -49,6 +51,9 @@ public class DataTableServiceTest {
 
     @Mock
     OfficerService officerService;
+
+    @Mock
+    DataTableColumnService dataTableColumnService;
 
     @InjectMocks
     DataTableService dataTableService;
@@ -122,7 +127,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(new Dataset()));
-        when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
 
         // assert
         Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf));
@@ -149,7 +154,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
 
         Assertions.assertTrue(() -> {
             try {
@@ -189,7 +194,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByName(anyString())).thenReturn(null);
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(null);
 
         Assertions.assertTrue(() -> {
             try {
@@ -235,7 +240,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByName(anyString())).thenReturn(new DataTable());
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
 
         Assertions.assertTrue(() -> {
             try {
@@ -281,7 +286,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByName(anyString())).thenReturn(null);
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(null);
 
         Assertions.assertTrue(() -> {
             try {

@@ -18,6 +18,9 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnRepository;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
@@ -43,6 +46,9 @@ public class DataTableService {
     OfficerService officerService;
 
     @Autowired
+    DataTableColumnService dataTableColumnService;
+
+    @Autowired
     ModelMapper modelMapper;
 
     public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
@@ -61,7 +67,8 @@ public class DataTableService {
         }
 
         // check if dataTable already exists
-        DataTable dataTable = dataTableRepository.findByName(tableName);
+        DataTable dataTable = dataTableRepository.findByNameAndDatasetId(tableName, Long.parseLong(datasetId));
+
         boolean dataTableExists = true; // set to true if dataTable doesn't exist
         if (dataTable == null) { // dataTable hasn't existed yet
             dataTableExists = false;
@@ -137,11 +144,22 @@ public class DataTableService {
 
         if (hasCreatedDatatable) {
             if (!dataTableExists) { // create dataTable object in db
-                dataTableRepository.save(new DataTable(tableName, description, dataset.get(), officer.get()));
+                dataTable = new DataTable(tableName, description, dataset.get(), officer.get());
+                dataTableRepository.save(dataTable);
             } else { // overwrite existing description with new one
                 dataTable.setDescription(description);
                 dataTableRepository.save(dataTable);
             }
+
+            // create DataTableColumn
+            List<DataTableColumn> dclist = new ArrayList<>();
+            for (int i=0; i<headerList.size();i++) {
+                dclist.add(new DataTableColumn(headerList.get(i), "", dataTypes.get(i), dataTable));
+            }
+
+            dataTable.setDataTableColumnList(dclist);
+            dataTableRepository.save(dataTable);
+
             System.out.println("Successfully uploaded data file into db");
             return true;
         } else {

@@ -1,5 +1,6 @@
 package sg.gov.csit.datacatalogue.dcms.datatableaccess;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class DataTableAccess {
     @NotNull
     @JoinColumn(name = "dataTableId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonBackReference
     private DataTable dataTable;
 
     @NotNull
@@ -30,11 +31,11 @@ public class DataTableAccess {
 
     private String value;
 
-    public DataTableAccess(@NotNull DataTable dataTable, @NotNull String daType, @NotNull String daValue) {
+    public DataTableAccess(@NotNull DataTable dataTable, @NotNull String daType, @NotNull String dtaValue) {
         this.dataTable=dataTable;
         if (daType.equals("Pf")) {
             this.type=DataTableAccessTypeEnum.Pf;
         }
-        this.value=daValue;
+        this.value=dtaValue;
     }
 }

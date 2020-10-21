@@ -43,12 +43,12 @@ public class Officer {
 
     @NotNull
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<Dataset> datasetList;
 
     @NotNull
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonManagedReference
     private List<DataTable> dataTableList;
 
     public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String password, @NotNull String aclValue) {

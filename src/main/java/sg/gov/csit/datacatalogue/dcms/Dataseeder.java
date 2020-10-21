@@ -13,6 +13,8 @@ import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTableRepository;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessRepository;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnRepository;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
@@ -28,6 +30,7 @@ public class Dataseeder {
     private DatasetAccessRepository datasetAccessRepository;
     private DataTableRepository dataTableRepository;
     private DataTableAccessRepository dataTableAccessRepository;
+    private DataTableColumnRepository dataTableColumnRepository;
 
     List<String> officerIdList = new ArrayList<>();
     List<Long> aclIdList = new ArrayList<>();
@@ -35,6 +38,7 @@ public class Dataseeder {
     List<Long> datasetAccessIdList = new ArrayList<>();
     List<Long> dataTableIdList = new ArrayList<>();
     List<Long> dataTableAccessIdList = new ArrayList<>();
+    List<Long> dataTableColumnIdList = new ArrayList<>();
 
     @EventListener
     public void seed(ContextRefreshedEvent event){
@@ -42,9 +46,9 @@ public class Dataseeder {
         seedDataset();
         seedDatasetAccess();
         seedDataTable();
+        seedDataTableColumn();
         seedDataTableAccess();
     }
-
 
     private void seedOfficer(){
         Officer officer1 = new Officer("1001","dlsy","dsly@dev.gov.sg", "123","Public");
@@ -166,6 +170,80 @@ public class Dataseeder {
         dataTableIdList.add(dataTable4.getId());
         dataTableIdList.add(dataTable5.getId());
         dataTableIdList.add(dataTable6.getId());
+    }
+
+    private void seedDataTableColumn() {
+        // get all dataTables
+        DataTable dataTable1 = dataTableRepository.getOne(dataTableIdList.get(0));
+        DataTable dataTable2 = dataTableRepository.getOne(dataTableIdList.get(1));
+        DataTable dataTable3 = dataTableRepository.getOne(dataTableIdList.get(2));
+        DataTable dataTable4 = dataTableRepository.getOne(dataTableIdList.get(3));
+        DataTable dataTable5 = dataTableRepository.getOne(dataTableIdList.get(4));
+        DataTable dataTable6 = dataTableRepository.getOne(dataTableIdList.get(5));
+
+        DataTableColumn table1dtc1 = new DataTableColumn("furniture", "", "Text", dataTable1);
+        DataTableColumn table1dtc2 = new DataTableColumn("purchaser", "", "Text", dataTable1);
+        DataTableColumn table1dtc3 = new DataTableColumn("purchase_date", "", "Date", dataTable1);
+        dataTableColumnRepository.save(table1dtc1);
+        dataTableColumnRepository.save(table1dtc2);
+        dataTableColumnRepository.save(table1dtc3);
+
+        DataTableColumn table2dtc1 = new DataTableColumn("planner", "", "Text", dataTable2);
+        DataTableColumn table2dtc2 = new DataTableColumn("outing_date", "", "Date", dataTable2);
+        dataTableColumnRepository.save(table2dtc1);
+        dataTableColumnRepository.save(table2dtc2);
+
+        DataTableColumn table3dtc1 = new DataTableColumn("officer_id", "", "Number", dataTable3);
+        DataTableColumn table3dtc2 = new DataTableColumn("name", "", "Text", dataTable3);
+        DataTableColumn table3dtc3 = new DataTableColumn("dob", "", "Date", dataTable3);
+        DataTableColumn table3dtc4 = new DataTableColumn("salary", "", "Number", dataTable3);
+        dataTableColumnRepository.save(table3dtc1);
+        dataTableColumnRepository.save(table3dtc2);
+        dataTableColumnRepository.save(table3dtc3);
+        dataTableColumnRepository.save(table3dtc4);
+
+        DataTableColumn table4dtc1 = new DataTableColumn("officer_id", "", "Number", dataTable4);
+        DataTableColumn table4dtc2 = new DataTableColumn("item", "", "Text", dataTable4);
+        DataTableColumn table4dtc3 = new DataTableColumn("expense_date", "", "Date", dataTable4);
+        DataTableColumn table4dtc4 = new DataTableColumn("amount", "", "Number", dataTable4);
+        dataTableColumnRepository.save(table4dtc1);
+        dataTableColumnRepository.save(table4dtc2);
+        dataTableColumnRepository.save(table4dtc3);
+        dataTableColumnRepository.save(table4dtc4);
+
+        DataTableColumn table5dtc1 = new DataTableColumn("operation_num", "", "Number", dataTable5);
+        DataTableColumn table5dtc2 = new DataTableColumn("alias", "", "Text", dataTable5);
+        DataTableColumn table5dtc3 = new DataTableColumn("op_date", "", "Date", dataTable5);
+        dataTableColumnRepository.save(table5dtc1);
+        dataTableColumnRepository.save(table5dtc2);
+        dataTableColumnRepository.save(table5dtc3);
+
+        DataTableColumn table6dtc1 = new DataTableColumn("name", "", "Text", dataTable6);
+        DataTableColumn table6dtc2 = new DataTableColumn("bod", "", "Date", dataTable6);
+        DataTableColumn table6dtc3 = new DataTableColumn("amount", "", "Number", dataTable6);
+        dataTableColumnRepository.save(table6dtc1);
+        dataTableColumnRepository.save(table6dtc2);
+        dataTableColumnRepository.save(table6dtc3);
+
+        dataTableColumnIdList.add(table1dtc1.getId());
+        dataTableColumnIdList.add(table1dtc2.getId());
+        dataTableColumnIdList.add(table1dtc3.getId());
+        dataTableColumnIdList.add(table2dtc1.getId());
+        dataTableColumnIdList.add(table2dtc2.getId());
+        dataTableColumnIdList.add(table3dtc1.getId());
+        dataTableColumnIdList.add(table3dtc2.getId());
+        dataTableColumnIdList.add(table3dtc3.getId());
+        dataTableColumnIdList.add(table3dtc4.getId());
+        dataTableColumnIdList.add(table4dtc1.getId());
+        dataTableColumnIdList.add(table4dtc2.getId());
+        dataTableColumnIdList.add(table4dtc3.getId());
+        dataTableColumnIdList.add(table4dtc4.getId());
+        dataTableColumnIdList.add(table5dtc1.getId());
+        dataTableColumnIdList.add(table5dtc2.getId());
+        dataTableColumnIdList.add(table5dtc3.getId());
+        dataTableColumnIdList.add(table6dtc1.getId());
+        dataTableColumnIdList.add(table6dtc2.getId());
+        dataTableColumnIdList.add(table6dtc3.getId());
     }
 
     private void seedDataTableAccess() {
