@@ -11,8 +11,8 @@ import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessRepository;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTableRepository;
-import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
-import sg.gov.csit.datacatalogue.dcms.ddcs.DdcsRepository;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessRepository;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
@@ -24,49 +24,27 @@ import java.util.List;
 @Component
 public class Dataseeder {
     private OfficerRepository officerRepository;
-    private DdcsRepository ddcsRepository;
     private DatasetRepository datasetRepository;
     private DatasetAccessRepository datasetAccessRepository;
     private DataTableRepository dataTableRepository;
+    private DataTableAccessRepository dataTableAccessRepository;
 
     List<String> officerIdList = new ArrayList<>();
-    List<Integer> ddcsIdList = new ArrayList<>();
     List<Long> aclIdList = new ArrayList<>();
     List<Long> datasetIdList = new ArrayList<>();
-    List<Integer> datasetAccessIdList = new ArrayList<>();
+    List<Long> datasetAccessIdList = new ArrayList<>();
     List<Long> dataTableIdList = new ArrayList<>();
+    List<Long> dataTableAccessIdList = new ArrayList<>();
 
     @EventListener
     public void seed(ContextRefreshedEvent event){
-        seedDdcs();
         seedOfficer();
         seedDataset();
         seedDatasetAccess();
-        seedDataTable();;
+        seedDataTable();
+        seedDataTableAccess();
     }
 
-    private void seedDdcs(){
-        Ddcs ddcs1 = new Ddcs("CSIT","IT","ES","FPS");
-        Ddcs ddcs2 = new Ddcs("CSIT","IT","ES","FPS");
-        Ddcs ddcs3 = new Ddcs("CSIT","IT","ES","HCS");
-        Ddcs ddcs4 = new Ddcs("CSIT","IT","IS","FPS");
-        Ddcs ddcs5 = new Ddcs("A","HR","EQ","FIN");
-        Ddcs ddcs6 = new Ddcs("K","SEN","RX","TROP");
-
-        ddcsRepository.save(ddcs1);
-        ddcsRepository.save(ddcs2);
-        ddcsRepository.save(ddcs3);
-        ddcsRepository.save(ddcs4);
-        ddcsRepository.save(ddcs5);
-        ddcsRepository.save(ddcs6);
-
-        ddcsIdList.add(ddcs1.getId());
-        ddcsIdList.add(ddcs2.getId());
-        ddcsIdList.add(ddcs3.getId());
-        ddcsIdList.add(ddcs4.getId());
-        ddcsIdList.add(ddcs5.getId());
-        ddcsIdList.add(ddcs6.getId());
-    }
 
     private void seedOfficer(){
         Officer officer1 = new Officer("1001","dlsy","dsly@dev.gov.sg", "123","Public");
@@ -74,20 +52,6 @@ public class Dataseeder {
         Officer officer3 = new Officer("1003","slwh","slwh@dev.gov.sg", "123","Public");
         Officer officer4 = new Officer("1004","gjq","gjq@dev.gov.sg", "123","System Admin");
         Officer officer5 = new Officer("1005","fcy","fcy@dev.gov.sg", "123","System Admin");
-
-        // add ddcs
-        Ddcs ddcs1 = ddcsRepository.getOne(ddcsIdList.get(0));
-        Ddcs ddcs2 = ddcsRepository.getOne(ddcsIdList.get(1));
-        Ddcs ddcs3 = ddcsRepository.getOne(ddcsIdList.get(2));
-        Ddcs ddcs4 = ddcsRepository.getOne(ddcsIdList.get(3));
-        Ddcs ddcs5 = ddcsRepository.getOne(ddcsIdList.get(4));
-        Ddcs ddcs6 = ddcsRepository.getOne(ddcsIdList.get(5));
-        officer1.addDdcs(ddcs1);
-        officer1.addDdcs(ddcs2);
-        officer2.addDdcs(ddcs3);
-        officer3.addDdcs(ddcs4);
-        officer4.addDdcs(ddcs5);
-        officer5.addDdcs(ddcs6);
 
         officerRepository.save(officer1);
         officerRepository.save(officer2);
@@ -138,11 +102,11 @@ public class Dataseeder {
 
         DatasetAccess datasetAccess1 = new DatasetAccess(dataset1, "Pf", "1001");
         DatasetAccess datasetAccess2 = new DatasetAccess(dataset1, "Pf", "1002");
-        DatasetAccess datasetAccess3 = new DatasetAccess(dataset2, "Pf", "1003");
-        DatasetAccess datasetAccess4 = new DatasetAccess(dataset2, "Pf", "1004");
-        DatasetAccess datasetAccess5 = new DatasetAccess(dataset2, "Ddcs", "1");
-        DatasetAccess datasetAccess6 = new DatasetAccess(dataset3, "Ddcs", "5");
-        DatasetAccess datasetAccess7 = new DatasetAccess(dataset3, "Ddcs", "3");
+        DatasetAccess datasetAccess3 = new DatasetAccess(dataset2, "Pf", "1001");
+        DatasetAccess datasetAccess4 = new DatasetAccess(dataset2, "Pf", "1003");
+        DatasetAccess datasetAccess5 = new DatasetAccess(dataset2, "Pf", "1004");
+        DatasetAccess datasetAccess6 = new DatasetAccess(dataset3, "Pf", "1003");
+        DatasetAccess datasetAccess7 = new DatasetAccess(dataset3, "Pf", "1004");
         DatasetAccess datasetAccess8 = new DatasetAccess(dataset3, "Pf", "1005");
         DatasetAccess datasetAccess9 = new DatasetAccess(dataset4, "Pf", "1005");
 
@@ -202,5 +166,45 @@ public class Dataseeder {
         dataTableIdList.add(dataTable4.getId());
         dataTableIdList.add(dataTable5.getId());
         dataTableIdList.add(dataTable6.getId());
+    }
+
+    private void seedDataTableAccess() {
+        // get all dataTables
+        DataTable dataTable1 = dataTableRepository.getOne(dataTableIdList.get(0));
+        DataTable dataTable2 = dataTableRepository.getOne(dataTableIdList.get(1));
+        DataTable dataTable3 = dataTableRepository.getOne(dataTableIdList.get(2));
+        DataTable dataTable4 = dataTableRepository.getOne(dataTableIdList.get(3));
+        DataTable dataTable5 = dataTableRepository.getOne(dataTableIdList.get(4));
+        DataTable dataTable6 = dataTableRepository.getOne(dataTableIdList.get(5));
+
+        DataTableAccess dataTableAccess1 = new DataTableAccess(dataTable1, "Pf", "1001");
+        DataTableAccess dataTableAccess2 = new DataTableAccess(dataTable1, "Pf", "1002");
+        DataTableAccess dataTableAccess3 = new DataTableAccess(dataTable2, "Pf", "1001");
+        DataTableAccess dataTableAccess4 = new DataTableAccess(dataTable2, "Pf", "1003");
+        DataTableAccess dataTableAccess5 = new DataTableAccess(dataTable2, "Pf", "1004");
+        DataTableAccess dataTableAccess6 = new DataTableAccess(dataTable3, "Pf", "1003");
+        DataTableAccess dataTableAccess7 = new DataTableAccess(dataTable3, "Pf", "1004");
+        DataTableAccess dataTableAccess8 = new DataTableAccess(dataTable3, "Pf", "1005");
+        DataTableAccess dataTableAccess9 = new DataTableAccess(dataTable4, "Pf", "1005");
+
+        dataTableAccessRepository.save(dataTableAccess1);
+        dataTableAccessRepository.save(dataTableAccess2);
+        dataTableAccessRepository.save(dataTableAccess3);
+        dataTableAccessRepository.save(dataTableAccess4);
+        dataTableAccessRepository.save(dataTableAccess5);
+        dataTableAccessRepository.save(dataTableAccess6);
+        dataTableAccessRepository.save(dataTableAccess7);
+        dataTableAccessRepository.save(dataTableAccess8);
+        dataTableAccessRepository.save(dataTableAccess9);
+
+        dataTableAccessIdList.add(dataTableAccess1.getId());
+        dataTableAccessIdList.add(dataTableAccess2.getId());
+        dataTableAccessIdList.add(dataTableAccess3.getId());
+        dataTableAccessIdList.add(dataTableAccess4.getId());
+        dataTableAccessIdList.add(dataTableAccess5.getId());
+        dataTableAccessIdList.add(dataTableAccess6.getId());
+        dataTableAccessIdList.add(dataTableAccess7.getId());
+        dataTableAccessIdList.add(dataTableAccess8.getId());
+        dataTableAccessIdList.add(dataTableAccess9.getId());
     }
 }

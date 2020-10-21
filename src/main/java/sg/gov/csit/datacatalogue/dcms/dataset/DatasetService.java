@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
-import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
@@ -16,10 +15,8 @@ import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -71,10 +68,9 @@ public class DatasetService {
                 Optional<Dataset> dataset = getDatasetById(datasetId);
                 List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
                 Optional<Officer> officer = officerService.getOfficer(pf);
-                List<Ddcs> ddcsList = officer.get().getDdcsList();
 
                 // checks whether the officer is granted access based on his Ddcs/Acl
-                boolean officerHasAccess = officerHasAccessForDatasetGiven(pf, datasetAccessList, ddcsList);
+                boolean officerHasAccess = officerHasAccessForDatasetGiven(pf, datasetAccessList);
                 if (!officerHasAccess) {
                     throw new DatasetAccessNotFoundException(pf, datasetId);
                 }
@@ -87,13 +83,11 @@ public class DatasetService {
         }
     }
 
-    public boolean officerHasAccessForDatasetGiven(String pf, List<DatasetAccess> datasetAccessList, List<Ddcs> ddcsList) {
+    public boolean officerHasAccessForDatasetGiven(String pf, List<DatasetAccess> datasetAccessList) {
         for (DatasetAccess da:datasetAccessList) {
             // DatasetAccessService check
             // check if value is officer or ddcs first
             if (da.getTypeInString().equals("Pf") & da.getValue().equals(pf)) { // if value is 'pf' check pf = pf (this officer's)
-                return true;
-            } else if (da.getTypeInString().equals("Ddcs") & ddcsList.stream().anyMatch(s -> Integer.toString(s.getId()).equals(da.getValue()))) { // if value is 'Ddcs' check if value exists in Ddcs
                 return true;
             }
         }

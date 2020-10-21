@@ -17,7 +17,6 @@ import static org.mockito.Mockito.doReturn;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
-import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
@@ -138,9 +137,6 @@ public class DatasetServiceTest {
         // mock officer with Ddcs list
         String pf = "123";
         Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
-        List<Ddcs> ddcsList = new ArrayList<>();
-        ddcsList.add(new Ddcs("CSIT","IT","ES","FPS"));
-        mockOfficer.setDdcsList(ddcsList);
 
         // mock dataset with DatasetAccessList
         Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
@@ -159,79 +155,16 @@ public class DatasetServiceTest {
     }
 
     @Test
-    public void ValidateOfficerDatasetAccess_GivenOfficerDdcsNotInDatasetAccess_ShouldThrowException(){
-        // arrange
-        // mock officer with Ddcs list
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
-        Ddcs ddcs = new Ddcs("CSIT","IT","ES","FPS");
-        Ddcs ddcs2 = new Ddcs("CSIT","IT","ES","HCS"); // mock second Ddcs
-        ddcs.setId(1);
-        ddcs2.setId(2);
-
-        List<Ddcs> ddcsList = new ArrayList<>();
-        ddcsList.add(ddcs);
-        mockOfficer.setDdcsList(ddcsList);
-
-        // mock dataset with DatasetAccessList
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
-        List<DatasetAccess> datasetAccessList = new ArrayList<>();
-        // dataset has access for ddcs2 instead
-        datasetAccessList.add(new DatasetAccess(mockDataset, "Ddcs", "2"));
-        mockDataset.setDatasetAccessList(datasetAccessList);
-
-        //act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
-        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
-        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
-
-        // assert
-        assertThrows(DatasetAccessNotFoundException.class,
-                () -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
-    }
-
-    @Test
     public void ValidateOfficerDatasetAccess_GivenOfficerPfAndPfInDatasetAccess_ShouldReturnTrue(){
         // arrange
         // mock officer with Ddcs list
         String pf = "123";
         Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
-        List<Ddcs> ddcsList = new ArrayList<>();
-        ddcsList.add(new Ddcs("CSIT","IT","ES","FPS"));
-        mockOfficer.setDdcsList(ddcsList);
 
         // mock dataset with DatasetAccessList
         Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
         List<DatasetAccess> datasetAccessList = new ArrayList<>();
         datasetAccessList.add(new DatasetAccess(mockDataset, "Pf", "123"));
-        mockDataset.setDatasetAccessList(datasetAccessList);
-
-        //act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
-        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
-        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
-
-        // assert
-        assertTrue(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
-    }
-
-    @Test
-    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndDdcsInDatasetAccess_ShouldReturnTrue(){
-        // arrange
-        // mock officer with Ddcs list
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
-        Ddcs ddcs = new Ddcs("CSIT","IT","ES","FPS");
-        ddcs.setId(1);
-
-        List<Ddcs> ddcsList = new ArrayList<>();
-        ddcsList.add(ddcs);
-        mockOfficer.setDdcsList(ddcsList);
-
-        // mock dataset with DatasetAccessList
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
-        List<DatasetAccess> datasetAccessList = new ArrayList<>();
-        datasetAccessList.add(new DatasetAccess(mockDataset, "Ddcs", "1"));
         mockDataset.setDatasetAccessList(datasetAccessList);
 
         //act

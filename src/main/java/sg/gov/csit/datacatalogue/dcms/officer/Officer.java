@@ -10,7 +10,6 @@ import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.acl.Acl;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
-import sg.gov.csit.datacatalogue.dcms.ddcs.Ddcs;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,15 +36,6 @@ public class Officer {
     private String password;
 
     @NotNull
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "officer_ddcs",
-            joinColumns = @JoinColumn(name = "pf"),
-            inverseJoinColumns = @JoinColumn(name= "ddcsId"))
-    @JsonManagedReference
-    private List<Ddcs> ddcsList;
-
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "aclId", referencedColumnName = "aclId")
     @JsonManagedReference
@@ -66,13 +56,8 @@ public class Officer {
         this.name=name;
         this.email=email;
         this.password=password;
-        this.ddcsList=new ArrayList<>();
         this.acl=new Acl(this, aclValue);
         this.datasetList=new ArrayList<>();
         this.dataTableList=new ArrayList<>();
-    }
-
-    public void addDdcs(Ddcs ddcs) {
-        this.ddcsList.add(ddcs);
     }
 }

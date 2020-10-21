@@ -20,8 +20,7 @@ import javax.persistence.*;
 public class DatasetAccess {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @NotNull
-    private int id;
+    private Long id;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,17 +30,16 @@ public class DatasetAccess {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private DatasetTypeEnum type;
+    private DatasetAccessTypeEnum type;
+
     private String value;
 
     public DatasetAccess(@NotNull Dataset dataset, @NotNull String daType, @NotNull String daValue) {
         this.dataset=dataset;
         this.value=daValue;
 
-        if (daType.equals("Ddcs")) {
-            this.type=DatasetTypeEnum.Ddcs;
-        } else {
-            this.type=DatasetTypeEnum.Pf;
+        if (daType.equals("Pf")) {
+            this.type=DatasetAccessTypeEnum.Pf;
         }
     }
 

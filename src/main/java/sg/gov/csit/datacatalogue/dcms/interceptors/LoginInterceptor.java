@@ -15,7 +15,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         String txnId = UUID.randomUUID().toString();
         request.setAttribute("txnId", txnId);
         request.setAttribute("pf", "1001");
-
         return true;
     }
 }
