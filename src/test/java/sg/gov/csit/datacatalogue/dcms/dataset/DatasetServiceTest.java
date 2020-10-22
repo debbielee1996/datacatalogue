@@ -17,6 +17,7 @@ import static org.mockito.Mockito.doReturn;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTableService;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;

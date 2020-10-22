@@ -3,6 +3,7 @@ package sg.gov.csit.datacatalogue.dcms.datatable;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -19,7 +20,6 @@ import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
-import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnRepository;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
@@ -33,14 +33,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 @Service
 @AllArgsConstructor
 public class DataTableService {
     @Autowired
     DataTableRepository dataTableRepository;
-
-    @Autowired
-    DatasetService datasetService;
 
     @Autowired
     OfficerService officerService;
@@ -50,6 +48,14 @@ public class DataTableService {
 
     @Autowired
     ModelMapper modelMapper;
+
+    // setter injection for datasetService. because DataSetService will call DataTableService = circular dependency
+    DatasetService datasetService;
+
+    @Autowired
+    public void setDatasetService(DatasetService datasetService) {
+        this.datasetService=datasetService;
+    }
 
     public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf) throws IOException, CsvException, SQLException {
         // verify officer exists
@@ -173,7 +179,7 @@ public class DataTableService {
     }
 
     // converts Dataset to DatasetDto
-    private DataTableDto convertToDto(DataTable dataTable) {
+    public DataTableDto convertToDto(DataTable dataTable) {
         DataTableDto dataTableDto = modelMapper.map(dataTable, DataTableDto.class);
         return dataTableDto;
     }

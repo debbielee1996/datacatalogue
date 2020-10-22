@@ -3,7 +3,7 @@ package sg.gov.csit.datacatalogue.dcms.dataset;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTableDto;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class DatasetController {
     }
 
     @GetMapping("/get-dataset-datatables/{datasetId}")
-    public List<DataTable> getDataTablesOfDataset(@PathVariable("datasetId") String datasetId) {
+    public List<DataTableDto> getDataTablesOfDataset(@PathVariable("datasetId") String datasetId) {
         return datasetService.getDataTablesOfDataset(datasetId);
     }
 
