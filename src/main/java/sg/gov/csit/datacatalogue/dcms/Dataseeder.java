@@ -15,6 +15,8 @@ import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessRepository;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnRepository;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccessRepository;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
@@ -31,6 +33,7 @@ public class Dataseeder {
     private DataTableRepository dataTableRepository;
     private DataTableAccessRepository dataTableAccessRepository;
     private DataTableColumnRepository dataTableColumnRepository;
+    private DataTableColumnAccessRepository dataTableColumnAccessRepository;
 
     List<String> officerIdList = new ArrayList<>();
     List<Long> aclIdList = new ArrayList<>();
@@ -39,6 +42,7 @@ public class Dataseeder {
     List<Long> dataTableIdList = new ArrayList<>();
     List<Long> dataTableAccessIdList = new ArrayList<>();
     List<Long> dataTableColumnIdList = new ArrayList<>();
+    List<Long> dataTableColumnAccessIdList = new ArrayList<>();
 
     @EventListener
     public void seed(ContextRefreshedEvent event){
@@ -48,6 +52,7 @@ public class Dataseeder {
         seedDataTable();
         seedDataTableColumn();
         seedDataTableAccess();
+        seedDataTableColumnAccess();
     }
 
     private void seedOfficer(){
@@ -102,7 +107,6 @@ public class Dataseeder {
         Dataset dataset2 = datasetRepository.getOne(datasetIdList.get(1));
         Dataset dataset3 = datasetRepository.getOne(datasetIdList.get(2));
         Dataset dataset4 = datasetRepository.getOne(datasetIdList.get(3));
-        Dataset dataset5 = datasetRepository.getOne(datasetIdList.get(4));
 
         DatasetAccess datasetAccess1 = new DatasetAccess(dataset1, "Pf", "1001");
         DatasetAccess datasetAccess2 = new DatasetAccess(dataset1, "Pf", "1002");
@@ -284,5 +288,20 @@ public class Dataseeder {
         dataTableAccessIdList.add(dataTableAccess7.getId());
         dataTableAccessIdList.add(dataTableAccess8.getId());
         dataTableAccessIdList.add(dataTableAccess9.getId());
+    }
+
+    public void seedDataTableColumnAccess() {
+        // only officer with pf "1001" can't view all columns of datatable6. can only view 2/3 cols
+        DataTableColumn t6c1 = dataTableColumnRepository.getOne(dataTableColumnIdList.get(0));
+        DataTableColumn t6c2 = dataTableColumnRepository.getOne(dataTableColumnIdList.get(1));
+
+        DataTableColumnAccess dtca1 = new DataTableColumnAccess(t6c1, "Pf", "1001");
+        DataTableColumnAccess dtca2 = new DataTableColumnAccess(t6c2, "Pf", "1001");
+
+        dataTableColumnAccessRepository.save(dtca1);
+        dataTableColumnAccessRepository.save(dtca2);
+
+        dataTableColumnAccessIdList.add(dtca1.getId());
+        dataTableColumnAccessIdList.add(dtca2.getId());
     }
 }

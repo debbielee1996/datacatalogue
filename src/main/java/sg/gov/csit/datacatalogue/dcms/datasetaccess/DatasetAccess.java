@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 
 import javax.persistence.*;
 
@@ -39,8 +40,10 @@ public class DatasetAccess {
         this.dataset=dataset;
         this.value=daValue;
 
-        if (daType.equals("Pf")) {
-            this.type=DatasetAccessTypeEnum.Pf;
+        switch(daType) {
+            case "Pf":
+                this.type=DatasetAccessTypeEnum.Pf;
+                break;
         }
     }
 

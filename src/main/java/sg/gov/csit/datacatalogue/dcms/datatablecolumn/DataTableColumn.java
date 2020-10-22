@@ -2,13 +2,17 @@ package sg.gov.csit.datacatalogue.dcms.datatablecolumn;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,10 +37,16 @@ public class DataTableColumn {
     @JsonBackReference
     private DataTable dataTable;
 
+    @NotNull
+    @OneToMany(mappedBy = "dataTableColumn", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<DataTableColumnAccess> dataTableColumnAccessList;
+
     public DataTableColumn(@NotNull String name, @NotNull String description, @NotNull String dtcType, @NotNull DataTable dataTable) {
         this.name=name;
         this.description=description;
         this.dataTable=dataTable;
+        this.dataTableColumnAccessList=new ArrayList<>();
 
         switch(dtcType) {
             case "Number":

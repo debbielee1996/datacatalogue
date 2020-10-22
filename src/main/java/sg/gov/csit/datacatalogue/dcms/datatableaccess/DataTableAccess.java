@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccessTypeEnum;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,8 +34,11 @@ public class DataTableAccess {
 
     public DataTableAccess(@NotNull DataTable dataTable, @NotNull String daType, @NotNull String dtaValue) {
         this.dataTable=dataTable;
-        if (daType.equals("Pf")) {
-            this.type=DataTableAccessTypeEnum.Pf;
+
+        switch(daType) {
+            case "Pf":
+                this.type=DataTableAccessTypeEnum.Pf;
+                break;
         }
         this.value=dtaValue;
     }

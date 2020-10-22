@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
 import javax.persistence.*;
@@ -32,10 +33,14 @@ public class Acl {
 
     public Acl(@NotNull Officer officer, @NotNull String aclValue) {
         this.officer=officer;
-        if (aclValue.equals("Public")) {
-            this.aclRoleEnum=AclRoleEnum.PUBLIC;
-        } else {
-            this.aclRoleEnum=AclRoleEnum.SYSTEM_ADMIN;
+
+        switch(aclValue) {
+            case "Public":
+                this.aclRoleEnum=AclRoleEnum.PUBLIC;
+                break;
+            case "System Admin":
+                this.aclRoleEnum=AclRoleEnum.SYSTEM_ADMIN;
+                break;
         }
     }
 }
