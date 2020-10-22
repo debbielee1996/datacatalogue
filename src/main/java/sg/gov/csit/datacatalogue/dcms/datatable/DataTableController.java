@@ -31,4 +31,9 @@ public class DataTableController {
     public List<DataTableDto> getAllDataTableDtos() {
         return dataTableService.getAllDataTableDtos();
     }
+
+    @GetMapping("/get-dataset-datatables/{datasetId}")
+    public List<DataTableDto> getDataTablesOfDataset(@PathVariable("datasetId") String datasetId) {
+        return dataTableService.getDataTablesOfDataset(datasetId);
+    }
 }

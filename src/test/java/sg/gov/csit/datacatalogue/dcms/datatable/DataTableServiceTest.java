@@ -47,19 +47,13 @@ public class DataTableServiceTest {
     DataTableRepository dataTableRepository;
 
     @Mock
-    DatasetService datasetService;
-
-    @Mock
     OfficerService officerService;
 
     @Mock
-    DataTableColumnService dataTableColumnService;
+    DatasetService datasetService;
 
     @InjectMocks
     DataTableService dataTableService;
-
-    @Mock
-    GetBean getBean;
 
     @BeforeAll
     public static void setUp() throws SQLException {

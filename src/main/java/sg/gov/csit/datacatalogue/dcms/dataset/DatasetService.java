@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTableDto;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTableService;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
@@ -34,15 +31,6 @@ public class DatasetService {
 
     @Autowired
     private ModelMapper modelMapper;
-
-
-    private DataTableService dataTableService;
-
-    @Autowired
-    public void setDataTableService(DataTableService dataTableService) {
-        this.dataTableService=dataTableService;
-    }
-
 
     public boolean IsDatasetInDatabase(long id){
         return datasetRepository.findById(id).isPresent();
@@ -106,13 +94,6 @@ public class DatasetService {
         return false;
     }
 
-    public List<DataTableDto> getDataTablesOfDataset(String datasetId) {
-        List<DataTable> dataTables = datasetRepository.findById(Long.parseLong(datasetId)).get().getDataTableList();
-        return dataTables.stream()
-                .map(dt -> dataTableService.convertToDto(dt))
-                .collect(Collectors.toList());
-    }
-
     public List<Dataset> getDatasetsCreatedByOfficer(String pf) {
         return datasetRepository.findByOfficerPf(pf);
     }
@@ -128,11 +109,5 @@ public class DatasetService {
     private DatasetDto convertToDto(Dataset dataset) {
         DatasetDto datasetDto = modelMapper.map(dataset, DatasetDto.class);
         return datasetDto;
-    }
-
-    // converts DataTable to DataTableDto
-    private DataTableDto convertToDto(DataTable dataTable) {
-        DataTableDto dataTableDto = modelMapper.map(dataTable, DataTableDto.class);
-        return dataTableDto;
     }
 }

@@ -44,18 +44,13 @@ public class DataTableService {
     OfficerService officerService;
 
     @Autowired
+    DatasetService datasetService;
+
+    @Autowired
     DataTableColumnService dataTableColumnService;
 
     @Autowired
     ModelMapper modelMapper;
-
-    // setter injection for datasetService. because DataSetService will call DataTableService = circular dependency
-    DatasetService datasetService;
-
-    @Autowired
-    public void setDatasetService(DatasetService datasetService) {
-        this.datasetService=datasetService;
-    }
 
     public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf) throws IOException, CsvException, SQLException {
         // verify officer exists
@@ -169,6 +164,13 @@ public class DataTableService {
         } else {
             return false;
         }
+    }
+
+    public List<DataTableDto> getDataTablesOfDataset(String datasetId) {
+        List<DataTable> dataTables = dataTableRepository.findByDatasetId(Long.parseLong(datasetId));
+        return dataTables.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     public List<DataTableDto> getAllDataTableDtos() {

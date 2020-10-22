@@ -1,4 +1,4 @@
-package sg.gov.csit.datacatalogue.dcms.dataset;
+package sg.gov.csit.datacatalogue.dcms.datatablecolumn;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +9,11 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @ToString
-public class DatasetDto implements Serializable {
+public class DataTableColumnDto implements Serializable {
     private Long id;
     private String name;
     private String description;
-    private String officerPf;
+    private String type;
+    private Long dataTableId;
+    private String dataTableName;
 }

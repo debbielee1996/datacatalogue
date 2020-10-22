@@ -22,11 +22,6 @@ public class DatasetController {
         return datasetService.createNewDataset(name, description, pf);
     }
 
-    @GetMapping("/get-dataset-datatables/{datasetId}")
-    public List<DataTableDto> getDataTablesOfDataset(@PathVariable("datasetId") String datasetId) {
-        return datasetService.getDataTablesOfDataset(datasetId);
-    }
-
     @GetMapping("/dataset/{id}")
     public boolean ValidateOfficerDatasetAccess(@RequestAttribute("txnId") String txnId,
                                                 @RequestAttribute("pf") String pf,
