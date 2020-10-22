@@ -34,12 +34,12 @@ public class Dataset {
     private String description;
 
     @NotNull
-    @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DatasetAccess> datasetAccessList;
 
     @NotNull
-    @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DataTable> dataTableList;
 

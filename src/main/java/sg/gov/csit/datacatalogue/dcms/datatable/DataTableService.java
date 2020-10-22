@@ -51,8 +51,6 @@ public class DataTableService {
     @Autowired
     ModelMapper modelMapper;
 
-    public List<DataTable> getAllDatatables() { return dataTableRepository.findAll(); }
-
     public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf) throws IOException, CsvException, SQLException {
         // verify officer exists
         Optional<Officer> officer = officerService.getOfficer(pf);
@@ -126,7 +124,7 @@ public class DataTableService {
             throw new IncorrectFileTypeException(ext);
         }
 
-        // temp placement until user can choose their own header types
+        // allow users to choose their own header types. so far only Number/Date/Text
         List<String> headerTypes = new ArrayList<>();
         for (String s: dataTypes) {
             if (s.equals("Number")) {
@@ -151,12 +149,12 @@ public class DataTableService {
                 dataTableRepository.save(dataTable);
             }
 
-            // create DataTableColumn
+            // create DataTableColumns
             List<DataTableColumn> dclist = new ArrayList<>();
             for (int i=0; i<headerList.size();i++) {
-                dclist.add(new DataTableColumn(headerList.get(i), "", dataTypes.get(i), dataTable));
+                DataTableColumn dtc = new DataTableColumn(headerList.get(i), "", dataTypes.get(i), dataTable);
+                dclist.add(dtc);
             }
-
             dataTable.setDataTableColumnList(dclist);
             dataTableRepository.save(dataTable);
 
@@ -166,8 +164,6 @@ public class DataTableService {
             return false;
         }
     }
-
-    public List<String> getAllDataTableNames() { return dataTableRepository.findAllDataTableNames(); }
 
     public List<DataTableDto> getAllDataTableDtos() {
         List<DataTable> dataTables = dataTableRepository.findAll();

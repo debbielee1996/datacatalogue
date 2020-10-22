@@ -15,11 +15,6 @@ public class DataTableController {
     @Autowired
     DataTableService dataTableService;
 
-    @GetMapping("/get-all-datatables")
-    public List<DataTable> getAllDatatables() {
-        return dataTableService.getAllDatatables();
-    }
-
     @PostMapping("/upload-file")
     public boolean uploadFile(@RequestParam("file") MultipartFile file,
                              @RequestParam("tableName") String tableName,
@@ -30,11 +25,6 @@ public class DataTableController {
     ) throws IOException, CsvException, SQLException {
         String pf = "1001"; // hard code for now
         return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
-    }
-
-    @GetMapping("/get-all-datatable-names")
-    public List<String> getAllDatatableNames() {
-        return dataTableService.getAllDataTableNames();
     }
 
     @GetMapping("/get-all-datatable-dtos")

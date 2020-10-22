@@ -9,10 +9,5 @@ import java.util.List;
 
 @Repository
 public interface DataTableRepository extends JpaRepository<DataTable, Long> {
-    DataTable findByName(@Param("tableName") String tableName);
-
     DataTable findByNameAndDatasetId(@Param("tableName") String tableName, @Param("datasetId") Long datasetId);
-
-    @Query("Select name from DataTable")
-    List<String> findAllDataTableNames();
 }

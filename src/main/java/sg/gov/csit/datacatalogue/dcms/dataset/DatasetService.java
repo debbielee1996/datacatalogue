@@ -94,13 +94,9 @@ public class DatasetService {
         return false;
     }
 
-    public List<Dataset> getAllDatasets() { return datasetRepository.findAll(); }
-
     public List<DataTable> getDataTablesOfDataset(String datasetId) {
         return datasetRepository.findById(Long.parseLong(datasetId)).get().getDataTableList();
     }
-
-    public List<String> getAllDatasetNames() { return datasetRepository.findAllDatasetName(); }
 
     public List<Dataset> getDatasetsCreatedByOfficer(String pf) {
         return datasetRepository.findByOfficerPf(pf);

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class DataTableColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +39,7 @@ public class DataTableColumn {
     @JsonBackReference
     private DataTable dataTable;
 
-    @NotNull
-    @OneToMany(mappedBy = "dataTableColumn", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dataTableColumn", fetch = FetchType.LAZY,  orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DataTableColumnAccess> dataTableColumnAccessList;
 

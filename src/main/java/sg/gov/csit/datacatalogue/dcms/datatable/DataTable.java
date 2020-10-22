@@ -47,7 +47,7 @@ public class DataTable {
     private Officer officer;
 
     @NotNull
-    @OneToMany(mappedBy = "dataTable", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "dataTable", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DataTableAccess> dataTableAccessList;
 

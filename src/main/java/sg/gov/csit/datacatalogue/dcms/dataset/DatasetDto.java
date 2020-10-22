@@ -16,5 +16,4 @@ public class DatasetDto implements Serializable {
     private String name;
     private String description;
     private String officerPf;
-    private String datasetName;
 }

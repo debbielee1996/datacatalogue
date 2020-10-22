@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class DataTableColumnAccess {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
