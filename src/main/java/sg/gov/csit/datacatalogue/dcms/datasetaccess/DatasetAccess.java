@@ -18,7 +18,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class DatasetAccess {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

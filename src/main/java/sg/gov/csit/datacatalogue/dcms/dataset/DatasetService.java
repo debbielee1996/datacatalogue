@@ -32,10 +32,6 @@ public class DatasetService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public boolean IsDatasetInDatabase(long id){
-        return datasetRepository.findById(id).isPresent();
-    }
-
     public Optional<Dataset> getDatasetById(long datasetId) {
         return datasetRepository.findById(datasetId);
     }
@@ -47,7 +43,11 @@ public class DatasetService {
                 throw new OfficerNotFoundException(pf);
             }
 
-            datasetRepository.save(new Dataset(name, description, officer.get()));
+            Dataset dataset = new Dataset(name, description, officer.get());
+            DatasetAccess datasetAccess = new DatasetAccess(dataset, "Pf", pf); // add access for creator of dataset
+            dataset.getDatasetAccessList().add(datasetAccess);
+
+            datasetRepository.save(dataset);
             DatabaseActions databaseActions = new DatabaseActions();
             try {
                 boolean hasCreatedDataset = databaseActions.createDatabase(name);
@@ -63,13 +63,9 @@ public class DatasetService {
 
     public boolean ValidateOfficerDatasetAccess(String pf, long datasetId) {
         if(officerService.IsOfficerInDatabase(pf)){
-            if(IsDatasetInDatabase(datasetId)){ // if dataset exists
-                // dataset and officer will already exist since prev check is done
-                Optional<Dataset> dataset = getDatasetById(datasetId);
+            Optional<Dataset> dataset = datasetRepository.findById(datasetId);
+            if(dataset.isPresent()){ // if dataset exists
                 List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
-                Optional<Officer> officer = officerService.getOfficer(pf);
-
-                // checks whether the officer is granted access based on his Ddcs/Acl
                 return officerHasAccessForDatasetGiven(pf, datasetAccessList);
             }else{
                 throw new DatasetNotFoundException(datasetId);
@@ -82,7 +78,7 @@ public class DatasetService {
     public boolean officerHasAccessForDatasetGiven(String pf, List<DatasetAccess> datasetAccessList) {
         for (DatasetAccess da:datasetAccessList) {
             // DatasetAccessService check
-            // check if value is officer or ddcs first
+            // check if value is officer("Pf")
             if (da.getTypeInString().equals("Pf") & da.getValue().equals(pf)) { // if value is 'pf' check pf = pf (this officer's)
                 return true;
             }
@@ -94,8 +90,7 @@ public class DatasetService {
         return datasetRepository.findByOfficerPf(pf);
     }
 
-    public List<DatasetDto> getAllDatasetDtos() {
-        String pf = "1001";
+    public List<DatasetDto> getAllDatasetDtos(String pf) {
         List<Dataset> datasets = datasetRepository.findAll();
         List<Dataset> filteredDatasets = datasets.stream()
                 .filter(d -> ValidateOfficerDatasetAccess(pf, d.getId()))

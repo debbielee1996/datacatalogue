@@ -19,7 +19,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class DataTableColumn {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

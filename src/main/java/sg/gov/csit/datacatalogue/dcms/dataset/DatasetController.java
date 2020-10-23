@@ -38,6 +38,6 @@ public class DatasetController {
     @GetMapping("/get-all-dataset-dtos")
     public List<DatasetDto> getAllDatasetDtos(@RequestAttribute("txnId") String txnId,
                                               @RequestAttribute("pf") String pf) {
-        return datasetService.getAllDatasetDtos();
+        return datasetService.getAllDatasetDtos(pf);
     }
 }

@@ -3,10 +3,7 @@ package sg.gov.csit.datacatalogue.dcms.officer;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import sg.gov.csit.datacatalogue.dcms.acl.Acl;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
@@ -17,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+// pls don't change to lombok's @Data. error will be: https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror
+@Getter
+@Setter
 public class Officer {
     @Id
     @NotNull

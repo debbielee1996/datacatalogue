@@ -1,10 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.datatablecolumn;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,8 +12,15 @@ public class DataTableColumnController {
     DataTableColumnService dataTableColumnService;
 
     @GetMapping("/get-all-columns-dtos/{dataTableId}")
-    public List<DataTableColumnDto> getAllColumnDtos(@PathVariable("dataTableId") String dataTableId) {
-        return dataTableColumnService.getAllColumnDtos(dataTableId);
+    public List<DataTableColumnDto> getAllColumnDtos(@PathVariable("dataTableId") String dataTableId,
+                                                     @RequestAttribute("pf") String pf) {
+        return dataTableColumnService.getAllColumnDtos(pf, dataTableId);
     }
 
+    @GetMapping("/datatablecolumn/{id}")
+    public boolean ValidateOfficerDatasetAccess(@RequestAttribute("txnId") String txnId,
+                                                @RequestAttribute("pf") String pf,
+                                                @PathVariable("id") long dataTableColumnId){
+        return dataTableColumnService.ValidateOfficerDataTableColumnAccess(pf,dataTableColumnId);
+    }
 }

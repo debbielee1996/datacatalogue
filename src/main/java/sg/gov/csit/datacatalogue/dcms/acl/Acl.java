@@ -2,20 +2,20 @@ package sg.gov.csit.datacatalogue.dcms.acl;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+
+import lombok.*;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
 import javax.persistence.*;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
+// pls don't change to lombok's @Data. error will be: https://stackoverflow.com/questions/17445657/hibernate-onetomany-java-lang-stackoverflowerror
+@Getter
+@Setter
 public class Acl {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

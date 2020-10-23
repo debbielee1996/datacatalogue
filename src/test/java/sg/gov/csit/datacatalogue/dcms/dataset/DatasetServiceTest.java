@@ -124,7 +124,6 @@ public class DatasetServiceTest {
         // act
         doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
-        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
 
         // assert
         assertFalse(() -> datasetService.ValidateOfficerDatasetAccess(pf,datasetId));
@@ -146,7 +145,6 @@ public class DatasetServiceTest {
         //act
         doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
-        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
 
         // assert
         assertFalse(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
@@ -168,7 +166,6 @@ public class DatasetServiceTest {
         //act
         doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
-        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
 
         // assert
         assertTrue(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));

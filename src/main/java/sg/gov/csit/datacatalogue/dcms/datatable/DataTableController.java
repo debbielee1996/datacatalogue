@@ -28,12 +28,20 @@ public class DataTableController {
     }
 
     @GetMapping("/get-all-datatable-dtos")
-    public List<DataTableDto> getAllDataTableDtos() {
-        return dataTableService.getAllDataTableDtos();
+    public List<DataTableDto> getAllDataTableDtos(@RequestAttribute("pf") String pf) {
+        return dataTableService.getAllDataTableDtos(pf);
     }
 
     @GetMapping("/get-dataset-datatables/{datasetId}")
-    public List<DataTableDto> getDataTablesOfDataset(@PathVariable("datasetId") String datasetId) {
-        return dataTableService.getDataTablesOfDataset(datasetId);
+    public List<DataTableDto> getDataTablesOfDataset(@RequestAttribute("pf") String pf,
+                                                    @PathVariable("datasetId") String datasetId) {
+        return dataTableService.getDataTablesOfDataset(pf, datasetId);
+    }
+
+    @GetMapping("/datatable/{dataTableId}")
+    public boolean ValidateOfficerDataTableAccess(@RequestAttribute("txnId") String txnId,
+                                                @RequestAttribute("pf") String pf,
+                                                @PathVariable("dataTableId") long datasetId){
+        return dataTableService.ValidateOfficerDataTableAccess(pf,datasetId);
     }
 }

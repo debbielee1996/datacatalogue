@@ -19,8 +19,12 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
+import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
+import sg.gov.csit.datacatalogue.dcms.exception.DataTableNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
@@ -144,17 +148,22 @@ public class DataTableService {
         if (hasCreatedDatatable) {
             if (!dataTableExists) { // create dataTable object in db
                 dataTable = new DataTable(tableName, description, dataset.get(), officer.get());
-                dataTableRepository.save(dataTable);
+                DataTableAccess dataTableAccess = new DataTableAccess(dataTable, "Pf", pf); // add access for creator of datatable
+                dataTable.getDataTableAccessList().add(dataTableAccess);
             } else { // overwrite existing description with new one
                 dataTable.setDescription(description);
-                dataTableRepository.save(dataTable);
             }
+            dataTableRepository.save(dataTable);
 
             // create DataTableColumns
             List<DataTableColumn> dclist = new ArrayList<>();
             for (int i=0; i<headerList.size();i++) {
                 DataTableColumn dtc = new DataTableColumn(headerList.get(i), "", dataTypes.get(i), dataTable);
                 dclist.add(dtc);
+
+                // add access for dtc. By default creator can view all datatable columns
+                DataTableColumnAccess dataTableColumnAccess = new DataTableColumnAccess(dtc, "Pf", pf); // add access for creator of datatable
+                dtc.getDataTableColumnAccessList().add(dataTableColumnAccess);
             }
             dataTable.setDataTableColumnList(dclist);
             dataTableRepository.save(dataTable);
@@ -166,16 +175,24 @@ public class DataTableService {
         }
     }
 
-    public List<DataTableDto> getDataTablesOfDataset(String datasetId) {
+    public List<DataTableDto> getDataTablesOfDataset(String pf, String datasetId) {
         List<DataTable> dataTables = dataTableRepository.findByDatasetId(Long.parseLong(datasetId));
-        return dataTables.stream()
+        List<DataTable> filteredDataTables = dataTables.stream()
+                .filter(d -> ValidateOfficerDataTableAccess(pf, d.getId()))
+                .collect(Collectors.toList());
+
+        return filteredDataTables.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    public List<DataTableDto> getAllDataTableDtos() {
+    public List<DataTableDto> getAllDataTableDtos(String pf) {
         List<DataTable> dataTables = dataTableRepository.findAll();
-        return dataTables.stream()
+        List<DataTable> filteredDataTables = dataTables.stream()
+                                            .filter(d -> ValidateOfficerDataTableAccess(pf, d.getId()))
+                                            .collect(Collectors.toList());
+
+        return filteredDataTables.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
@@ -184,5 +201,30 @@ public class DataTableService {
     public DataTableDto convertToDto(DataTable dataTable) {
         DataTableDto dataTableDto = modelMapper.map(dataTable, DataTableDto.class);
         return dataTableDto;
+    }
+
+    public boolean ValidateOfficerDataTableAccess(String pf, Long dataTableId) {
+        if (officerService.IsOfficerInDatabase(pf)) { // if officer exists
+            Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
+            if(dataTable.isPresent()) { // if datatable exists
+                List<DataTableAccess> dataTableAccessList = dataTable.get().getDataTableAccessList();
+                return officerHasAccessForDataTableGiven(pf, dataTableAccessList);
+            } else {
+                throw new DataTableNotFoundException(dataTableId);
+            }
+        } else {
+            throw new OfficerNotFoundException(pf);
+        }
+    }
+
+    public boolean officerHasAccessForDataTableGiven(String pf, List<DataTableAccess> dataTableAccessList) {
+        for (DataTableAccess dta:dataTableAccessList) {
+            // DataTableAccessService check
+            // check if value is officer("Pf")
+            if (dta.getTypeInString().equals("Pf") & dta.getValue().equals(pf)) { // if value is 'pf' check pf = pf (this officer's)
+                return true;
+            }
+        }
+        return false;
     }
 }

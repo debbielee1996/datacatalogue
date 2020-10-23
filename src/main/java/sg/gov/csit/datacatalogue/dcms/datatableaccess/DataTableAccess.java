@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccessTypeEnum;
 
@@ -21,8 +22,8 @@ public class DataTableAccess {
     private Long id;
 
     @NotNull
-    @JoinColumn(name = "dataTableId")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dataTableId")
     @JsonBackReference
     private DataTable dataTable;
 
@@ -34,12 +35,16 @@ public class DataTableAccess {
 
     public DataTableAccess(@NotNull DataTable dataTable, @NotNull String daType, @NotNull String dtaValue) {
         this.dataTable=dataTable;
+        this.value=dtaValue;
 
         switch(daType) {
             case "Pf":
                 this.type=DataTableAccessTypeEnum.Pf;
                 break;
         }
-        this.value=dtaValue;
+    }
+
+    public String getTypeInString() {
+        return type.getValue();
     }
 }

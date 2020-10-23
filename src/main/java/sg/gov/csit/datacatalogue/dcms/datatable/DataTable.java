@@ -22,7 +22,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class DataTable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +55,7 @@ public class DataTable {
     @JsonManagedReference
     private List<DataTableColumn> dataTableColumnList;
 
-    public DataTable(@NotNull String name, String description, @NotNull Dataset dataset, @NotNull Officer officer) {
+    public DataTable(String name, String description, Dataset dataset, Officer officer) {
          this.name=name;
          this.description=description;
          this.dataset=dataset;

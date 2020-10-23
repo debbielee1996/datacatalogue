@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class DataTableColumnAccess {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +40,9 @@ public class DataTableColumnAccess {
                 this.type=DataTableColumnAccessTypeEnum.Pf;
                 break;
         }
+    }
+
+    public String getTypeInString() {
+        return type.getValue();
     }
 }
