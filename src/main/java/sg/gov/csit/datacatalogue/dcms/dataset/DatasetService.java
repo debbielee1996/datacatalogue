@@ -70,11 +70,7 @@ public class DatasetService {
                 Optional<Officer> officer = officerService.getOfficer(pf);
 
                 // checks whether the officer is granted access based on his Ddcs/Acl
-                boolean officerHasAccess = officerHasAccessForDatasetGiven(pf, datasetAccessList);
-                if (!officerHasAccess) {
-                    throw new DatasetAccessNotFoundException(pf, datasetId);
-                }
-                return officerHasAccess;
+                return officerHasAccessForDatasetGiven(pf, datasetAccessList);
             }else{
                 throw new DatasetNotFoundException(datasetId);
             }
@@ -99,8 +95,13 @@ public class DatasetService {
     }
 
     public List<DatasetDto> getAllDatasetDtos() {
+        String pf = "1001";
         List<Dataset> datasets = datasetRepository.findAll();
-        return datasets.stream()
+        List<Dataset> filteredDatasets = datasets.stream()
+                .filter(d -> ValidateOfficerDatasetAccess(pf, d.getId()))
+                .collect(Collectors.toList());
+
+        return filteredDatasets.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }

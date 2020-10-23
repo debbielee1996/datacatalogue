@@ -7,8 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -115,7 +114,7 @@ public class DatasetServiceTest {
     }
 
     @Test
-    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndNoDatasetAccess_ShouldThrowException(){
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfAndNoDatasetAccess_ShouldReturnFalse(){
         // arrange
         String pf = "123";
         Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
@@ -128,12 +127,11 @@ public class DatasetServiceTest {
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
 
         // assert
-        assertThrows(DatasetAccessNotFoundException.class,
-                () -> datasetService.ValidateOfficerDatasetAccess(pf,datasetId));
+        assertFalse(() -> datasetService.ValidateOfficerDatasetAccess(pf,datasetId));
     }
 
     @Test
-    public void ValidateOfficerDatasetAccess_GivenOfficerPfNotInDatasetAccess_ShouldThrowException(){
+    public void ValidateOfficerDatasetAccess_GivenOfficerPfNotInDatasetAccess_ShouldReturnFalse(){
         // arrange
         // mock officer with Ddcs list
         String pf = "123";
@@ -151,8 +149,7 @@ public class DatasetServiceTest {
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
 
         // assert
-        assertThrows(DatasetAccessNotFoundException.class,
-                () -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
+        assertFalse(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
     }
 
     @Test
