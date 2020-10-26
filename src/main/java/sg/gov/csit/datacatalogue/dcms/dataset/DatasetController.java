@@ -30,7 +30,7 @@ public class DatasetController {
     }
 
     @GetMapping("/get-all-datasets-created")
-    public List<Dataset> getDatasetsCreatedByOfficer(@RequestAttribute("txnId") String txnId,
+    public List<DatasetDto> getDatasetsCreatedByOfficer(@RequestAttribute("txnId") String txnId,
                                                     @RequestAttribute("pf") String pf) {
         return datasetService.getDatasetsCreatedByOfficer(pf);
     }

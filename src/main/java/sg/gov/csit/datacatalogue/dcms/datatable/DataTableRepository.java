@@ -12,4 +12,6 @@ public interface DataTableRepository extends JpaRepository<DataTable, Long> {
     List<DataTable> findByDatasetId(@Param("datasetId") Long datasetId);
 
     DataTable findByNameAndDatasetId(@Param("tableName") String tableName, @Param("datasetId") Long datasetId);
+
+    List<DataTable> findByOfficerPf(String pf);
 }

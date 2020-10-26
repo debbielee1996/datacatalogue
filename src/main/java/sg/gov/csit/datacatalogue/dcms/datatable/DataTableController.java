@@ -44,4 +44,10 @@ public class DataTableController {
                                                 @PathVariable("dataTableId") long datasetId){
         return dataTableService.ValidateOfficerDataTableAccess(pf,datasetId);
     }
+
+    @GetMapping("/get-all-datatables-created")
+    public List<DataTableDto> getDataTablesCreatedByOfficer(@RequestAttribute("txnId") String txnId,
+                                                            @RequestAttribute("pf") String pf) {
+        return dataTableService.getDataTablesCreatedByOfficer(pf);
+    }
 }

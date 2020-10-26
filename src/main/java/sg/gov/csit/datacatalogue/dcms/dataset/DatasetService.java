@@ -86,8 +86,10 @@ public class DatasetService {
         return false;
     }
 
-    public List<Dataset> getDatasetsCreatedByOfficer(String pf) {
-        return datasetRepository.findByOfficerPf(pf);
+    public List<DatasetDto> getDatasetsCreatedByOfficer(String pf) {
+        return datasetRepository.findByOfficerPf(pf).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     public List<DatasetDto> getAllDatasetDtos(String pf) {

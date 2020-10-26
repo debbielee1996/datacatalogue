@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.dataset.DatasetDto;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
@@ -198,12 +199,6 @@ public class DataTableService {
                 .collect(Collectors.toList());
     }
 
-    // converts Dataset to DatasetDto
-    public DataTableDto convertToDto(DataTable dataTable) {
-        DataTableDto dataTableDto = modelMapper.map(dataTable, DataTableDto.class);
-        return dataTableDto;
-    }
-
     public boolean ValidateOfficerDataTableAccess(String pf, Long dataTableId) {
         if (officerService.IsOfficerInDatabase(pf)) { // if officer exists
             Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
@@ -227,5 +222,17 @@ public class DataTableService {
             }
         }
         return false;
+    }
+
+    public List<DataTableDto> getDataTablesCreatedByOfficer(String pf) {
+        return dataTableRepository.findByOfficerPf(pf).stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    // converts Dataset to DatasetDto
+    public DataTableDto convertToDto(DataTable dataTable) {
+        DataTableDto dataTableDto = modelMapper.map(dataTable, DataTableDto.class);
+        return dataTableDto;
     }
 }
