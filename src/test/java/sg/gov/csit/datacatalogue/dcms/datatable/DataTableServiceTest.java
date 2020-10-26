@@ -17,11 +17,11 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
+import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datatable.mock.DataTableStubFactory;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
-import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
-import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -148,7 +149,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable("mock", "mock", dataset, mockOfficer));
 
         Assertions.assertTrue(() -> {
             try {
@@ -234,7 +235,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
         when(datasetService.getDatasetById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable("mock", "mock", dataset, mockOfficer));
 
         Assertions.assertTrue(() -> {
             try {
@@ -296,6 +297,95 @@ public class DataTableServiceTest {
                 return false;
             }
         });
+    }
+
+    @Test
+    public void ValidateOfficerDataTableAccess_GivenOfficerPfAndOfficerNotInDb_ShouldThrowException(){
+        //arrange
+        String pf = "123";
+        long dataTableId = 321;
+
+        // act and assert
+        assertThrows(OfficerNotFoundException.class,
+                () -> dataTableService.ValidateOfficerDataTableAccess(pf,dataTableId));
+    }
+
+    @Test
+    public void ValidateOfficerDataTableAccess_GivenOfficerPfAndDataTableNotInDb_ShouldThrowException(){
+        //arrange
+        String pf = "123";
+        long dataTableId = 321;
+
+        // act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.<DataTable>empty());
+
+        // assert
+        assertThrows(DataTableNotFoundException.class,
+                () -> dataTableService.ValidateOfficerDataTableAccess(pf,dataTableId));
+    }
+
+    @Test
+    public void ValidateOfficerDataTableAccess_GivenOfficerPfAndNoDataTableAccess_ShouldReturnFalse(){
+        // arrange
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        long dataTableId = 321;
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        DataTable mockDataTable = new DataTable("mock", "mock", mockDataset, mockOfficer);
+
+        // act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertFalse(() -> dataTableService.ValidateOfficerDataTableAccess(pf,dataTableId));
+    }
+
+    @Test
+    public void ValidateOfficerDataTableAccess_GivenOfficerPfNotInDataTableAccess_ShouldReturnFalse(){
+        // arrange
+        // mock officer with Ddcs list
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+
+        // mock dataTable with DataTableAccessList
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        DataTable mockDataTable = new DataTable("mock", "mock", mockDataset, mockOfficer);
+
+        List<DataTableAccess> dataTableAccessList = new ArrayList<>();
+        dataTableAccessList.add(new DataTableAccess(mockDataTable, "Pf", "999"));
+        mockDataTable.setDataTableAccessList(dataTableAccessList);
+
+        //act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertFalse(() -> dataTableService.ValidateOfficerDataTableAccess(pf, anyLong()));
+    }
+
+    @Test
+    public void ValidateOfficerDataTableAccess_GivenOfficerPfAndPfInDataTableAccess_ShouldReturnTrue(){
+        // arrange
+        // mock officer with Ddcs list
+        String pf = "123";
+        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+
+        // mock dataTable with DataTableAccessList
+        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        DataTable mockDataTable = new DataTable("mock", "mock", mockDataset, mockOfficer);
+
+        List<DataTableAccess> dataTableAccessList = new ArrayList<>();
+        dataTableAccessList.add(new DataTableAccess(mockDataTable, "Pf", "123"));
+        mockDataTable.setDataTableAccessList(dataTableAccessList);
+
+        //act
+        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertTrue(() -> dataTableService.ValidateOfficerDataTableAccess(pf, anyLong()));
     }
 
     // clean up db with new datatables (tables) created

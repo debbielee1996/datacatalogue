@@ -106,4 +106,9 @@ public class DatasetService {
         DatasetDto datasetDto = modelMapper.map(dataset, DatasetDto.class);
         return datasetDto;
     }
+
+    public boolean deleteDataset(String datasetId) {
+        datasetRepository.deleteById(Long.parseLong(datasetId));
+        return true;
+    }
 }

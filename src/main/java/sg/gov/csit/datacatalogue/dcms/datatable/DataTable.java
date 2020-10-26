@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
@@ -19,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class DataTable {
@@ -63,14 +61,4 @@ public class DataTable {
          this.dataTableAccessList=new ArrayList<>();
          this.dataTableColumnList=new ArrayList<>();
      }
-
-    public void setDataTableColumnList(List<DataTableColumn> dcList) {
-        if (this.dataTableColumnList==null) {
-            this.dataTableColumnList=new ArrayList<>();
-        }
-        this.dataTableColumnList.clear();
-        if(dcList!=null) {
-            this.dataTableColumnList.addAll(dcList);
-        }
-    }
 }

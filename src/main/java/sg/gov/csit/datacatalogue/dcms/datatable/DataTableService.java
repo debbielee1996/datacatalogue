@@ -156,16 +156,17 @@ public class DataTableService {
             dataTableRepository.save(dataTable);
 
             // create DataTableColumns
-            List<DataTableColumn> dclist = new ArrayList<>();
+            dataTable.getDataTableColumnList().clear(); // drop existing dataTableColumns
             for (int i=0; i<headerList.size();i++) {
                 DataTableColumn dtc = new DataTableColumn(headerList.get(i), "", dataTypes.get(i), dataTable);
-                dclist.add(dtc);
 
                 // add access for dtc. By default creator can view all datatable columns
                 DataTableColumnAccess dataTableColumnAccess = new DataTableColumnAccess(dtc, "Pf", pf); // add access for creator of datatable
                 dtc.getDataTableColumnAccessList().add(dataTableColumnAccess);
+
+                // add dataTableColumn entity to dataTable
+                dataTable.getDataTableColumnList().add(dtc);
             }
-            dataTable.setDataTableColumnList(dclist);
             dataTableRepository.save(dataTable);
 
             System.out.println("Successfully uploaded data file into db");

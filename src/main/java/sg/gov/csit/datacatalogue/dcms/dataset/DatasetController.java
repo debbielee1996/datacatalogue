@@ -40,4 +40,9 @@ public class DatasetController {
                                               @RequestAttribute("pf") String pf) {
         return datasetService.getAllDatasetDtos(pf);
     }
+
+    @DeleteMapping("/delete-dataset/{datasetId}")
+    public boolean deleteDataset(@PathVariable("datasetId") String datasetId) {
+        return datasetService.deleteDataset(datasetId);
+    }
 }
