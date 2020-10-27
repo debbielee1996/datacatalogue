@@ -57,7 +57,7 @@ public class DataTableService {
     @Autowired
     ModelMapper modelMapper;
 
-    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf) throws IOException, CsvException, SQLException {
+    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf, List<String> dataColDescriptions) throws IOException, CsvException, SQLException {
         // verify officer exists
         Optional<Officer> officer = officerService.getOfficer(pf);
         if (officer.isEmpty()) {
@@ -159,7 +159,7 @@ public class DataTableService {
             // create DataTableColumns
             dataTable.getDataTableColumnList().clear(); // drop existing dataTableColumns
             for (int i=0; i<headerList.size();i++) {
-                DataTableColumn dtc = new DataTableColumn(headerList.get(i), "", dataTypes.get(i), dataTable);
+                DataTableColumn dtc = new DataTableColumn(headerList.get(i), dataColDescriptions.get(i), dataTypes.get(i), dataTable);
 
                 // add access for dtc. By default creator can view all datatable columns
                 DataTableColumnAccess dataTableColumnAccess = new DataTableColumnAccess(dtc, "Pf", pf); // add access for creator of datatable

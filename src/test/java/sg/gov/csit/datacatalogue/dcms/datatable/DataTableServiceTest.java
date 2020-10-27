@@ -86,7 +86,7 @@ public class DataTableServiceTest {
         doReturn(Optional.<Officer>empty()).when(officerService).getOfficer(anyString());
 
         // assert
-        Assertions.assertThrows(OfficerNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf));
+        Assertions.assertThrows(OfficerNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
     }
 
 
@@ -104,7 +104,7 @@ public class DataTableServiceTest {
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
 
         // assert
-        Assertions.assertThrows(DatasetExistsException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf));
+        Assertions.assertThrows(DatasetExistsException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
     }
 
     @Test
@@ -125,20 +125,19 @@ public class DataTableServiceTest {
         when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
 
         // assert
-        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf));
+        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
     }
 
     @Test
     public void uploadFile_CSV_GivenDatasetIdInDbAndDataTableInDb_ShouldReturnTrue() throws IOException {
         // arrange
         FileInputStream inputFile = DataTableStubFactory.FILESTREAM_CSVFILE();
+        List<String> dataColDesc = DataTableStubFactory.DATACOLDESC_CSVFILE();
+        List<String> dataTypes = DataTableStubFactory.DATATYPES_CSVFILE();
         MultipartFile file = new MockMultipartFile("file", "test.csv", "application/csv", inputFile);
         String tableName = "DataTableServiceTest_mock1";
         String datasetId = "1";
         String description = "This is a mock datatable";
-        List<String> dataTypes = new ArrayList<>();
-        dataTypes.add("Text");
-        dataTypes.add("Text");
 
         Dataset dataset = DataTableStubFactory.DATASET();
 
@@ -153,7 +152,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -171,13 +170,13 @@ public class DataTableServiceTest {
     public void uploadFile_CSV_GivenDatasetIdInDbAndDataTableNotInDb_ShouldReturnTrue() throws IOException, SQLException {
         // arrange
         FileInputStream inputFile = DataTableStubFactory.FILESTREAM_CSVFILE();
+        List<String> dataColDesc = DataTableStubFactory.DATACOLDESC_CSVFILE();
+        List<String> dataTypes = DataTableStubFactory.DATATYPES_CSVFILE();
         MultipartFile file = new MockMultipartFile("file", "test.csv", "application/csv", inputFile);
         String tableName = "DataTableServiceTest_mock2";
         String datasetId = "1";
         String description = "This is a mock datatable";
-        List<String> dataTypes = new ArrayList<>();
-        dataTypes.add("Text");
-        dataTypes.add("Text");
+
 
         Dataset dataset = DataTableStubFactory.DATASET();
 
@@ -193,7 +192,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -211,19 +210,12 @@ public class DataTableServiceTest {
     public void uploadFile_XLSX_GivenDatasetIdInDbAndDataTableInDb_ShouldReturnTrue() throws IOException {
         // arrange
         FileInputStream inputFile = DataTableStubFactory.FILESTREAM_XLSXFILE();
+        List<String> dataColDesc = DataTableStubFactory.DATACOLDESC_XLSXFILE();
+        List<String> dataTypes = DataTableStubFactory.DATATYPES_XLSXFILE();
         MultipartFile file = new MockMultipartFile("file", "test.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", inputFile);
         String tableName = "DataTableServiceTest_mock3";
         String datasetId = "1";
         String description = "This is a mock datatable";
-        List<String> dataTypes = new ArrayList<>();
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Date");
-        dataTypes.add("Number");
 
         Dataset dataset = DataTableStubFactory.DATASET();
 
@@ -239,7 +231,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -257,20 +249,12 @@ public class DataTableServiceTest {
     public void uploadFile_XLSX_GivenDatasetIdInDbAndDataTableNotInDb_ShouldReturnTrue() throws IOException, SQLException {
         // arrange
         FileInputStream inputFile = DataTableStubFactory.FILESTREAM_XLSXFILE();
+        List<String> dataColDesc = DataTableStubFactory.DATACOLDESC_XLSXFILE();
+        List<String> dataTypes = DataTableStubFactory.DATATYPES_XLSXFILE();
         MultipartFile file = new MockMultipartFile("file", "test.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", inputFile);
         String tableName = "DataTableServiceTest_mock4";
         String datasetId = "1";
         String description = "This is a mock datatable";
-        List<String> dataTypes = new ArrayList<>();
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Text");
-        dataTypes.add("Date");
-        dataTypes.add("Number");
-
         Dataset dataset = DataTableStubFactory.DATASET();
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
@@ -285,7 +269,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
