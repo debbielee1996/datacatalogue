@@ -21,14 +21,13 @@ import sg.gov.csit.datacatalogue.dcms.dataset.DatasetDto;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
+import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
-import sg.gov.csit.datacatalogue.dcms.exception.DataTableNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
-import sg.gov.csit.datacatalogue.dcms.exception.IncorrectFileTypeException;
-import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
@@ -204,7 +203,7 @@ public class DataTableService {
             Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
             if(dataTable.isPresent()) { // if datatable exists
                 List<DataTableAccess> dataTableAccessList = dataTable.get().getDataTableAccessList();
-                return officerHasAccessForDataTableGiven(pf, dataTableAccessList);
+                return officerHasAccessForDataTable(pf, dataTableAccessList);
             } else {
                 throw new DataTableNotFoundException(dataTableId);
             }
@@ -213,7 +212,7 @@ public class DataTableService {
         }
     }
 
-    public boolean officerHasAccessForDataTableGiven(String pf, List<DataTableAccess> dataTableAccessList) {
+    public boolean officerHasAccessForDataTable(String pf, List<DataTableAccess> dataTableAccessList) {
         for (DataTableAccess dta:dataTableAccessList) {
             // DataTableAccessService check
             // check if value is officer("Pf")
@@ -234,5 +233,37 @@ public class DataTableService {
     public DataTableDto convertToDto(DataTable dataTable) {
         DataTableDto dataTableDto = modelMapper.map(dataTable, DataTableDto.class);
         return dataTableDto;
+    }
+
+    public boolean addOfficerDataTableAccess(String officerPf, String dataTableId) {
+        Optional<DataTable> dataTable = dataTableRepository.findById(Long.parseLong(dataTableId));
+        if (dataTable.isPresent()) {
+            List<DataTableAccess> dataTableAccessList = dataTable.get().getDataTableAccessList();
+            if (!officerHasAccessForDataTable(officerPf, dataTableAccessList)) {
+                dataTableAccessList.add(new DataTableAccess(dataTable.get(),"Pf", officerPf));
+                dataTableRepository.save(dataTable.get());
+            }
+            return true;
+        } else {
+            throw new DataTableNotFoundException(Long.parseLong(dataTableId));
+        }
+    }
+
+    public Optional<DataTable> getDataTableById(long dataTableId) {
+        return dataTableRepository.findById(dataTableId);
+    }
+
+    public boolean removeOfficerDataTableAccess(String officerPf, String dataTableId) {
+        Optional<DataTable> dataTable = dataTableRepository.findById(Long.parseLong(dataTableId));
+        if(dataTable.isPresent()) {
+            List<DataTableAccess> dataTableAccessList = dataTable.get().getDataTableAccessList();
+            if (officerHasAccessForDataTable(officerPf, dataTableAccessList)) {
+                dataTableAccessList.removeIf(dta -> dta.getType() == DataTableAccessTypeEnum.Pf && dta.getValue().equals(officerPf));
+                dataTableRepository.save(dataTable.get());
+            }
+            return true;
+        } else {
+            throw new DataTableNotFoundException(Long.parseLong(dataTableId));
+        }
     }
 }

@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.exception.DataTableColumnNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.exception.DataTableNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
@@ -69,5 +73,37 @@ public class DataTableColumnService {
             }
         }
         return false;
+    }
+
+    public boolean addOfficerDataTableColumnAccess(String officerPf, String dataTableColumnId) {
+        Optional<DataTableColumn> dataTableColumn = dataTableColumnRepository.findById(Long.parseLong(dataTableColumnId));
+        if (dataTableColumn.isPresent()) {
+            List<DataTableColumnAccess> dataTableColumnAccessList = dataTableColumn.get().getDataTableColumnAccessList();
+            if (!officerHasAccessForDataTableColumn(officerPf, dataTableColumnAccessList)) {
+                dataTableColumnAccessList.add(new DataTableColumnAccess(dataTableColumn.get(),"Pf", officerPf));
+                dataTableColumnRepository.save(dataTableColumn.get());
+            }
+            return true;
+        } else {
+            throw new DataTableColumnNotFoundException(Long.parseLong(dataTableColumnId));
+        }
+    }
+
+    public Optional<DataTableColumn> getDataTableColumnById(long dataTableColumnId) {
+        return dataTableColumnRepository.findById(dataTableColumnId);
+    }
+
+    public boolean removeOfficerDataTableColumnAccess(String officerPf, String dataTableColumnId) {
+        Optional<DataTableColumn> dataTableColumn = dataTableColumnRepository.findById(Long.parseLong(dataTableColumnId));
+        if(dataTableColumn.isPresent()) {
+            List<DataTableColumnAccess> dataTableColumnAccessList = dataTableColumn.get().getDataTableColumnAccessList();
+            if (officerHasAccessForDataTableColumn(officerPf, dataTableColumnAccessList)) {
+                dataTableColumnAccessList.removeIf(dtca -> dtca.getType() == DataTableColumnAccessTypeEnum.Pf && dtca.getValue().equals(officerPf));
+                dataTableColumnRepository.save(dataTableColumn.get());
+            }
+            return true;
+        } else {
+            throw new DataTableColumnNotFoundException(Long.parseLong(dataTableColumnId));
+        }
     }
 }

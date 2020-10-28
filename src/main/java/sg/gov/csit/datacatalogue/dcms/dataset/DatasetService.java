@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
+import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
 
+import javax.swing.text.html.Option;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -66,7 +67,7 @@ public class DatasetService {
             Optional<Dataset> dataset = datasetRepository.findById(datasetId);
             if(dataset.isPresent()){ // if dataset exists
                 List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
-                return officerHasAccessForDatasetGiven(pf, datasetAccessList);
+                return officerHasAccessForDataset(pf, datasetAccessList);
             }else{
                 throw new DatasetNotFoundException(datasetId);
             }
@@ -75,7 +76,7 @@ public class DatasetService {
         }
     }
 
-    public boolean officerHasAccessForDatasetGiven(String pf, List<DatasetAccess> datasetAccessList) {
+    public boolean officerHasAccessForDataset(String pf, List<DatasetAccess> datasetAccessList) {
         for (DatasetAccess da:datasetAccessList) {
             // DatasetAccessService check
             // check if value is officer("Pf")
@@ -112,5 +113,33 @@ public class DatasetService {
     public boolean deleteDataset(String datasetId) {
         datasetRepository.deleteById(Long.parseLong(datasetId));
         return true;
+    }
+
+    public boolean addOfficerDatasetAccess(String officerPf, String datasetId) {
+        Optional<Dataset> dataset = datasetRepository.findById(Long.parseLong(datasetId));
+        if (dataset.isPresent()) {
+            List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
+            if (!officerHasAccessForDataset(officerPf, datasetAccessList)) {
+                datasetAccessList.add(new DatasetAccess(dataset.get(),"Pf", officerPf));
+                datasetRepository.save(dataset.get());
+            }
+            return true;
+        } else {
+            throw new DatasetNotFoundException(Long.parseLong(datasetId));
+        }
+    }
+
+    public boolean removeOfficerDatasetAccess(String officerPf, String datasetId) {
+        Optional<Dataset> dataset = datasetRepository.findById(Long.parseLong(datasetId));
+        if(dataset.isPresent()) {
+            List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
+            if (officerHasAccessForDataset(officerPf, datasetAccessList)) {
+                datasetAccessList.removeIf(da -> da.getType() == DatasetAccessTypeEnum.Pf && da.getValue().equals(officerPf));
+                datasetRepository.save(dataset.get());
+            }
+            return true;
+        } else {
+            throw new DatasetNotFoundException(Long.parseLong(datasetId));
+        }
     }
 }
