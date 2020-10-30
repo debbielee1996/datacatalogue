@@ -15,6 +15,7 @@ import static org.mockito.Mockito.doReturn;
 
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
+import sg.gov.csit.datacatalogue.dcms.dataset.mock.DatasetStubFactory;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTableService;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
@@ -76,8 +77,8 @@ public class DatasetServiceTest {
         GetBean.userName = "sa";
         GetBean.password = "Password1";
 
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
+        String pf = mockOfficer.getPf();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(pf);
@@ -91,7 +92,7 @@ public class DatasetServiceTest {
     public void ValidateOfficerDatasetAccess_GivenOfficerPfAndOfficerNotInDb_ShouldThrowException(){
         //arrange
         String pf = "123";
-        long datasetId = 321;
+        long datasetId = 123;
 
         // act and assert
         assertThrows(OfficerNotFoundException.class,
@@ -102,7 +103,7 @@ public class DatasetServiceTest {
     public void ValidateOfficerDatasetAccess_GivenOfficerPfAndDatasetNotInDb_ShouldThrowException(){
         //arrange
         String pf = "123";
-        long datasetId = 321;
+        long datasetId = 123;
 
         // act
         doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
@@ -116,10 +117,10 @@ public class DatasetServiceTest {
     @Test
     public void ValidateOfficerDatasetAccess_GivenOfficerPfAndNoDatasetAccess_ShouldReturnFalse(){
         // arrange
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
-        long datasetId = 321;
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
+        String pf = mockOfficer.getPf();
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        long datasetId = mockDataset.getId();
 
         // act
         doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
@@ -133,11 +134,11 @@ public class DatasetServiceTest {
     public void ValidateOfficerDatasetAccess_GivenOfficerPfNotInDatasetAccess_ShouldReturnFalse(){
         // arrange
         // mock officer with Ddcs list
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
+        String pf = mockOfficer.getPf();
 
         // mock dataset with DatasetAccessList
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
         List<DatasetAccess> datasetAccessList = new ArrayList<>();
         datasetAccessList.add(new DatasetAccess(mockDataset, "Pf", "999"));
         mockDataset.setDatasetAccessList(datasetAccessList);
@@ -148,17 +149,20 @@ public class DatasetServiceTest {
 
         // assert
         assertFalse(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
+
+        // clear datasetAccessList
+        mockDataset.getDatasetAccessList().clear();
     }
 
     @Test
     public void ValidateOfficerDatasetAccess_GivenOfficerPfAndPfInDatasetAccess_ShouldReturnTrue(){
         // arrange
         // mock officer with Ddcs list
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
+        String pf = mockOfficer.getPf();
 
         // mock dataset with DatasetAccessList
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
         List<DatasetAccess> datasetAccessList = new ArrayList<>();
         datasetAccessList.add(new DatasetAccess(mockDataset, "Pf", "123"));
         mockDataset.setDatasetAccessList(datasetAccessList);
@@ -169,6 +173,87 @@ public class DatasetServiceTest {
 
         // assert
         assertTrue(() -> datasetService.ValidateOfficerDatasetAccess(pf, anyLong()));
+
+        // clear datasetAccessList
+        mockDataset.getDatasetAccessList().clear();
+    }
+
+    @Test
+    public void addOfficerDatasetAccess_DatasetNotPresent_ShouldThrowException() {
+        // arrange
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // assert
+        assertThrows(DatasetNotFoundException.class, () -> datasetService.addOfficerDatasetAccess("123", "123"));
+    }
+
+    @Test
+    public void addOfficerDatasetAccess_DatasetPresentAndOfficerPFInDatasetAccessList_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        List<DatasetAccess> datasetAccessList = new ArrayList<>();
+        datasetAccessList.add(new DatasetAccess(mockDataset, "Pf", "123"));
+        mockDataset.setDatasetAccessList(datasetAccessList);
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+
+        // assert
+        assertTrue(datasetService.addOfficerDatasetAccess("123", "123"));
+
+        // clear datasetAccessList
+        mockDataset.getDatasetAccessList().clear();
+    }
+
+    @Test
+    public void addOfficerDatasetAccess_DatasetPresentAndOfficerPFNotInDatasetAccessList_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+
+        // assert
+        assertTrue(datasetService.addOfficerDatasetAccess("123", "123"));
+    }
+
+    @Test
+    public void removeOfficerDatasetAccess_DatasetNotPresent_ShouldThrowException() {
+        // arrange
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // assert
+        assertThrows(DatasetNotFoundException.class, () -> datasetService.removeOfficerDatasetAccess("123", "123"));
+    }
+
+    @Test
+    public void removeOfficerDatasetAccess_DatasetPresentAndOfficerPFInDatasetAccessList_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        List<DatasetAccess> datasetAccessList = new ArrayList<>();
+        datasetAccessList.add(new DatasetAccess(mockDataset, "Pf", "123"));
+        mockDataset.setDatasetAccessList(datasetAccessList);
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+
+        // assert
+        assertTrue(datasetService.removeOfficerDatasetAccess("123", "123"));
+
+        // clear datasetAccessList
+        mockDataset.getDatasetAccessList().clear();
+    }
+
+    @Test
+    public void removeOfficerDatasetAccess_DatasetPresentAndOfficerPFNotInDatasetAccessList_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+
+        // assert
+        assertTrue(datasetService.removeOfficerDatasetAccess("123", "123"));
     }
 
     // clean up db with new datasets (databases) created

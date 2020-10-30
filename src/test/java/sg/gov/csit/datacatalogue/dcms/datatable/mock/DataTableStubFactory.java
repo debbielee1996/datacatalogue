@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.datatable.mock;
 
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
 import java.io.FileInputStream;
@@ -66,13 +67,19 @@ public class DataTableStubFactory {
         return new FileInputStream(userDirectory+"\\src\\test\\java\\sg\\gov\\csit\\datacatalogue\\dcms\\datatable\\testfiles\\test.pdf");
     }
 
-    public static Officer OFFICER() {
+    public static Officer MOCK_OFFICER() {
         return new Officer("123","test","testEmail", "123", "System Admin");
     }
 
-    public static Dataset DATASET() {
-        return new Dataset("DataTableSericeTest_dataset1", "mock dataset", OFFICER());
+    public static Dataset MOCK_DATASET_NOACCESSLIST() {
+        Dataset dataset = new Dataset("DataTableSericeTest_dataset1", "mock dataset", MOCK_OFFICER());
+        dataset.setId(Long.parseLong("123"));
+        return dataset;
     }
 
-
+    public static DataTable MOCK_DATATABLE_NOACCESSLIST() {
+        DataTable dataTable = new DataTable("mock", "mock", MOCK_DATASET_NOACCESSLIST(), MOCK_OFFICER());
+        dataTable.setId(Long.parseLong("123"));
+        return dataTable;
+    }
 }

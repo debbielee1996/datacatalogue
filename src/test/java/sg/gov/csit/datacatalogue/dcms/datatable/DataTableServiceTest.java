@@ -98,7 +98,7 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
         String pf = "123";
-        Officer mockOfficer = DataTableStubFactory.OFFICER();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
@@ -117,7 +117,7 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
         String pf = "123";
-        Officer mockOfficer = DataTableStubFactory.OFFICER();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
@@ -139,11 +139,11 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
 
-        Dataset dataset = DataTableStubFactory.DATASET();
+        Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
         String pf = "123";
-        Officer mockOfficer = DataTableStubFactory.OFFICER();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
@@ -178,12 +178,12 @@ public class DataTableServiceTest {
         String description = "This is a mock datatable";
 
 
-        Dataset dataset = DataTableStubFactory.DATASET();
+        Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
         String pf = "123";
-        Officer mockOfficer = DataTableStubFactory.OFFICER();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
@@ -217,12 +217,12 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
 
-        Dataset dataset = DataTableStubFactory.DATASET();
+        Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
         String pf = "123";
-        Officer mockOfficer = DataTableStubFactory.OFFICER();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
@@ -255,12 +255,12 @@ public class DataTableServiceTest {
         String tableName = "DataTableServiceTest_mock4";
         String datasetId = "1";
         String description = "This is a mock datatable";
-        Dataset dataset = DataTableStubFactory.DATASET();
+        Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
         String pf = "123";
-        Officer mockOfficer = DataTableStubFactory.OFFICER();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(anyString());
@@ -287,7 +287,7 @@ public class DataTableServiceTest {
     public void ValidateOfficerDataTableAccess_GivenOfficerPfAndOfficerNotInDb_ShouldThrowException(){
         //arrange
         String pf = "123";
-        long dataTableId = 321;
+        long dataTableId = 123;
 
         // act and assert
         assertThrows(OfficerNotFoundException.class,
@@ -298,7 +298,7 @@ public class DataTableServiceTest {
     public void ValidateOfficerDataTableAccess_GivenOfficerPfAndDataTableNotInDb_ShouldThrowException(){
         //arrange
         String pf = "123";
-        long dataTableId = 321;
+        long dataTableId = 123;
 
         // act
         doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
@@ -312,11 +312,11 @@ public class DataTableServiceTest {
     @Test
     public void ValidateOfficerDataTableAccess_GivenOfficerPfAndNoDataTableAccess_ShouldReturnFalse(){
         // arrange
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
-        long dataTableId = 321;
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
-        DataTable mockDataTable = new DataTable("mock", "mock", mockDataset, mockOfficer);
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
+        String pf = mockOfficer.getPf();
+
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        long dataTableId = mockDataTable.getId();
 
         // act
         doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
@@ -330,12 +330,11 @@ public class DataTableServiceTest {
     public void ValidateOfficerDataTableAccess_GivenOfficerPfNotInDataTableAccess_ShouldReturnFalse(){
         // arrange
         // mock officer with Ddcs list
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
+        String pf = mockOfficer.getPf();
 
         // mock dataTable with DataTableAccessList
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
-        DataTable mockDataTable = new DataTable("mock", "mock", mockDataset, mockOfficer);
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
 
         List<DataTableAccess> dataTableAccessList = new ArrayList<>();
         dataTableAccessList.add(new DataTableAccess(mockDataTable, "Pf", "999"));
@@ -347,18 +346,20 @@ public class DataTableServiceTest {
 
         // assert
         assertFalse(() -> dataTableService.ValidateOfficerDataTableAccess(pf, anyLong()));
+
+        // clear dataTableAccessList
+        mockDataTable.getDataTableAccessList().clear();
     }
 
     @Test
     public void ValidateOfficerDataTableAccess_GivenOfficerPfAndPfInDataTableAccess_ShouldReturnTrue(){
         // arrange
         // mock officer with Ddcs list
-        String pf = "123";
-        Officer mockOfficer = new Officer(pf,"test","testEmail", "123", "System Admin");
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
+        String pf = mockOfficer.getPf();
 
         // mock dataTable with DataTableAccessList
-        Dataset mockDataset = new Dataset("mock", "mock", mockOfficer);
-        DataTable mockDataTable = new DataTable("mock", "mock", mockDataset, mockOfficer);
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
 
         List<DataTableAccess> dataTableAccessList = new ArrayList<>();
         dataTableAccessList.add(new DataTableAccess(mockDataTable, "Pf", "123"));
@@ -370,6 +371,87 @@ public class DataTableServiceTest {
 
         // assert
         assertTrue(() -> dataTableService.ValidateOfficerDataTableAccess(pf, anyLong()));
+
+        // clear dataTableAccessList
+        mockDataTable.getDataTableAccessList().clear();
+    }
+
+    @Test
+    public void addOfficerDataTableAccess_DataTableNotPresent_ShouldThrowException() {
+        // arrange
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // assert
+        assertThrows(DataTableNotFoundException.class, () -> dataTableService.addOfficerDataTableAccess("123", "123"));
+    }
+
+    @Test
+    public void addOfficerDataTableAccess_DataTablePresentAndOfficerPFInDataTableAccessList_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        List<DataTableAccess> dataTableAccessList = new ArrayList<>();
+        dataTableAccessList.add(new DataTableAccess(mockDataTable, "Pf", "123"));
+        mockDataTable.setDataTableAccessList(dataTableAccessList);
+
+        // arrange
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertTrue(() -> dataTableService.addOfficerDataTableAccess("123", "123"));
+
+        // clear dataTableAccessList
+        mockDataTable.getDataTableAccessList().clear();
+    }
+
+    @Test
+    public void addOfficerDataTableAccess_DataTablePresentAndOfficerPFNotInDataTableAccessList_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+
+        // arrange
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertTrue(() -> dataTableService.addOfficerDataTableAccess("123", "123"));
+    }
+
+    @Test
+    public void removeOfficerDataTableAccess_DataTableNotPresent_ShouldThrowException() {
+        // arrange
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        // assert
+        assertThrows(DataTableNotFoundException.class, () -> dataTableService.removeOfficerDataTableAccess("123", "123"));
+    }
+
+    @Test
+    public void removeOfficerDataTableAccess_DataTablePresentAndOfficerPFInDataTableAccessList_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        List<DataTableAccess> dataTableAccessList = new ArrayList<>();
+        dataTableAccessList.add(new DataTableAccess(mockDataTable, "Pf", "123"));
+        mockDataTable.setDataTableAccessList(dataTableAccessList);
+
+        // arrange
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertTrue(() -> dataTableService.removeOfficerDataTableAccess("123", "123"));
+
+        // clear dataTableAccessList
+        mockDataTable.getDataTableAccessList().clear();
+    }
+
+    @Test
+    public void removeOfficerDataTableAccess_DataTablePresentAndOfficerPFNotInDataTableAccessList_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+
+        // arrange
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertTrue(() -> dataTableService.removeOfficerDataTableAccess("123", "123"));
     }
 
     // clean up db with new datatables (tables) created
