@@ -266,4 +266,15 @@ public class DataTableService {
             throw new DataTableNotFoundException(Long.parseLong(dataTableId));
         }
     }
+
+    public boolean editDataTableDescription(String description, Long dataTableId) {
+        Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
+        if (dataTable.isEmpty()) {
+            throw new DataTableNotFoundException(dataTableId);
+        }
+        DataTable actualDataTable = dataTable.get();
+        actualDataTable.setDescription(description);
+        dataTableRepository.save(actualDataTable);
+        return true;
+    }
 }

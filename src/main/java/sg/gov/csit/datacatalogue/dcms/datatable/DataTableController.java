@@ -42,13 +42,21 @@ public class DataTableController {
     @GetMapping("/datatable/{dataTableId}")
     public boolean ValidateOfficerDataTableAccess(@RequestAttribute("txnId") String txnId,
                                                 @RequestAttribute("pf") String pf,
-                                                @PathVariable("dataTableId") long datasetId){
-        return dataTableService.ValidateOfficerDataTableAccess(pf,datasetId);
+                                                @PathVariable("dataTableId") long dataTableId){
+        return dataTableService.ValidateOfficerDataTableAccess(pf,dataTableId);
     }
 
     @GetMapping("/get-all-datatables-created")
     public List<DataTableDto> getDataTablesCreatedByOfficer(@RequestAttribute("txnId") String txnId,
                                                             @RequestAttribute("pf") String pf) {
         return dataTableService.getDataTablesCreatedByOfficer(pf);
+    }
+
+    @PostMapping("/edit-description")
+    public boolean editDataTableDescription(@RequestAttribute("txnId") String txnId,
+                                            @RequestAttribute("pf") String pf,
+                                            @RequestParam("dataTableId") long dataTableId,
+                                            @RequestParam("description") String description) {
+        return dataTableService.editDataTableDescription(description, dataTableId);
     }
 }

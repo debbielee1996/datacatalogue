@@ -106,4 +106,15 @@ public class DataTableColumnService {
             throw new DataTableColumnNotFoundException(Long.parseLong(dataTableColumnId));
         }
     }
+
+    public boolean editDataTableColumnDescription(String description, long dataTableColumnId) {
+        Optional<DataTableColumn> dataTableColumn = dataTableColumnRepository.findById(dataTableColumnId);
+        if (dataTableColumn.isEmpty()) {
+            throw new DataTableColumnNotFoundException(dataTableColumnId);
+        }
+        DataTableColumn actualDataTableColumn = dataTableColumn.get();
+        actualDataTableColumn.setDescription(description);
+        dataTableColumnRepository.save(actualDataTableColumn);
+        return true;
+    }
 }

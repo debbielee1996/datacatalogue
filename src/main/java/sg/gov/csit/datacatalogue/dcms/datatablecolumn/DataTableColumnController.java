@@ -23,4 +23,12 @@ public class DataTableColumnController {
                                                 @PathVariable("id") long dataTableColumnId){
         return dataTableColumnService.ValidateOfficerDataTableColumnAccess(pf,dataTableColumnId);
     }
+
+    @PostMapping("/edit-description")
+    public boolean editDataTableColumnDescription(@RequestAttribute("txnId") String txnId,
+                                            @RequestAttribute("pf") String pf,
+                                            @RequestParam("dataTableColumnId") long dataTableColumnId,
+                                            @RequestParam("description") String description) {
+        return dataTableColumnService.editDataTableColumnDescription(description, dataTableColumnId);
+    }
 }
