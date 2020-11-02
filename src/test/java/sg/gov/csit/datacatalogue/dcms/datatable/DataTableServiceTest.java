@@ -35,8 +35,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
@@ -452,6 +451,24 @@ public class DataTableServiceTest {
 
         // assert
         assertTrue(() -> dataTableService.removeOfficerDataTableAccess("123", "123"));
+    }
+
+    @Test
+    public void editDataTableDescription_DataTableDoesNotExist_ShouldThrowException() {
+        // assert
+        assertThrows(DataTableNotFoundException.class, () -> dataTableService.editDataTableDescription("mock", anyLong()));
+    }
+
+    @Test
+    public void editDataTableDescription_DataTableExist_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertTrue(() -> dataTableService.editDataTableDescription("mock", Long.parseLong("123")));
     }
 
     // clean up db with new datatables (tables) created

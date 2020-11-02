@@ -208,4 +208,22 @@ public class DataTableColumnServiceTest {
         // assert
         assertTrue(() -> dataTableColumnService.removeOfficerDataTableColumnAccess("123", "123"));
     }
+
+    @Test
+    public void editDataTableColumnDescription_DataTableColumnDoesNotExist_ShouldThrowException() {
+        // assert
+        assertThrows(DataTableColumnNotFoundException.class, () -> dataTableColumnService.editDataTableColumnDescription("mock", anyLong()));
+    }
+
+    @Test
+    public void editDataTableColumnDescription_DataTableColumnExist_ShouldReturnTrue() {
+        // arrange
+        DataTableColumn mockDataTableColumn = DataTableColumnStubFactory.MOCK_DATATABLECOLUMN_NOACCESSLIST();
+
+        // act
+        when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
+
+        // assert
+        assertTrue(() -> dataTableColumnService.editDataTableColumnDescription("mock", Long.parseLong("123")));
+    }
 }

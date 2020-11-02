@@ -269,6 +269,7 @@ public class DataTableService {
 
     public boolean editDataTableDescription(String description, Long dataTableId) {
         Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
+        System.out.println(dataTable.isEmpty());
         if (dataTable.isEmpty()) {
             throw new DataTableNotFoundException(dataTableId);
         }
