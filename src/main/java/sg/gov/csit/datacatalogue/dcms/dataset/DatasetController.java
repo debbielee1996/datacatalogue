@@ -14,11 +14,10 @@ public class DatasetController {
     DatasetService datasetService;
 
     @PostMapping("/create-new-dataset")
-    public boolean createNewDataset(@RequestParam("name") String name,
+    public boolean createNewDataset(@RequestAttribute("txnId") String txnId,
+                                    @RequestAttribute("pf") String pf,
+                                    @RequestParam("name") String name,
                                    @RequestParam("description") String description) {
-                                   //@RequestParam("pf") String pf) {
-        // hard code pf for now
-        String pf = "1001";
         return datasetService.createNewDataset(name, description, pf);
     }
 

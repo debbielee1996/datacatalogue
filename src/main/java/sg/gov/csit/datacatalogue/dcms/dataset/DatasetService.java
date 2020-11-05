@@ -38,6 +38,8 @@ public class DatasetService {
     }
 
     public boolean createNewDataset(@NotNull String name, String description, String pf) {
+        // dataset name = nameinform_pf
+        name = name + "_" + pf;
         if (datasetRepository.findByName(name) == null) { // if dataset hasn't exist yet
             Optional<Officer> officer = officerService.getOfficer(pf);
             if (officer.isEmpty()) {
