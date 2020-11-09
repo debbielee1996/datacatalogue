@@ -46,8 +46,17 @@ public class DatasetController {
     }
 
     @PostMapping("/add-officer-to-custodian-list")
-    public boolean addOfficerToCustodianList(@RequestParam("pf") String pf,
-                         @RequestParam("datasetId") long datasetId) {
-        return datasetService.addOfficerToCustodianList(pf, datasetId);
+    public boolean addOfficerToCustodianList(@RequestAttribute("txnId") String txnId,
+                                             @RequestAttribute("pf") String pf,
+                                             @RequestParam("custodianPf") String custodianPf,
+                                             @RequestParam("datasetId") long datasetId) {
+        return datasetService.addOfficerToCustodianList(custodianPf, datasetId);
+    }
+
+    @GetMapping("/datasetname-exists")
+    public boolean datasetNameExists(@RequestAttribute("txnId") String txnId,
+                                     @RequestAttribute("pf") String pf,
+                                     @RequestParam("datasetName") String datasetName) {
+        return datasetService.datasetNameExists(datasetName);
     }
 }

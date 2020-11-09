@@ -11,7 +11,9 @@ import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -56,7 +58,7 @@ public class Officer {
             joinColumns = @JoinColumn(name = "pf"),
             inverseJoinColumns = @JoinColumn(name= "datasetId"))
     @JsonManagedReference
-    private List<Dataset> datasetCustodianList;
+    private Set<Dataset> datasetCustodianList; // Hashset because of this https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa/
 
     public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String password, @NotNull String aclValue) {
         this.pf=pf;
@@ -66,7 +68,7 @@ public class Officer {
         this.acl=new Acl(this, aclValue);
         this.datasetList=new ArrayList<>();
         this.dataTableList=new ArrayList<>();
-        this.datasetCustodianList=new ArrayList<>();
+        this.datasetCustodianList=new HashSet<Dataset>();
     }
 
     public void addDatasetCustodian(Dataset dataset) {

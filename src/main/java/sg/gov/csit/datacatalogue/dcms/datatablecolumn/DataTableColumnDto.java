@@ -16,4 +16,5 @@ public class DataTableColumnDto implements Serializable {
     private String type;
     private Long dataTableId;
     private String dataTableName;
+    private String datasetName;
 }

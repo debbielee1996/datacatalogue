@@ -35,13 +35,7 @@ public class DatasetService {
     @PersistenceContext
     private EntityManager em;
 
-    public Optional<Dataset> getDatasetById(long datasetId) {
-        return datasetRepository.findById(datasetId);
-    }
-
     public boolean createNewDataset(@NotNull String name, String description, String pf) {
-        // dataset name = nameinform_pf
-        name = name + "_" + pf;
         if (datasetRepository.findByName(name) == null) { // if dataset hasn't exist yet
             Optional<Officer> officer = officerRepository.findByPf(pf);
             if (officer.isEmpty()) {
@@ -148,16 +142,26 @@ public class DatasetService {
     }
 
     public boolean addOfficerToCustodianList(String pf, long datasetId) {
-        Officer officer = officerRepository.findByPf(pf).get();
-        Dataset dataset = datasetRepository.findById(datasetId).get();
+        Optional<Officer> officer = officerRepository.findByPf(pf);
+        if (officer.isEmpty()) {
+            throw new OfficerNotFoundException(pf);
+        }
+
+        Optional<Dataset> dataset = datasetRepository.findById(datasetId);
+        if (dataset.isEmpty()) {
+            throw new DatasetNotFoundException(datasetId);
+        }
 
         Officer officerQueried = em.createQuery("select officer from Officer officer left join fetch officer.datasetCustodianList where officer = :officer", Officer.class)
-                .setParameter("officer", officer)
+                .setParameter("officer", officer.get())
                 .getSingleResult();
-        List<Dataset> datasets = officerQueried.getDatasetCustodianList();
 
-        officerQueried.addDatasetCustodian(dataset);
+        officerQueried.addDatasetCustodian(dataset.get());
         officerRepository.save(officerQueried);
         return true;
+    }
+
+    public boolean datasetNameExists(String name) {
+        return datasetRepository.findByName(name)==null;
     }
 }

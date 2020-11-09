@@ -15,7 +15,9 @@ import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -51,7 +53,7 @@ public class Dataset {
     @NotNull
     @ManyToMany(mappedBy = "datasetCustodianList", fetch = FetchType.LAZY)
     @JsonBackReference
-    private List<Officer> officerCustodianList;
+    private Set<Officer> officerCustodianList; // Hashset because of this https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa/
 
     public Dataset(String name, String description, Officer officer) {
         this.name=name;
@@ -59,6 +61,6 @@ public class Dataset {
         this.officer=officer;
         this.datasetAccessList=new ArrayList<>();
         this.dataTableList=new ArrayList<>();
-        this.officerCustodianList=new ArrayList<>();
+        this.officerCustodianList=new HashSet<Officer>();
     }
 }

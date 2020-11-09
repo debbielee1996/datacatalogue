@@ -67,7 +67,7 @@ public class DatasetServiceTest {
     public void createNewDataset_GivenDatasetIdNotInDb_ShouldReturnTrue() {
         // arrange & act
         when(datasetRepository.findByName(anyString())).thenReturn(null);
-        datasetsCreated.add("DatasetServiceTest_mockDatabase_123"); // add to list of datasets to be dropped after this class's tests is done
+        datasetsCreated.add("DatasetServiceTest_mockDatabase"); // add to list of datasets to be dropped after this class's tests is done
         // should change it soon
         GetBean.currentMavenProfile = "test";
         GetBean.currentDataBaseDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
