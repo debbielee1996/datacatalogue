@@ -4,16 +4,12 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
-import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
-import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.exception.DataTableColumnNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.exception.DataTableNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,14 +22,10 @@ public class DataTableColumnService {
     DataTableColumnRepository dataTableColumnRepository;
 
     @Autowired
-    OfficerService officerService;
+    OfficerRepository officerRepository;
 
     @Autowired
     ModelMapper modelMapper;
-
-    public void addDataTableColumn(String name, String description, String type, DataTable dataTable) {
-        dataTableColumnRepository.save(new DataTableColumn(name, description, type, dataTable));
-    }
 
     public List<DataTableColumnDto> getAllColumnDtos(String pf, String dataTableId) {
         List<DataTableColumn> dataTableColumnList = dataTableColumnRepository.findByDataTableId(Long.parseLong(dataTableId));
@@ -51,7 +43,7 @@ public class DataTableColumnService {
     }
 
     public boolean ValidateOfficerDataTableColumnAccess(String pf, long dataTableColumnId) {
-        if(officerService.IsOfficerInDatabase(pf)) {
+        if(officerRepository.findByPf(pf).isPresent()) {
             Optional<DataTableColumn> dataTableColumn = dataTableColumnRepository.findById(dataTableColumnId);
             if(dataTableColumn.isPresent()) {
                 List<DataTableColumnAccess> dataTableColumnAccessList = dataTableColumn.get().getDataTableColumnAccessList();

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
+import sg.gov.csit.datacatalogue.dcms.dataset.DatasetRepository;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTableService;
@@ -22,6 +23,9 @@ public class DatasetAccessService {
     DatasetService datasetService;
 
     @Autowired
+    DatasetRepository datasetRepository;
+
+    @Autowired
     DataTableService dataTableService;
 
     @Autowired
@@ -33,7 +37,7 @@ public class DatasetAccessService {
 
     public boolean addOfficerDatasetAccess(String officerPf, String datasetId) {
         datasetService.addOfficerDatasetAccess(officerPf, datasetId);
-        Dataset dataset = datasetService.getDatasetById(Long.parseLong(datasetId)).get();
+        Dataset dataset = datasetRepository.findById(Long.parseLong(datasetId)).get();
 
         List<DataTable> dataTableList = dataset.getDataTableList();
         // add access rights for each DataTable
@@ -51,7 +55,7 @@ public class DatasetAccessService {
 
     public boolean removeOfficerDatasetAccess(String officerPf, String datasetId) {
         datasetService.removeOfficerDatasetAccess(officerPf, datasetId);
-        Dataset dataset = datasetService.getDatasetById(Long.parseLong(datasetId)).get();
+        Dataset dataset = datasetRepository.findById(Long.parseLong(datasetId)).get();
 
         List<DataTable> dataTableList = dataset.getDataTableList();
         // remove access rights for each DataTable

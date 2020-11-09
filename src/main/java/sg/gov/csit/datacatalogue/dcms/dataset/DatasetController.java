@@ -44,4 +44,10 @@ public class DatasetController {
     public boolean deleteDataset(@PathVariable("datasetId") String datasetId) {
         return datasetService.deleteDataset(datasetId);
     }
+
+    @PostMapping("/add-officer-to-custodian-list")
+    public boolean addOfficerToCustodianList(@RequestParam("pf") String pf,
+                         @RequestParam("datasetId") long datasetId) {
+        return datasetService.addOfficerToCustodianList(pf, datasetId);
+    }
 }

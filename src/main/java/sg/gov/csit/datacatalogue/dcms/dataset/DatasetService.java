@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
-import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
-import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
-import javax.swing.text.html.Option;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -28,10 +27,13 @@ public class DatasetService {
     private DatasetRepository datasetRepository;
 
     @Autowired
-    private OfficerService officerService;
+    private OfficerRepository officerRepository;
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @PersistenceContext
+    private EntityManager em;
 
     public Optional<Dataset> getDatasetById(long datasetId) {
         return datasetRepository.findById(datasetId);
@@ -41,7 +43,7 @@ public class DatasetService {
         // dataset name = nameinform_pf
         name = name + "_" + pf;
         if (datasetRepository.findByName(name) == null) { // if dataset hasn't exist yet
-            Optional<Officer> officer = officerService.getOfficer(pf);
+            Optional<Officer> officer = officerRepository.findByPf(pf);
             if (officer.isEmpty()) {
                 throw new OfficerNotFoundException(pf);
             }
@@ -65,7 +67,7 @@ public class DatasetService {
     }
 
     public boolean ValidateOfficerDatasetAccess(String pf, long datasetId) {
-        if(officerService.IsOfficerInDatabase(pf)){
+        if(officerRepository.findByPf(pf).isPresent()){
             Optional<Dataset> dataset = datasetRepository.findById(datasetId);
             if(dataset.isPresent()){ // if dataset exists
                 List<DatasetAccess> datasetAccessList = dataset.get().getDatasetAccessList();
@@ -143,5 +145,19 @@ public class DatasetService {
         } else {
             throw new DatasetNotFoundException(Long.parseLong(datasetId));
         }
+    }
+
+    public boolean addOfficerToCustodianList(String pf, long datasetId) {
+        Officer officer = officerRepository.findByPf(pf).get();
+        Dataset dataset = datasetRepository.findById(datasetId).get();
+
+        Officer officerQueried = em.createQuery("select officer from Officer officer left join fetch officer.datasetCustodianList where officer = :officer", Officer.class)
+                .setParameter("officer", officer)
+                .getSingleResult();
+        List<Dataset> datasets = officerQueried.getDatasetCustodianList();
+
+        officerQueried.addDatasetCustodian(dataset);
+        officerRepository.save(officerQueried);
+        return true;
     }
 }

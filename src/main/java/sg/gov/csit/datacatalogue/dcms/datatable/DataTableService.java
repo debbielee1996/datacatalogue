@@ -17,19 +17,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.io.FilenameUtils;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
-import sg.gov.csit.datacatalogue.dcms.dataset.DatasetDto;
-import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
+import sg.gov.csit.datacatalogue.dcms.dataset.DatasetRepository;
 
-import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
-import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
-import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
-import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
 import java.io.*;
 import java.sql.SQLException;
@@ -45,26 +41,23 @@ public class DataTableService {
     DataTableRepository dataTableRepository;
 
     @Autowired
-    OfficerService officerService;
+    OfficerRepository officerRepository;
 
     @Autowired
-    DatasetService datasetService;
-
-    @Autowired
-    DataTableColumnService dataTableColumnService;
+    DatasetRepository datasetRepository;
 
     @Autowired
     ModelMapper modelMapper;
 
     public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf, List<String> dataColDescriptions) throws IOException, CsvException, SQLException {
         // verify officer exists
-        Optional<Officer> officer = officerService.getOfficer(pf);
+        Optional<Officer> officer = officerRepository.findByPf(pf);
         if (officer.isEmpty()) {
             throw new OfficerNotFoundException(pf);
         }
 
         // get dataset and verify that it exists
-        Optional<Dataset> dataset = datasetService.getDatasetById(Long.parseLong(datasetId));
+        Optional<Dataset> dataset = datasetRepository.findById(Long.parseLong(datasetId));
         if (dataset.isEmpty()) {
             throw new DatasetExistsException(datasetId);
         }
@@ -199,7 +192,7 @@ public class DataTableService {
     }
 
     public boolean ValidateOfficerDataTableAccess(String pf, Long dataTableId) {
-        if (officerService.IsOfficerInDatabase(pf)) { // if officer exists
+        if (officerRepository.findByPf(pf).isPresent()) { // if officer exists
             Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
             if(dataTable.isPresent()) { // if datatable exists
                 List<DataTableAccess> dataTableAccessList = dataTable.get().getDataTableAccessList();

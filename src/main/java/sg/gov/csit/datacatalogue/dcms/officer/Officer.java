@@ -49,6 +49,15 @@ public class Officer {
     @JsonManagedReference
     private List<DataTable> dataTableList;
 
+    @NotNull
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "officer_dataset_custodians",
+            joinColumns = @JoinColumn(name = "pf"),
+            inverseJoinColumns = @JoinColumn(name= "datasetId"))
+    @JsonManagedReference
+    private List<Dataset> datasetCustodianList;
+
     public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String password, @NotNull String aclValue) {
         this.pf=pf;
         this.name=name;
@@ -57,5 +66,10 @@ public class Officer {
         this.acl=new Acl(this, aclValue);
         this.datasetList=new ArrayList<>();
         this.dataTableList=new ArrayList<>();
+        this.datasetCustodianList=new ArrayList<>();
+    }
+
+    public void addDatasetCustodian(Dataset dataset) {
+        this.datasetCustodianList.add(dataset);
     }
 }

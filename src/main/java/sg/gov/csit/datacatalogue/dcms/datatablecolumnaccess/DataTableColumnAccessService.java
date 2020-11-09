@@ -6,6 +6,7 @@ import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTableService;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnRepository;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
 
 import java.util.List;
@@ -21,9 +22,12 @@ public class DataTableColumnAccessService {
     @Autowired
     DataTableColumnService dataTableColumnService;
 
+    @Autowired
+    DataTableColumnRepository dataTableColumnRepository;
+
     public boolean addOfficerDataTableColumnAccess(String officerPf, String dataTableColumnId) {
         dataTableColumnService.addOfficerDataTableColumnAccess(officerPf, dataTableColumnId);
-        DataTableColumn dataTableColumn = dataTableColumnService.getDataTableColumnById(Long.parseLong(dataTableColumnId)).get();
+        DataTableColumn dataTableColumn = dataTableColumnRepository.findById(Long.parseLong(dataTableColumnId)).get();
 
         // add access rights for parent DataTable
         dataTableService.addOfficerDataTableAccess(officerPf, Long.toString(dataTableColumn.getDataTable().getId()));

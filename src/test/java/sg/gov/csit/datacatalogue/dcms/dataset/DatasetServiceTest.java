@@ -17,13 +17,11 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
 import sg.gov.csit.datacatalogue.dcms.dataset.mock.DatasetStubFactory;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTableService;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
 import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
-import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -40,7 +38,7 @@ public class DatasetServiceTest {
     DatasetRepository datasetRepository;
 
     @Mock
-    OfficerService officerService;
+    OfficerRepository officerRepository;
 
     @InjectMocks
     DatasetService datasetService;
@@ -59,7 +57,7 @@ public class DatasetServiceTest {
     public void createNewDataset_GivenDatasetIdInDbAndOfficerNotExists_ShouldThrowException() {
         // arrange & act
         when(datasetRepository.findByName(anyString())).thenReturn(null);
-        doReturn(Optional.<Officer>empty()).when(officerService).getOfficer(anyString());
+        doReturn(Optional.<Officer>empty()).when(officerRepository).findByPf(anyString());
 
         // assert
         assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123"));
@@ -81,7 +79,7 @@ public class DatasetServiceTest {
         String pf = mockOfficer.getPf();
 
         // act
-        doReturn(Optional.of(mockOfficer)).when(officerService).getOfficer(pf);
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(pf);
 
         // assert
         assertTrue(() -> datasetService.createNewDataset("DatasetServiceTest_mockDatabase", "", pf));
@@ -104,9 +102,10 @@ public class DatasetServiceTest {
         //arrange
         String pf = "123";
         long datasetId = 123;
+        Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
 
         // act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.<Dataset>empty());
 
         // assert
@@ -123,7 +122,7 @@ public class DatasetServiceTest {
         long datasetId = mockDataset.getId();
 
         // act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
 
         // assert
@@ -144,7 +143,7 @@ public class DatasetServiceTest {
         mockDataset.setDatasetAccessList(datasetAccessList);
 
         //act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
 
         // assert
@@ -168,7 +167,7 @@ public class DatasetServiceTest {
         mockDataset.setDatasetAccessList(datasetAccessList);
 
         //act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
 
         // assert

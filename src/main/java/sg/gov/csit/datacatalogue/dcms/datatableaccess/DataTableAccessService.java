@@ -2,9 +2,9 @@ package sg.gov.csit.datacatalogue.dcms.datatableaccess;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetService;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTableRepository;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTableService;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnService;
@@ -20,11 +20,14 @@ public class DataTableAccessService {
     DataTableService dataTableService;
 
     @Autowired
+    DataTableRepository dataTableRepository;
+
+    @Autowired
     DataTableColumnService dataTableColumnService;
 
     public boolean addOfficerDataTableAccess(String officerPf, String dataTableId) {
         dataTableService.addOfficerDataTableAccess(officerPf, dataTableId);
-        DataTable dataTable = dataTableService.getDataTableById(Long.parseLong(dataTableId)).get();
+        DataTable dataTable = dataTableRepository.findById(Long.parseLong(dataTableId)).get();
 
         // add access rights for parent Dataset
         datasetService.addOfficerDatasetAccess(officerPf, Long.toString(dataTable.getDataset().getId()));
@@ -39,7 +42,7 @@ public class DataTableAccessService {
 
     public boolean removeOfficerDataTableAccess(String officerPf, String dataTableId) {
         dataTableService.removeOfficerDataTableAccess(officerPf, dataTableId);
-        DataTable dataTable = dataTableService.getDataTableById(Long.parseLong(dataTableId)).get();
+        DataTable dataTable = dataTableRepository.findById(Long.parseLong(dataTableId)).get();
 
         // remove access rights for each DataTableColumn
         List<DataTableColumn> dataTableColumnList = dataTable.getDataTableColumnList();

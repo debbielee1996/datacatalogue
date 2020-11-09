@@ -48,11 +48,17 @@ public class Dataset {
     @JsonBackReference
     private Officer officer;
 
+    @NotNull
+    @ManyToMany(mappedBy = "datasetCustodianList", fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Officer> officerCustodianList;
+
     public Dataset(String name, String description, Officer officer) {
         this.name=name;
         this.description=description;
         this.officer=officer;
         this.datasetAccessList=new ArrayList<>();
         this.dataTableList=new ArrayList<>();
+        this.officerCustodianList=new ArrayList<>();
     }
 }

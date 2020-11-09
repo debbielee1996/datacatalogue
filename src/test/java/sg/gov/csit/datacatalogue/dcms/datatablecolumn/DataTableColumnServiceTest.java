@@ -5,17 +5,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
-import sg.gov.csit.datacatalogue.dcms.datatable.mock.DataTableStubFactory;
-import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.mock.DataTableColumnStubFactory;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 import sg.gov.csit.datacatalogue.dcms.exception.DataTableColumnNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.exception.DataTableNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
-import sg.gov.csit.datacatalogue.dcms.officer.OfficerService;
+import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +28,7 @@ public class DataTableColumnServiceTest {
     DataTableColumnRepository dataTableColumnRepository;
 
     @Mock
-    OfficerService officerService;
+    OfficerRepository officerRepository;
 
     @InjectMocks
     DataTableColumnService dataTableColumnService;
@@ -54,9 +49,10 @@ public class DataTableColumnServiceTest {
         //arrange
         String pf = "123";
         long dataTableColumnId = 123;
+        Officer mockOfficer = DataTableColumnStubFactory.MOCK_OFFICER();
 
         // act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.<DataTableColumn>empty());
 
         // assert
@@ -74,7 +70,7 @@ public class DataTableColumnServiceTest {
         long dataTableColumnId = mockDataTableColumn.getId();
 
         // act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
 
         // assert
@@ -96,7 +92,7 @@ public class DataTableColumnServiceTest {
         mockDataTableColumn.setDataTableColumnAccessList(dataTableColumnAccessList);
 
         //act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
 
         // assert
@@ -121,7 +117,7 @@ public class DataTableColumnServiceTest {
         mockDataTableColumn.setDataTableColumnAccessList(dataTableColumnAccessList);
 
         //act
-        doReturn(true).when(officerService).IsOfficerInDatabase(anyString());
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
 
         // assert
