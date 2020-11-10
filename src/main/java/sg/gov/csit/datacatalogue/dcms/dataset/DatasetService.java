@@ -161,7 +161,7 @@ public class DatasetService {
         return true;
     }
 
-    public boolean datasetNameExists(String name) {
+    public boolean datasetNameIsUnique(String name) {
         return datasetRepository.findByName(name)==null;
     }
 }

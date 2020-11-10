@@ -59,4 +59,12 @@ public class DataTableController {
                                             @RequestParam("description") String description) {
         return dataTableService.editDataTableDescription(description, dataTableId);
     }
+
+    @GetMapping("/datatablename-isunique")
+    public boolean dataTableNameIsUnique(@RequestAttribute("txnId") String txnId,
+                                       @RequestAttribute("pf") String pf,
+                                       @RequestParam("dataTableName") String dataTableName,
+                                       @RequestParam("datasetId") long datasetId) {
+        return dataTableService.dataTableNameIsUnique(dataTableName, datasetId);
+    }
 }

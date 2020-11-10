@@ -53,10 +53,10 @@ public class DatasetController {
         return datasetService.addOfficerToCustodianList(custodianPf, datasetId);
     }
 
-    @GetMapping("/datasetname-exists")
-    public boolean datasetNameExists(@RequestAttribute("txnId") String txnId,
+    @GetMapping("/datasetname-isunique")
+    public boolean datasetNameIsUnique(@RequestAttribute("txnId") String txnId,
                                      @RequestAttribute("pf") String pf,
                                      @RequestParam("datasetName") String datasetName) {
-        return datasetService.datasetNameExists(datasetName);
+        return datasetService.datasetNameIsUnique(datasetName);
     }
 }

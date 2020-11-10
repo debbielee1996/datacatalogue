@@ -44,7 +44,7 @@ public class DataTableStubFactory {
         dataTypes.add("Text");
         dataTypes.add("Text");
         dataTypes.add("Date");
-        dataTypes.add("Number");
+        dataTypes.add("Whole number (0 decimal places)");
 
         return dataTypes;
     }
