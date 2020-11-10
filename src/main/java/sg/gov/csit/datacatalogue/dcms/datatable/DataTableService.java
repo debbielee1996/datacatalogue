@@ -125,12 +125,22 @@ public class DataTableService {
         // allow users to choose their own header types. so far only Number/Date/Text
         List<String> headerTypes = new ArrayList<>();
         for (String s: dataTypes) {
-            if (s.equals("Number")) {
-                headerTypes.add(" NUMERIC");
-            } else if (s.equals("Date")) {
-                headerTypes.add(" DATE");
-            } else {
-                headerTypes.add(" varChar(255)");
+            switch(s) {
+                case "Whole number (0 decimal places)":
+                    headerTypes.add(" decimal(18, 0)");
+                    break;
+                case "Number (2 decimal places)":
+                    headerTypes.add(" decimal(18, 2)");
+                    break;
+                case "Number (5 decimal places)":
+                    headerTypes.add(" decimal(18, 5)");
+                    break;
+                case "Date":
+                    headerTypes.add(" DATE");
+                    break;
+                case "Text":
+                    headerTypes.add(" varChar(255)");
+                    break;
             }
         }
 
@@ -271,4 +281,6 @@ public class DataTableService {
         dataTableRepository.save(actualDataTable);
         return true;
     }
+
+    public boolean dataTableNameIsUnique(String dataTableName, Long datasetId) { return dataTableRepository.findByNameAndDatasetId(dataTableName, datasetId)==null; }
 }
