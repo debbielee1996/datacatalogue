@@ -59,7 +59,12 @@ public class DataTableService {
         // get dataset and verify that it exists
         Optional<Dataset> dataset = datasetRepository.findById(Long.parseLong(datasetId));
         if (dataset.isEmpty()) {
-            throw new DatasetExistsException(datasetId);
+            throw new DatasetNotFoundException(Long.parseLong(datasetId));
+        }
+
+        // check if officer is custodian/owner
+        if (!dataset.get().getOfficer().equals(officer.get()) && !dataset.get().getOfficerCustodianList().contains(officer.get())) {
+            throw new DatasetAccessNotFoundException(pf, Long.parseLong(datasetId));
         }
 
         // check if dataTable already exists
