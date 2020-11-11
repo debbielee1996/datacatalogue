@@ -17,8 +17,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class DatasetAccess {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

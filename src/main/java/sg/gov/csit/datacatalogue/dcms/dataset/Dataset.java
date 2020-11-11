@@ -24,8 +24,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Dataset {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank

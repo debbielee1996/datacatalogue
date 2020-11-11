@@ -31,10 +31,6 @@ public class DatasetAccessService {
     @Autowired
     DataTableColumnService dataTableColumnService;
 
-    public boolean IsDatasetInDatabase(long id){
-        return datasetAccessRepository.findById(id).isPresent();
-    }
-
     public boolean addOfficerDatasetAccess(String officerPf, String datasetId) {
         datasetService.addOfficerDatasetAccess(officerPf, datasetId);
         Dataset dataset = datasetRepository.findById(Long.parseLong(datasetId)).get();

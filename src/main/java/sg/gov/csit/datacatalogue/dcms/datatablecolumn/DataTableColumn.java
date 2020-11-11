@@ -20,8 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class DataTableColumn {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
@@ -40,7 +39,6 @@ public class DataTableColumn {
     @JsonBackReference
     private DataTable dataTable;
 
-    @NotNull
     @OneToMany(mappedBy = "dataTableColumn", fetch = FetchType.LAZY,  orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DataTableColumnAccess> dataTableColumnAccessList;

@@ -24,8 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DataTable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
 
     @NotBlank

@@ -16,8 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class DataTableColumnAccess {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

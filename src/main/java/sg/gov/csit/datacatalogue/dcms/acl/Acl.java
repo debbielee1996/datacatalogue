@@ -15,8 +15,7 @@ import javax.persistence.*;
 @Setter
 public class Acl {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long aclId;
 
     @OneToOne(mappedBy = "acl",fetch = FetchType.LAZY)
