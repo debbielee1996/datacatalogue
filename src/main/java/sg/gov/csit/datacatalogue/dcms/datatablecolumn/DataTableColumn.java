@@ -47,14 +47,20 @@ public class DataTableColumn {
         this.dataTableColumnAccessList=new ArrayList<>();
 
         switch(dtcType) {
-            case "Number":
-                this.type=DataTableColumnTypeEnum.Number;
+            case "Whole number (0 decimal places)":
+                this.type=DataTableColumnTypeEnum.Number_0dp;
                 break;
-            case "Text":
-                this.type=DataTableColumnTypeEnum.Text;
+            case "Number (2 decimal places)":
+                this.type=DataTableColumnTypeEnum.Number_2dp;
+                break;
+            case "Number (5 decimal places)":
+                this.type=DataTableColumnTypeEnum.Number_5dp;
                 break;
             case "Date":
                 this.type=DataTableColumnTypeEnum.Date;
+                break;
+            case "Text":
+                this.type=DataTableColumnTypeEnum.Text;
                 break;
         }
     }

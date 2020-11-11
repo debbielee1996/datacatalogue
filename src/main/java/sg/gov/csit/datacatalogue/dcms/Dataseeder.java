@@ -197,25 +197,25 @@ public class Dataseeder {
         dataTableColumnRepository.save(table2dtc1);
         dataTableColumnRepository.save(table2dtc2);
 
-        DataTableColumn table3dtc1 = new DataTableColumn("officer_id", "", "Number", dataTable3);
+        DataTableColumn table3dtc1 = new DataTableColumn("officer_id", "", "Whole number (0 decimal places)", dataTable3);
         DataTableColumn table3dtc2 = new DataTableColumn("name", "", "Text", dataTable3);
         DataTableColumn table3dtc3 = new DataTableColumn("dob", "", "Date", dataTable3);
-        DataTableColumn table3dtc4 = new DataTableColumn("salary", "", "Number", dataTable3);
+        DataTableColumn table3dtc4 = new DataTableColumn("salary", "", "Number (2 decimal places)", dataTable3);
         dataTableColumnRepository.save(table3dtc1);
         dataTableColumnRepository.save(table3dtc2);
         dataTableColumnRepository.save(table3dtc3);
         dataTableColumnRepository.save(table3dtc4);
 
-        DataTableColumn table4dtc1 = new DataTableColumn("officer_id", "", "Number", dataTable4);
+        DataTableColumn table4dtc1 = new DataTableColumn("officer_id", "", "Whole number (0 decimal places)", dataTable4);
         DataTableColumn table4dtc2 = new DataTableColumn("item", "", "Text", dataTable4);
         DataTableColumn table4dtc3 = new DataTableColumn("expense_date", "", "Date", dataTable4);
-        DataTableColumn table4dtc4 = new DataTableColumn("amount", "", "Number", dataTable4);
+        DataTableColumn table4dtc4 = new DataTableColumn("amount", "", "Number (2 decimal places)", dataTable4);
         dataTableColumnRepository.save(table4dtc1);
         dataTableColumnRepository.save(table4dtc2);
         dataTableColumnRepository.save(table4dtc3);
         dataTableColumnRepository.save(table4dtc4);
 
-        DataTableColumn table5dtc1 = new DataTableColumn("operation_num", "", "Number", dataTable5);
+        DataTableColumn table5dtc1 = new DataTableColumn("operation_num", "", "Whole number (0 decimal places)", dataTable5);
         DataTableColumn table5dtc2 = new DataTableColumn("alias", "", "Text", dataTable5);
         DataTableColumn table5dtc3 = new DataTableColumn("op_date", "", "Date", dataTable5);
         dataTableColumnRepository.save(table5dtc1);
@@ -224,7 +224,7 @@ public class Dataseeder {
 
         DataTableColumn table6dtc1 = new DataTableColumn("name", "", "Text", dataTable6);
         DataTableColumn table6dtc2 = new DataTableColumn("bod", "", "Date", dataTable6);
-        DataTableColumn table6dtc3 = new DataTableColumn("amount", "", "Number", dataTable6);
+        DataTableColumn table6dtc3 = new DataTableColumn("amount", "", "Number (2 decimal places)", dataTable6);
         dataTableColumnRepository.save(table6dtc1);
         dataTableColumnRepository.save(table6dtc2);
         dataTableColumnRepository.save(table6dtc3);
