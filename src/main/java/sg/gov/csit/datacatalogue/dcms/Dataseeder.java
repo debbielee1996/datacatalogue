@@ -185,46 +185,46 @@ public class Dataseeder {
         DataTable dataTable5 = dataTableRepository.getOne(dataTableIdList.get(4));
         DataTable dataTable6 = dataTableRepository.getOne(dataTableIdList.get(5));
 
-        DataTableColumn table1dtc1 = new DataTableColumn("furniture", "", "Text", dataTable1);
-        DataTableColumn table1dtc2 = new DataTableColumn("purchaser", "", "Text", dataTable1);
-        DataTableColumn table1dtc3 = new DataTableColumn("purchase_date", "", "Date", dataTable1);
+        DataTableColumn table1dtc1 = new DataTableColumn("furniture", "table1dtc1", "Text", dataTable1);
+        DataTableColumn table1dtc2 = new DataTableColumn("purchaser", "table1dtc2", "Text", dataTable1);
+        DataTableColumn table1dtc3 = new DataTableColumn("purchase_date", "table1dtc3", "Date", dataTable1);
         dataTableColumnRepository.save(table1dtc1);
         dataTableColumnRepository.save(table1dtc2);
         dataTableColumnRepository.save(table1dtc3);
 
-        DataTableColumn table2dtc1 = new DataTableColumn("planner", "", "Text", dataTable2);
-        DataTableColumn table2dtc2 = new DataTableColumn("outing_date", "", "Date", dataTable2);
+        DataTableColumn table2dtc1 = new DataTableColumn("planner", "table2dtc1", "Text", dataTable2);
+        DataTableColumn table2dtc2 = new DataTableColumn("outing_date", "table2dtc2", "Date", dataTable2);
         dataTableColumnRepository.save(table2dtc1);
         dataTableColumnRepository.save(table2dtc2);
 
-        DataTableColumn table3dtc1 = new DataTableColumn("officer_id", "", "Whole number (0 decimal places)", dataTable3);
-        DataTableColumn table3dtc2 = new DataTableColumn("name", "", "Text", dataTable3);
-        DataTableColumn table3dtc3 = new DataTableColumn("dob", "", "Date", dataTable3);
-        DataTableColumn table3dtc4 = new DataTableColumn("salary", "", "Number (2 decimal places)", dataTable3);
+        DataTableColumn table3dtc1 = new DataTableColumn("officer_id", "table3dtc1", "Whole number (0 decimal places)", dataTable3);
+        DataTableColumn table3dtc2 = new DataTableColumn("name", "table3dtc2", "Text", dataTable3);
+        DataTableColumn table3dtc3 = new DataTableColumn("dob", "table3dtc3", "Date", dataTable3);
+        DataTableColumn table3dtc4 = new DataTableColumn("salary", "table3dtc4", "Number (2 decimal places)", dataTable3);
         dataTableColumnRepository.save(table3dtc1);
         dataTableColumnRepository.save(table3dtc2);
         dataTableColumnRepository.save(table3dtc3);
         dataTableColumnRepository.save(table3dtc4);
 
-        DataTableColumn table4dtc1 = new DataTableColumn("officer_id", "", "Whole number (0 decimal places)", dataTable4);
-        DataTableColumn table4dtc2 = new DataTableColumn("item", "", "Text", dataTable4);
-        DataTableColumn table4dtc3 = new DataTableColumn("expense_date", "", "Date", dataTable4);
-        DataTableColumn table4dtc4 = new DataTableColumn("amount", "", "Number (2 decimal places)", dataTable4);
+        DataTableColumn table4dtc1 = new DataTableColumn("officer_id", "table4dtc1", "Whole number (0 decimal places)", dataTable4);
+        DataTableColumn table4dtc2 = new DataTableColumn("item", "table4dtc2", "Text", dataTable4);
+        DataTableColumn table4dtc3 = new DataTableColumn("expense_date", "table4dtc3", "Date", dataTable4);
+        DataTableColumn table4dtc4 = new DataTableColumn("amount", "table4dtc4", "Number (2 decimal places)", dataTable4);
         dataTableColumnRepository.save(table4dtc1);
         dataTableColumnRepository.save(table4dtc2);
         dataTableColumnRepository.save(table4dtc3);
         dataTableColumnRepository.save(table4dtc4);
 
-        DataTableColumn table5dtc1 = new DataTableColumn("operation_num", "", "Whole number (0 decimal places)", dataTable5);
-        DataTableColumn table5dtc2 = new DataTableColumn("alias", "", "Text", dataTable5);
-        DataTableColumn table5dtc3 = new DataTableColumn("op_date", "", "Date", dataTable5);
+        DataTableColumn table5dtc1 = new DataTableColumn("operation_num", "table5dtc1", "Whole number (0 decimal places)", dataTable5);
+        DataTableColumn table5dtc2 = new DataTableColumn("alias", "table5dtc2", "Text", dataTable5);
+        DataTableColumn table5dtc3 = new DataTableColumn("op_date", "table5dtc3", "Date", dataTable5);
         dataTableColumnRepository.save(table5dtc1);
         dataTableColumnRepository.save(table5dtc2);
         dataTableColumnRepository.save(table5dtc3);
 
-        DataTableColumn table6dtc1 = new DataTableColumn("name", "", "Text", dataTable6);
-        DataTableColumn table6dtc2 = new DataTableColumn("bod", "", "Date", dataTable6);
-        DataTableColumn table6dtc3 = new DataTableColumn("amount", "", "Number (2 decimal places)", dataTable6);
+        DataTableColumn table6dtc1 = new DataTableColumn("name", "table6dtc1", "Text", dataTable6);
+        DataTableColumn table6dtc2 = new DataTableColumn("bod", "table6dtc2", "Date", dataTable6);
+        DataTableColumn table6dtc3 = new DataTableColumn("amount", "table6dtc3", "Number (2 decimal places)", dataTable6);
         dataTableColumnRepository.save(table6dtc1);
         dataTableColumnRepository.save(table6dtc2);
         dataTableColumnRepository.save(table6dtc3);

@@ -10,6 +10,7 @@ import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccessTypeEnum;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -18,7 +19,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class DataTableAccess {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
 
     @NotNull
@@ -31,9 +33,10 @@ public class DataTableAccess {
     @Enumerated(EnumType.STRING)
     private DataTableAccessTypeEnum type;
 
+    @NotBlank
     private String value;
 
-    public DataTableAccess(@NotNull DataTable dataTable, @NotNull String daType, @NotNull String dtaValue) {
+    public DataTableAccess(DataTable dataTable, String daType, String dtaValue) {
         this.dataTable=dataTable;
         this.value=dtaValue;
 

@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,7 +16,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class DataTableColumnAccess {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
 
     @NotNull
@@ -29,9 +30,10 @@ public class DataTableColumnAccess {
     @Enumerated(EnumType.STRING)
     private DataTableColumnAccessTypeEnum type;
 
+    @NotBlank
     private String value;
 
-    public DataTableColumnAccess(@NotNull DataTableColumn dataTableColumn, @NotNull String dtcaType, @NotNull String dtcaValue) {
+    public DataTableColumnAccess(DataTableColumn dataTableColumn, String dtcaType, String dtcaValue) {
         this.dataTableColumn=dataTableColumn;
         this.value=dtcaValue;
 

@@ -2,11 +2,8 @@ package sg.gov.csit.datacatalogue.dcms.acl;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.validation.constraints.NotNull;
-
 import lombok.*;
-import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
-
 import javax.persistence.*;
 
 
@@ -31,7 +28,7 @@ public class Acl {
     @NotNull
     private AclRoleEnum aclRoleEnum;
 
-    public Acl(@NotNull Officer officer, @NotNull String aclValue) {
+    public Acl(Officer officer, String aclValue) {
         this.officer=officer;
 
         switch(aclValue) {

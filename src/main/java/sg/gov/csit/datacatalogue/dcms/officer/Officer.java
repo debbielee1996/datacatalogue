@@ -9,6 +9,7 @@ import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,16 +24,16 @@ import java.util.Set;
 @Setter
 public class Officer {
     @Id
-    @NotNull
+    @NotBlank
     private String pf;
 
-    @NotNull
+    @NotBlank
     private String name;
 
-    @NotNull
+    @NotBlank
     private String email;
 
-    @NotNull
+    @NotBlank
     private String password;
 
     @NotNull
@@ -60,7 +61,7 @@ public class Officer {
     @JsonManagedReference
     private Set<Dataset> datasetCustodianList; // Hashset because of this https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa/
 
-    public Officer(@NotNull String pf, @NotNull String name, @NotNull String email, @NotNull String password, @NotNull String aclValue) {
+    public Officer(String pf, String name, String email, String password, String aclValue) {
         this.pf=pf;
         this.name=name;
         this.email=email;

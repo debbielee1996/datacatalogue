@@ -8,6 +8,7 @@ import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +20,18 @@ import java.util.List;
 @NoArgsConstructor
 public class DataTableColumn {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Long id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
+    @NotBlank
     private String description;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private DataTableColumnTypeEnum type;
 
     @NotNull
@@ -36,11 +40,12 @@ public class DataTableColumn {
     @JsonBackReference
     private DataTable dataTable;
 
+    @NotNull
     @OneToMany(mappedBy = "dataTableColumn", fetch = FetchType.LAZY,  orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DataTableColumnAccess> dataTableColumnAccessList;
 
-    public DataTableColumn(@NotNull String name, @NotNull String description, @NotNull String dtcType, @NotNull DataTable dataTable) {
+    public DataTableColumn(String name, String description, String dtcType, DataTable dataTable) {
         this.name=name;
         this.description=description;
         this.dataTable=dataTable;

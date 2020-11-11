@@ -1,16 +1,13 @@
 package sg.gov.csit.datacatalogue.dcms.datasetaccess;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
-import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 
 import javax.persistence.*;
 
@@ -20,7 +17,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class DatasetAccess {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @NotNull
     private Long id;
 
     @NotNull
@@ -33,9 +31,10 @@ public class DatasetAccess {
     @Enumerated(EnumType.STRING)
     private DatasetAccessTypeEnum type;
 
+    @NotBlank
     private String value;
 
-    public DatasetAccess(@NotNull Dataset dataset, @NotNull String daType, @NotNull String daValue) {
+    public DatasetAccess(Dataset dataset, String daType, String daValue) {
         this.dataset=dataset;
         this.value=daValue;
 
