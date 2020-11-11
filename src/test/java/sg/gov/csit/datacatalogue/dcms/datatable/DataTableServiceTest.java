@@ -101,7 +101,7 @@ public class DataTableServiceTest {
         doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
 
         // assert
-        Assertions.assertThrows(DatasetExistsException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
+        Assertions.assertThrows(DatasetNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
     }
 
     @Test
