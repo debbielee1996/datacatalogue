@@ -7,6 +7,4 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class OfficerService {
-    @Autowired
-    private final OfficerRepository officerRepository;
 }

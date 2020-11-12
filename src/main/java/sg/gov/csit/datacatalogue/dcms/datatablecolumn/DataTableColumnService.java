@@ -81,10 +81,6 @@ public class DataTableColumnService {
         }
     }
 
-    public Optional<DataTableColumn> getDataTableColumnById(long dataTableColumnId) {
-        return dataTableColumnRepository.findById(dataTableColumnId);
-    }
-
     public boolean removeOfficerDataTableColumnAccess(String officerPf, String dataTableColumnId) {
         Optional<DataTableColumn> dataTableColumn = dataTableColumnRepository.findById(Long.parseLong(dataTableColumnId));
         if(dataTableColumn.isPresent()) {

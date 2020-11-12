@@ -256,10 +256,6 @@ public class DataTableService {
         }
     }
 
-    public Optional<DataTable> getDataTableById(long dataTableId) {
-        return dataTableRepository.findById(dataTableId);
-    }
-
     public boolean removeOfficerDataTableAccess(String officerPf, String dataTableId) {
         Optional<DataTable> dataTable = dataTableRepository.findById(Long.parseLong(dataTableId));
         if(dataTable.isPresent()) {
