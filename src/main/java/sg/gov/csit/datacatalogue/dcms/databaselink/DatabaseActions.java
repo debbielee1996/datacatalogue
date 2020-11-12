@@ -85,7 +85,7 @@ public class DatabaseActions {
                 insert.executeUpdate();
             } catch (SQLException e) {
                 // row number i caused the error
-                // can iterate each column casting
+                // iterate each column casting
                 int problematicColumnNum = -1;
                 String problematicColumnName = "";
                 try {
@@ -95,7 +95,7 @@ public class DatabaseActions {
                         insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerList.get(j) +  ")" + " VALUES" + "('" + subRecordList.get(j) + "')");
                         insert.execute();
                     }
-                } catch (SQLException ee) {
+                } catch (SQLException ee) { // do nothing. let main try catch handle
                 }
                 throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
             }
