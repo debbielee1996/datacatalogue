@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DatabaseActions {
     public Connection getConnection() {
@@ -56,7 +55,7 @@ public class DatabaseActions {
         create.executeUpdate();
 
         // insert values to table
-        boolean insert = insertValuesToTable(tableName, headerList, records, datasetName);
+        boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes);
         if (insert) {
             System.out.println("Table creation function completed");
             return true;
@@ -66,7 +65,7 @@ public class DatabaseActions {
 
     }
 
-    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName) throws SQLException {
+    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes) throws SQLException {
         Connection conn = getConnection();
         //create a string of the headers for the preparedStatement - comma separated
         String headerListCommaSeparated = String.join(",", headerList);
@@ -81,8 +80,25 @@ public class DatabaseActions {
                     .map(name -> ("'" + name + "'")) // add double quotes to all strings for insert statement
                     .collect(Collectors.toList())
             );
-            insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
-            insert.executeUpdate();
+            try {
+                insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
+                insert.executeUpdate();
+            } catch (SQLException e) {
+                // row number i caused the error
+                // can iterate each column casting
+                int problematicColumnNum = -1;
+                String problematicColumnName = "";
+                try {
+                    for (int j=0; j<headerTypes.size();j++) { // iterate current row and identify the column giving issue
+                        problematicColumnNum=j+1;
+                        problematicColumnName=headerList.get(j);
+                        insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerList.get(j) +  ")" + " VALUES" + "('" + subRecordList.get(j) + "')");
+                        insert.execute();
+                    }
+                } catch (SQLException ee) {
+                }
+                throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
+            }
         }
         System.out.println("Inserting of values completed");
         return true;

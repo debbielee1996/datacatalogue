@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,10 +22,8 @@ public class DataTableController {
                              @RequestParam("datasetId") String datasetId,
                              @RequestParam("description") String description,
                              @RequestParam("dataTypes") List<String> dataTypes,
-                             @RequestParam("dataColDescriptions") List<String> dataColDescriptions
-//                              @RequestParam("pf") String pf
-    ) throws IOException, CsvException, SQLException {
-        String pf = "1001"; // hard code for now
+                             @RequestParam("dataColDescriptions") List<String> dataColDescriptions,
+                              @RequestAttribute("pf") String pf) throws IOException, CsvException, SQLException {
         return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDescriptions);
     }
 
