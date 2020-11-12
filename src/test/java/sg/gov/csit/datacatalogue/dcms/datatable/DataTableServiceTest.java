@@ -105,6 +105,25 @@ public class DataTableServiceTest {
     }
 
     @Test
+    public void uploadFile_GivenOfficerNotCustodianOrOwner_ShouldThrowException() {
+        // arrange
+        MultipartFile file = null;
+        String tableName = "mock";
+        String datasetId = "1";
+        String description = "This is a mock datatable";
+        String pf = "456";
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER2();
+        Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
+
+        // act
+        doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(dataset));
+
+        // assert
+        Assertions.assertThrows(DatasetAccessNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
+    }
+
+    @Test
     public void uploadFile_GivenDatasetInDbAndFileExtIsNotCSVOrExcel_ShouldThrowException() throws IOException {
         // arrange
         // arrange mock .pdf file
@@ -115,10 +134,11 @@ public class DataTableServiceTest {
         String description = "This is a mock datatable";
         String pf = "123";
         Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
+        Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
-        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(new Dataset()));
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(dataset));
         when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
 
         // assert

@@ -63,7 +63,8 @@ public class DataTableService {
         }
 
         // check if officer is custodian/owner
-        if (!dataset.get().getOfficer().equals(officer.get()) && !dataset.get().getOfficerCustodianList().contains(officer.get())) {
+        if (!dataset.get().getOfficer().getPf().equals(officer.get().getPf()) && // check ownership
+                (dataset.get().getOfficerCustodianList().stream().filter(custodianOfficer -> custodianOfficer.getPf().equals(officer.get().getPf())).count()==0)) { // check custodianship
             throw new DatasetAccessNotFoundException(pf, Long.parseLong(datasetId));
         }
 
@@ -74,7 +75,6 @@ public class DataTableService {
         if (dataTable == null) { // dataTable hasn't existed yet
             dataTableExists = false;
         }
-
         // verify table
         List<String> headerList = new ArrayList<>();
         List<List<String>> stringRecords = new ArrayList<>();
@@ -148,7 +148,6 @@ public class DataTableService {
                     break;
             }
         }
-
         // create table and insert values
         DatabaseActions databaseActions = new DatabaseActions();
         boolean hasCreatedDatatable = databaseActions.createDatatable(tableName, headerList, headerTypes, stringRecords, dataset.get().getName(), dataTableExists);
