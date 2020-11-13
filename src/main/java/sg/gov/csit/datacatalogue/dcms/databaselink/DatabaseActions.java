@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,6 @@ public class DatabaseActions {
     public Connection getConnection() {
         try {
             Connection conn = null;
-            Class.forName(GetBean.currentDataBaseDriver);
             conn = DriverManager.getConnection(GetBean.currentDataBaseUrl, GetBean.userName, GetBean.password);
 
             System.out.println("Connected");
@@ -88,11 +88,12 @@ public class DatabaseActions {
                 // iterate each column casting
                 int problematicColumnNum = -1;
                 String problematicColumnName = "";
+                subRecordList= Arrays.asList(subRecords.split(",")); // subRecords has every cell appended with '' and escaped '
                 try {
                     for (int j=0; j<headerTypes.size();j++) { // iterate current row and identify the column giving issue
                         problematicColumnNum=j+1;
                         problematicColumnName=headerList.get(j);
-                        insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerList.get(j) +  ")" + " VALUES" + "('" + subRecordList.get(j) + "')");
+                        insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerList.get(j) +  ")" + " VALUES" + "(" + subRecordList.get(j) + ")");
                         insert.execute();
                     }
                 } catch (SQLException ee) { // do nothing. let main try catch handle

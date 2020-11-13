@@ -3,8 +3,6 @@ package sg.gov.csit.datacatalogue.dcms.dataset;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sg.gov.csit.datacatalogue.dcms.datatable.DataTableDto;
-
 import java.util.List;
 
 @RestController
