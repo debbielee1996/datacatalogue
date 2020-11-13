@@ -12,6 +12,7 @@ public class DatabaseActions {
     public Connection getConnection() {
         try {
             Connection conn = null;
+            Class.forName(GetBean.currentDataBaseDriver);
             conn = DriverManager.getConnection(GetBean.currentDataBaseUrl, GetBean.userName, GetBean.password);
 
             System.out.println("Connected");

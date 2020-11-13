@@ -1,11 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.dataset.mock;
 
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
-import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DatasetStubFactory {
     public static Officer MOCK_OFFICER() {
