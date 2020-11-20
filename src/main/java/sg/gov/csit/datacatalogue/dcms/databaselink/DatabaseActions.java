@@ -40,14 +40,12 @@ public class DatabaseActions {
     }
 
     public boolean createDatatable(String tableName, List<String> headerList, List<String> headerTypes, List<List<String>> records, String datasetName, boolean dataTableExists) throws SQLException {
-        Connection conn = null;
-        conn = getConnection();
+        Connection conn = getConnection();
         String tableString = createTableString(headerList, headerTypes);
 
         // drop table if it exists (this is for table updates)
         if (dataTableExists) {
-            PreparedStatement drop = null;
-            drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
+            PreparedStatement drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
             drop.executeUpdate();
         }
         System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
