@@ -4,11 +4,14 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.exception.DataTableColumnNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
 import java.util.List;
@@ -95,12 +98,28 @@ public class DataTableColumnService {
         }
     }
 
-    public boolean editDataTableColumnDescription(String description, long dataTableColumnId) {
+    public boolean editDataTableColumnDescription(String description, long dataTableColumnId, String pf) {
+        // verify if datatablecolumn exists
         Optional<DataTableColumn> dataTableColumn = dataTableColumnRepository.findById(dataTableColumnId);
         if (dataTableColumn.isEmpty()) {
             throw new DataTableColumnNotFoundException(dataTableColumnId);
         }
+
+        // verify officer exists
+        Optional<Officer> officer = officerRepository.findByPf(pf);
+        if (officer.isEmpty()) {
+            throw new OfficerNotFoundException(pf);
+        }
+
         DataTableColumn actualDataTableColumn = dataTableColumn.get();
+        Dataset dataset = actualDataTableColumn.getDataTable().getDataset(); // get parent dataset
+
+        // verify if officer is custodian/owner
+        if (!dataset.getOfficer().getPf().equals(officer.get().getPf()) && // check ownership
+                (dataset.getOfficerCustodianList().stream().filter(custodianOfficer -> custodianOfficer.getPf().equals(officer.get().getPf())).count()==0)) { // check custodianship
+            throw new DatasetAccessNotFoundException(pf, dataset.getId());
+        }
+
         actualDataTableColumn.setDescription(description);
         dataTableColumnRepository.save(actualDataTableColumn);
         return true;

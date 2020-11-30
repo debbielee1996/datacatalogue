@@ -270,13 +270,29 @@ public class DataTableService {
         }
     }
 
-    public boolean editDataTableDescription(String description, Long dataTableId) {
+    public boolean editDataTableDescription(String description, Long dataTableId, String pf) {
+        // verify datatable exists
         Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
         System.out.println(dataTable.isEmpty());
         if (dataTable.isEmpty()) {
             throw new DataTableNotFoundException(dataTableId);
         }
+
+        // verify officer exists
+        Optional<Officer> officer = officerRepository.findByPf(pf);
+        if (officer.isEmpty()) {
+            throw new OfficerNotFoundException(pf);
+        }
+
         DataTable actualDataTable = dataTable.get();
+        Dataset dataset = actualDataTable.getDataset(); // get parent dataset
+
+        // verify if officer is custodian/owner
+        if (!dataset.getOfficer().getPf().equals(officer.get().getPf()) && // check ownership
+                (dataset.getOfficerCustodianList().stream().filter(custodianOfficer -> custodianOfficer.getPf().equals(officer.get().getPf())).count()==0)) { // check custodianship
+            throw new DatasetAccessNotFoundException(pf, dataset.getId());
+        }
+
         actualDataTable.setDescription(description);
         dataTableRepository.save(actualDataTable);
         return true;

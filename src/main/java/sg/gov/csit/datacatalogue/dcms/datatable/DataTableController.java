@@ -56,7 +56,7 @@ public class DataTableController {
                                             @RequestAttribute("pf") String pf,
                                             @RequestParam("dataTableId") long dataTableId,
                                             @RequestParam("description") String description) {
-        return dataTableService.editDataTableDescription(description, dataTableId);
+        return dataTableService.editDataTableDescription(description, dataTableId, pf);
     }
 
     @GetMapping("/datatablename-isunique")

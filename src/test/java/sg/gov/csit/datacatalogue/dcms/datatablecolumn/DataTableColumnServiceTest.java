@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.mock.DataTableColumnStubFactory;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 import sg.gov.csit.datacatalogue.dcms.exception.DataTableColumnNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.exception.DatasetAccessNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
@@ -208,11 +209,11 @@ public class DataTableColumnServiceTest {
     @Test
     public void editDataTableColumnDescription_DataTableColumnDoesNotExist_ShouldThrowException() {
         // assert
-        assertThrows(DataTableColumnNotFoundException.class, () -> dataTableColumnService.editDataTableColumnDescription("mock", anyLong()));
+        assertThrows(DataTableColumnNotFoundException.class, () -> dataTableColumnService.editDataTableColumnDescription("mock", anyLong(), "123"));
     }
 
     @Test
-    public void editDataTableColumnDescription_DataTableColumnExist_ShouldReturnTrue() {
+    public void editDataTableColumnDescription_OfficerDoesNotExist_ShouldThrowException() {
         // arrange
         DataTableColumn mockDataTableColumn = DataTableColumnStubFactory.MOCK_DATATABLECOLUMN_NOACCESSLIST();
 
@@ -220,6 +221,52 @@ public class DataTableColumnServiceTest {
         when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
 
         // assert
-        assertTrue(() -> dataTableColumnService.editDataTableColumnDescription("mock", Long.parseLong("123")));
+        assertThrows(OfficerNotFoundException.class, () -> dataTableColumnService.editDataTableColumnDescription("mock", anyLong(), "123"));
+    }
+
+    @Test
+    public void editDataTableColumnDescription_OfficerNotCustodianOrOwner_ShouldThrowException() {
+        // arrange
+        DataTableColumn mockDataTableColumn = DataTableColumnStubFactory.MOCK_DATATABLECOLUMN_NOACCESSLIST();
+        Officer mockOfficer2 = DataTableColumnStubFactory.MOCK_OFFICER2();
+
+        // act
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+        when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
+
+        // assert
+        assertThrows(DatasetAccessNotFoundException.class, () -> dataTableColumnService.editDataTableColumnDescription("mock", Long.parseLong("123"), "456"));
+    }
+
+    @Test
+    public void editDataTableColumnDescription_DataTableColumnExistAndOfficerIsOwner_ShouldReturnTrue() {
+        // arrange
+        DataTableColumn mockDataTableColumn = DataTableColumnStubFactory.MOCK_DATATABLECOLUMN_NOACCESSLIST();
+        Officer mockOfficer = DataTableColumnStubFactory.MOCK_OFFICER();
+
+        // act
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer));
+        when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
+
+        // assert
+        assertTrue(() -> dataTableColumnService.editDataTableColumnDescription("mock", Long.parseLong("123"), "123"));
+    }
+
+    @Test
+    public void editDataTableColumnDescription_DataTableColumnExistAndOfficerIsCustodian_ShouldReturnTrue() {
+        // arrange
+        DataTableColumn mockDataTableColumn = DataTableColumnStubFactory.MOCK_DATATABLECOLUMN_NOACCESSLIST();
+        Officer mockOfficer2 = DataTableColumnStubFactory.MOCK_OFFICER2();
+        mockDataTableColumn.getDataTable().getDataset().getOfficerCustodianList().add(mockOfficer2); // add mockOfficer2 temporarily as custodian
+
+        // act
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+        when(dataTableColumnRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTableColumn));
+
+        // assert
+        assertTrue(() -> dataTableColumnService.editDataTableColumnDescription("mock", Long.parseLong("123"), "456"));
+
+        // empty custodian list
+        mockDataTableColumn.getDataTable().getDataset().getOfficerCustodianList().remove(mockOfficer2);
     }
 }

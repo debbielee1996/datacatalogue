@@ -29,6 +29,6 @@ public class DataTableColumnController {
                                             @RequestAttribute("pf") String pf,
                                             @RequestParam("dataTableColumnId") long dataTableColumnId,
                                             @RequestParam("description") String description) {
-        return dataTableColumnService.editDataTableColumnDescription(description, dataTableColumnId);
+        return dataTableColumnService.editDataTableColumnDescription(description, dataTableColumnId, pf);
     }
 }

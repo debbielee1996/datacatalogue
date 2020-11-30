@@ -475,11 +475,11 @@ public class DataTableServiceTest {
     @Test
     public void editDataTableDescription_DataTableDoesNotExist_ShouldThrowException() {
         // assert
-        assertThrows(DataTableNotFoundException.class, () -> dataTableService.editDataTableDescription("mock", anyLong()));
+        assertThrows(DataTableNotFoundException.class, () -> dataTableService.editDataTableDescription("mock", anyLong(), "123"));
     }
 
     @Test
-    public void editDataTableDescription_DataTableExist_ShouldReturnTrue() {
+    public void editDataTableDescription_OfficerDoesNotExist_ShouldThrowException() {
         // arrange
         DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
 
@@ -487,7 +487,53 @@ public class DataTableServiceTest {
         when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
 
         // assert
-        assertTrue(() -> dataTableService.editDataTableDescription("mock", Long.parseLong("123")));
+        assertThrows(OfficerNotFoundException.class, () -> dataTableService.editDataTableDescription("mock", anyLong(), "123"));
+    }
+
+    @Test
+    public void editDataTableDescription_OfficerNotCustodianOrOwner_ShouldThrowException() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        Officer mockOfficer2 = DataTableStubFactory.MOCK_OFFICER2();
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+
+        // assert
+        assertThrows(DatasetAccessNotFoundException.class, () -> dataTableService.editDataTableDescription("mock", Long.parseLong("123"), "456"));
+    }
+
+    @Test
+    public void editDataTableDescription_DataTableExistAndOfficerIsOwner_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer));
+
+        // assert
+        assertTrue(() -> dataTableService.editDataTableDescription("mock", Long.parseLong("123"), "123"));
+    }
+
+    @Test
+    public void editDataTableDescription_DataTableExistAndOfficerIsCustodian_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        Officer mockOfficer2 = DataTableStubFactory.MOCK_OFFICER2();
+        mockDataTable.getDataset().getOfficerCustodianList().add(mockOfficer2); // add mockOfficer2 temporarily as custodian
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+
+        // assert
+        assertTrue(() -> dataTableService.editDataTableDescription("mock", Long.parseLong("123"), "456"));
+
+        // empty custodian list
+        mockDataTable.getDataset().getOfficerCustodianList().remove(mockOfficer2);
     }
 
     // clean up db with new datatables (tables) created
