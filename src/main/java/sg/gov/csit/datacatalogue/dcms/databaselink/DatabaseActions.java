@@ -32,10 +32,12 @@ public class DatabaseActions {
             ps.execute();
             return true;
         } catch (Exception e) {
+            return false;
+        } finally {
             if(conn != null) {
                 conn.close();
             }
-            return false;
+            System.out.println("Closed connection for creating dataset");
         }
     }
 
@@ -43,15 +45,21 @@ public class DatabaseActions {
         Connection conn = getConnection();
         String tableString = createTableString(headerList, headerTypes);
 
-        // drop table if it exists (this is for table updates)
-        if (dataTableExists) {
-            PreparedStatement drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
-            drop.executeUpdate();
+        try {
+            // drop table if it exists (this is for table updates)
+            if (dataTableExists) {
+                PreparedStatement drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
+                drop.executeUpdate();
+            }
+            System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+            // create table for insertion
+            PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+            create.executeUpdate();
+        } finally {
+            if(conn != null) {
+                conn.close();
+            }
         }
-        System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
-        // create table for insertion
-        PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
-        create.executeUpdate();
 
         // insert values to table
         boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes);
@@ -96,10 +104,20 @@ public class DatabaseActions {
                         insert.execute();
                     }
                 } catch (SQLException ee) { // do nothing. let main try catch handle
+                } finally {
+                    if(conn != null) {
+                        conn.close();
+                    }
+                    System.out.println("Closed connection for creating dataset");
                 }
                 throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
             }
         }
+
+        if(conn != null) {
+            conn.close();
+        }
+        System.out.println("Closed connection for creating dataset");
         System.out.println("Inserting of values completed");
         return true;
     }
