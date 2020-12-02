@@ -61,6 +61,7 @@ public class DataTableServiceTest {
         GetBean.currentDataBaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=false";
         GetBean.userName = "sa";
         GetBean.password = "Password1";
+        GetBean.maximumPoolSize = 10;
 
         DatabaseActions dba = new DatabaseActions();
         Connection conn = dba.getConnection();

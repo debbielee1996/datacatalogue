@@ -1,7 +1,10 @@
 package sg.gov.csit.datacatalogue.dcms.databaselink;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -9,12 +12,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DatabaseActions {
+    private static DataSource dataSource;
+
+    public static DataSource getDataSource() { // https://examples.javacodegeeks.com/enterprise-java/hikaricp/hikaricp-connection-pooling-example/
+        if(dataSource == null)
+        {
+            HikariConfig config = new HikariConfig();
+
+            config.setJdbcUrl(GetBean.currentDataBaseUrl);
+            config.setUsername(GetBean.userName);
+            config.setPassword(GetBean.password);
+
+            config.setMaximumPoolSize(GetBean.maximumPoolSize);
+
+            dataSource = new HikariDataSource(config);
+        }
+        return dataSource;
+    }
+
     public Connection getConnection() {
         try {
-            Connection conn = null;
-            Class.forName(GetBean.currentDataBaseDriver);
-            conn = DriverManager.getConnection(GetBean.currentDataBaseUrl, GetBean.userName, GetBean.password);
-
+            DataSource dataSource = getDataSource();
+            Connection conn = dataSource.getConnection();
             System.out.println("Connected");
             return conn;
         } catch (Exception e) {
@@ -108,7 +127,7 @@ public class DatabaseActions {
                     if(conn != null) {
                         conn.close();
                     }
-                    System.out.println("Closed connection for creating dataset");
+                    System.out.println("Closed connection for creating datatable");
                 }
                 throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
             }
@@ -117,7 +136,7 @@ public class DatabaseActions {
         if(conn != null) {
             conn.close();
         }
-        System.out.println("Closed connection for creating dataset");
+        System.out.println("Closed connection for creating datatable");
         System.out.println("Inserting of values completed");
         return true;
     }
