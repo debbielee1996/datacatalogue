@@ -74,25 +74,25 @@ public class DatabaseActions {
             // create table for insertion
             PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
             create.executeUpdate();
+
+            // insert values to table
+            boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes, conn);
+            if (insert) {
+                System.out.println("Table creation function completed");
+                return true;
+            }else{
+                return false;
+            }
         } finally {
             if(conn != null) {
                 conn.close();
             }
+            System.out.println("Closed connection for creating datatable");
         }
-
-        // insert values to table
-        boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes);
-        if (insert) {
-            System.out.println("Table creation function completed");
-            return true;
-        }else{
-            return false;
-        }
-
     }
 
-    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes) throws SQLException {
-        Connection conn = getConnection();
+    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn) throws SQLException {
+//        Connection conn = getConnection();
         //create a string of the headers for the preparedStatement - comma separated
         String headerListCommaSeparated = String.join(",", headerList);
 
