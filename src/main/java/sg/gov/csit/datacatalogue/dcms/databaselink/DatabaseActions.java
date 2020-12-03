@@ -62,12 +62,15 @@ public class DatabaseActions {
 
     public boolean createDatatable(String tableName, List<String> headerList, List<String> headerTypes, List<List<String>> records, String datasetName, boolean dataTableExists) throws SQLException {
         Connection conn = getConnection();
+        conn.setAutoCommit(false);
+
         String tableString = createTableString(headerList, headerTypes);
 
         try {
+            PreparedStatement drop = null;
             // drop table if it exists (this is for table updates)
             if (dataTableExists) {
-                PreparedStatement drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
+                drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
                 drop.executeUpdate();
             }
             System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
@@ -76,7 +79,7 @@ public class DatabaseActions {
             create.executeUpdate();
 
             // insert values to table
-            boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes, conn);
+            boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes, conn, dataTableExists, drop, create);
             if (insert) {
                 System.out.println("Table creation function completed");
                 return true;
@@ -84,15 +87,15 @@ public class DatabaseActions {
                 return false;
             }
         } finally {
-            if(conn != null) {
+            if(conn != null && !conn.isClosed()) {
+                conn.setAutoCommit(true);
                 conn.close();
             }
             System.out.println("Closed connection for creating datatable");
         }
     }
 
-    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn) throws SQLException {
-//        Connection conn = getConnection();
+    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn, boolean dataTableExists, PreparedStatement drop, PreparedStatement create) throws SQLException {
         //create a string of the headers for the preparedStatement - comma separated
         String headerListCommaSeparated = String.join(",", headerList);
 
@@ -115,6 +118,11 @@ public class DatabaseActions {
                 int problematicColumnNum = -1;
                 String problematicColumnName = "";
                 subRecordList= Arrays.asList(subRecords.split(",")); // subRecords has every cell appended with '' and escaped '
+
+                // simulate creation of table for the trial-and-error to detect problematic column
+                if (dataTableExists) { drop.executeUpdate(); }
+                create.executeUpdate();
+
                 try {
                     for (int j=0; j<headerTypes.size();j++) { // iterate current row and identify the column giving issue
                         problematicColumnNum=j+1;
@@ -125,6 +133,8 @@ public class DatabaseActions {
                 } catch (SQLException ee) { // do nothing. let main try catch handle
                 } finally {
                     if(conn != null) {
+                        conn.rollback();
+                        conn.setAutoCommit(true);
                         conn.close();
                     }
                     System.out.println("Closed connection for creating datatable");
@@ -134,6 +144,8 @@ public class DatabaseActions {
         }
 
         if(conn != null) {
+            conn.commit();
+            conn.setAutoCommit(true);
             conn.close();
         }
         System.out.println("Closed connection for creating datatable");
