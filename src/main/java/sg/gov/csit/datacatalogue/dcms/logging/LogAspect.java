@@ -1,11 +1,11 @@
 package sg.gov.csit.datacatalogue.dcms.logging;
 
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -20,29 +20,34 @@ public class LogAspect {
 
     @Around("pointcutDataCatalogue()")
     public Object logAll(ProceedingJoinPoint joinPoint) throws Throwable{
-        long start = System.currentTimeMillis();
-        String className = getClassName(joinPoint);
-        String methodName = getMethodName(joinPoint);
+        logStart(joinPoint);
 
-        logStart(className,methodName);
+        final long start = System.currentTimeMillis();
         Object result = joinPoint.proceed();
-        long timeTaken = System.currentTimeMillis() - start;
-        logEnd(className,methodName, timeTaken);
+        final long timeTaken = System.currentTimeMillis() - start;
 
+        logEnd(joinPoint, timeTaken);
         return result;
     }
 
-    private static void logStart(String className, String methodName){
-        log.info("START: " + className + " " + methodName);
+    private static void logStart(ProceedingJoinPoint joinPoint){
+        String loggedMessage = new JSONObject()
+                .put(LogEnum.TYPE.name(), LogEnum.START.name())
+                .put(LogEnum.PACKAGE.name(), LogHelper.getPackageName(joinPoint))
+                .put(LogEnum.CLASS.name(), LogHelper.getClassName(joinPoint))
+                .put(LogEnum.METHOD.name(), LogHelper.getMethodName(joinPoint))
+                .put(LogEnum.PARAMETER.name(), LogHelper.getParameters(joinPoint))
+                .toString();
+        log.info(loggedMessage);
     }
-    private static void logEnd(String className, String methodName, long timeTaken){
-        log.info("END: " + className + " " + methodName + " Time taken: " + timeTaken);
+    private static void logEnd(ProceedingJoinPoint joinPoint, long timeTaken){
+        String loggedMessage = new JSONObject()
+                .put(LogEnum.TYPE.name(), LogEnum.END.name())
+                .put(LogEnum.PACKAGE.name(), LogHelper.getPackageName(joinPoint))
+                .put(LogEnum.CLASS.name(), LogHelper.getClassName(joinPoint))
+                .put(LogEnum.METHOD.name(), LogHelper.getMethodName(joinPoint))
+                .put(LogEnum.TIMETAKEN.name(), timeTaken)
+                .toString();
+        log.info(loggedMessage);
     }
-    private static String getClassName(ProceedingJoinPoint joinPoint){
-        return joinPoint.getTarget().getClass().getCanonicalName();
-    }
-    private static String getMethodName(ProceedingJoinPoint joinPoint){
-        return joinPoint.getSignature().getName();
-    }
-
 }

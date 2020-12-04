@@ -1,0 +1,26 @@
+<configuration>
+    <property name="LOG_LOCATION" value="logs/catalogue.log" />
+    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %msg%n" />
+
+    <appender name="APPENDER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="APPENDER_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_LOCATION}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/catalogue.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="APPENDER_STDOUT" />
+        <appender-ref ref="APPENDER_FILE" />
+    </root>
+</configuration>
