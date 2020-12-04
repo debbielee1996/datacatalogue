@@ -1,7 +1,10 @@
 package sg.gov.csit.datacatalogue.dcms.databaselink;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -9,12 +12,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DatabaseActions {
+    private static DataSource dataSource;
+
+    public static DataSource getDataSource() { // https://examples.javacodegeeks.com/enterprise-java/hikaricp/hikaricp-connection-pooling-example/
+        if(dataSource == null)
+        {
+            HikariConfig config = new HikariConfig();
+
+            config.setJdbcUrl(GetBean.currentDataBaseUrl);
+            config.setUsername(GetBean.userName);
+            config.setPassword(GetBean.password);
+
+            config.setMaximumPoolSize(GetBean.maximumPoolSize);
+
+            dataSource = new HikariDataSource(config);
+        }
+        return dataSource;
+    }
+
     public Connection getConnection() {
         try {
-            Connection conn = null;
-            Class.forName(GetBean.currentDataBaseDriver);
-            conn = DriverManager.getConnection(GetBean.currentDataBaseUrl, GetBean.userName, GetBean.password);
-
+            DataSource dataSource = getDataSource();
+            Connection conn = dataSource.getConnection();
             System.out.println("Connected");
             return conn;
         } catch (Exception e) {
@@ -32,42 +51,51 @@ public class DatabaseActions {
             ps.execute();
             return true;
         } catch (Exception e) {
+            return false;
+        } finally {
             if(conn != null) {
                 conn.close();
             }
-            return false;
+            System.out.println("Closed connection for creating dataset");
         }
     }
 
     public boolean createDatatable(String tableName, List<String> headerList, List<String> headerTypes, List<List<String>> records, String datasetName, boolean dataTableExists) throws SQLException {
-        Connection conn = null;
-        conn = getConnection();
+        Connection conn = getConnection();
+        conn.setAutoCommit(false);
+
         String tableString = createTableString(headerList, headerTypes);
 
-        // drop table if it exists (this is for table updates)
-        if (dataTableExists) {
+        try {
             PreparedStatement drop = null;
-            drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
-            drop.executeUpdate();
-        }
-        System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
-        // create table for insertion
-        PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
-        create.executeUpdate();
+            // drop table if it exists (this is for table updates)
+            if (dataTableExists) {
+                drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
+                drop.executeUpdate();
+            }
+            System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+            // create table for insertion
+            PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+            create.executeUpdate();
 
-        // insert values to table
-        boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes);
-        if (insert) {
-            System.out.println("Table creation function completed");
-            return true;
-        }else{
-            return false;
+            // insert values to table
+            boolean insert = insertValuesToTable(tableName, headerList, records, datasetName, headerTypes, conn, dataTableExists, drop, create);
+            if (insert) {
+                System.out.println("Table creation function completed");
+                return true;
+            }else{
+                return false;
+            }
+        } finally {
+            if(conn != null && !conn.isClosed()) {
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+            System.out.println("Closed connection for creating datatable");
         }
-
     }
 
-    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes) throws SQLException {
-        Connection conn = getConnection();
+    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn, boolean dataTableExists, PreparedStatement drop, PreparedStatement create) throws SQLException {
         //create a string of the headers for the preparedStatement - comma separated
         String headerListCommaSeparated = String.join(",", headerList);
 
@@ -90,6 +118,11 @@ public class DatabaseActions {
                 int problematicColumnNum = -1;
                 String problematicColumnName = "";
                 subRecordList= Arrays.asList(subRecords.split(",")); // subRecords has every cell appended with '' and escaped '
+
+                // simulate creation of table for the trial-and-error to detect problematic column
+                if (dataTableExists) { drop.executeUpdate(); }
+                create.executeUpdate();
+
                 try {
                     for (int j=0; j<headerTypes.size();j++) { // iterate current row and identify the column giving issue
                         problematicColumnNum=j+1;
@@ -98,10 +131,24 @@ public class DatabaseActions {
                         insert.execute();
                     }
                 } catch (SQLException ee) { // do nothing. let main try catch handle
+                } finally {
+                    if(conn != null) {
+                        conn.rollback();
+                        conn.setAutoCommit(true);
+                        conn.close();
+                    }
+                    System.out.println("Closed connection for creating datatable");
                 }
                 throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
             }
         }
+
+        if(conn != null) {
+            conn.commit();
+            conn.setAutoCommit(true);
+            conn.close();
+        }
+        System.out.println("Closed connection for creating datatable");
         System.out.println("Inserting of values completed");
         return true;
     }
