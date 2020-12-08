@@ -42,18 +42,22 @@ public class DatabaseActions {
         return null;
     }
 
-    public boolean createDatabase(String dbName) throws SQLException {
+    public boolean createDatabase(String dbName) throws SQLException { // have to do try-catch in order to close conn
         Connection conn = null;
         try {
             // connect to db
             conn = getConnection();
+            conn.setAutoCommit(false);
             PreparedStatement ps = conn.prepareStatement("CREATE DATABASE "+ dbName);
             ps.execute();
+            conn.commit();
             return true;
         } catch (Exception e) {
-            return false;
+            conn.rollback();
+            throw e; // do this over return false so that error could be identified
         } finally {
             if(conn != null) {
+                conn.setAutoCommit(true);
                 conn.close();
             }
             System.out.println("Closed connection for creating dataset");

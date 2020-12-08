@@ -41,15 +41,15 @@ public class DatasetService {
             if (officer.isEmpty()) {
                 throw new OfficerNotFoundException(pf);
             }
-
-            Dataset dataset = new Dataset(name, description, officer.get());
-            DatasetAccess datasetAccess = new DatasetAccess(dataset, "Pf", pf); // add access for creator of dataset
-            dataset.getDatasetAccessList().add(datasetAccess);
-
-            datasetRepository.save(dataset);
             DatabaseActions databaseActions = new DatabaseActions();
             try {
                 boolean hasCreatedDataset = databaseActions.createDatabase(name);
+
+                // create dataset JPA entity only if hasCreatedDataset is true
+                Dataset dataset = new Dataset(name, description, officer.get());
+                DatasetAccess datasetAccess = new DatasetAccess(dataset, "Pf", pf); // add access for creator of dataset
+                dataset.getDatasetAccessList().add(datasetAccess);
+                datasetRepository.save(dataset);
                 return hasCreatedDataset; // will get here if its true
             } catch (Exception e) {
                 System.out.println(e);
