@@ -131,9 +131,9 @@ public class DatabaseActions {
                         insert.execute();
                     }
                 } catch (SQLException ee) { // do nothing. let main try catch handle
+                    conn.rollback();
                 } finally {
                     if(conn != null) {
-                        conn.rollback();
                         conn.setAutoCommit(true);
                         conn.close();
                     }
