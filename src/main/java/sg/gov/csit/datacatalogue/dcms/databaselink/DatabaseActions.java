@@ -141,7 +141,6 @@ public class DatabaseActions {
                         conn.setAutoCommit(true);
                         conn.close();
                     }
-                    System.out.println("from main branch");
                     System.out.println("Closed connection for creating datatable (with errors)");
                 }
                 throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
