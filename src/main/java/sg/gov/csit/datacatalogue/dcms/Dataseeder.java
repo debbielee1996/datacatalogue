@@ -35,7 +35,7 @@ public class Dataseeder {
     private DataTableColumnRepository dataTableColumnRepository;
     private DataTableColumnAccessRepository dataTableColumnAccessRepository;
 
-    List<String> officerIdList = new ArrayList<>();
+    List<Officer> officerList = new ArrayList<>();
     List<Long> aclIdList = new ArrayList<>();
     List<Long> datasetIdList = new ArrayList<>();
     List<Long> datasetAccessIdList = new ArrayList<>();
@@ -62,25 +62,19 @@ public class Dataseeder {
         Officer officer4 = new Officer("1004","gjq","gjq@dev.gov.sg", "123","System Admin");
         Officer officer5 = new Officer("1005","fcy","fcy@dev.gov.sg", "123","System Admin");
 
-        officerRepository.save(officer1);
-        officerRepository.save(officer2);
-        officerRepository.save(officer3);
-        officerRepository.save(officer4);
-        officerRepository.save(officer5);
-
-        officerIdList.add(officer1.getPf());
-        officerIdList.add(officer2.getPf());
-        officerIdList.add(officer3.getPf());
-        officerIdList.add(officer4.getPf());
-        officerIdList.add(officer5.getPf());
+        officerList.add(officerRepository.save(officer1));
+        officerList.add(officerRepository.save(officer2));
+        officerList.add(officerRepository.save(officer3));
+        officerList.add(officerRepository.save(officer4));
+        officerList.add(officerRepository.save(officer5));
     }
 
     private void seedDataset() {
-        Officer officer1 = officerRepository.getOne(officerIdList.get(0));
-        Officer officer2 = officerRepository.getOne(officerIdList.get(1));
-        Officer officer3 = officerRepository.getOne(officerIdList.get(2));
-        Officer officer4 = officerRepository.getOne(officerIdList.get(3));
-        Officer officer5 = officerRepository.getOne(officerIdList.get(4));
+        Officer officer1 = officerRepository.findAll().get(0);
+        Officer officer2 = officerRepository.findAll().get(1);
+        Officer officer3 = officerRepository.findAll().get(2);
+        Officer officer4 = officerRepository.findAll().get(3);
+        Officer officer5 = officerRepository.findAll().get(4);
 
         Dataset dataset1 = new Dataset("dataset1", "this is dataset1", officer1);
         Dataset dataset2 = new Dataset("dataset2", "this is dataset2", officer2);
@@ -141,11 +135,11 @@ public class Dataseeder {
 
     private void seedDataTable() {
         // get all officers
-        Officer officer1 = officerRepository.getOne(officerIdList.get(0));
-        Officer officer2 = officerRepository.getOne(officerIdList.get(1));
-        Officer officer3 = officerRepository.getOne(officerIdList.get(2));
-        Officer officer4 = officerRepository.getOne(officerIdList.get(3));
-        Officer officer5 = officerRepository.getOne(officerIdList.get(4));
+        Officer officer1 = officerRepository.findAll().get(0);
+        Officer officer2 = officerRepository.findAll().get(1);
+        Officer officer3 = officerRepository.findAll().get(2);
+        Officer officer4 = officerRepository.findAll().get(3);
+        Officer officer5 = officerRepository.findAll().get(4);
 
         // get all datasets
         Dataset dataset1 = datasetRepository.getOne(datasetIdList.get(0));

@@ -1,6 +1,6 @@
 <configuration>
     <property name="LOG_LOCATION" value="logs/catalogue.log" />
-    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%thread] %-5level %msg%n" />
+    <property name="LOG_PATTERN" value="%d{HH:mm:ss.SSS} [%X{traceId:-}] [%X{spanId:-}] [%thread] %-5level %msg%n" />
 
     <appender name="APPENDER_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
