@@ -1,6 +1,6 @@
 package sg.gov.csit.datacatalogue.dcms;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -24,16 +24,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Profile("development")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class Dataseeder {
-    private OfficerRepository officerRepository;
-    private DatasetRepository datasetRepository;
-    private DatasetAccessRepository datasetAccessRepository;
-    private DataTableRepository dataTableRepository;
-    private DataTableAccessRepository dataTableAccessRepository;
-    private DataTableColumnRepository dataTableColumnRepository;
-    private DataTableColumnAccessRepository dataTableColumnAccessRepository;
+    private final OfficerRepository officerRepository;
+    private final DatasetRepository datasetRepository;
+    private final DatasetAccessRepository datasetAccessRepository;
+    private final DataTableRepository dataTableRepository;
+    private final DataTableAccessRepository dataTableAccessRepository;
+    private final DataTableColumnRepository dataTableColumnRepository;
+    private final DataTableColumnAccessRepository dataTableColumnAccessRepository;
 
     List<Officer> officerList = new ArrayList<>();
     List<Long> aclIdList = new ArrayList<>();
