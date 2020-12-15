@@ -119,7 +119,7 @@ public class LogAspectTest {
 
         List<String> mockList = Arrays.asList("ab","cd");
         String expectedType = "\"TYPE\":\"START\"";
-        String expectedParameter ="\"PARAMETER\":{\"mockList\":[\"ab\",\"cd\"]}";
+        String expectedParameter ="\"PARAMETER\":{\"mockList\":\"[ab, cd]\"}";
 
         //act
         serviceFake.testingParameterList(mockList);
