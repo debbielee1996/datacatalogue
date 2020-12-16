@@ -77,9 +77,9 @@ public class DatabaseActions {
                 drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
                 drop.executeUpdate();
             }
-            System.out.println("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+            System.out.println("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NULL CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
             // create table for insertion
-            PreparedStatement create = conn.prepareStatement("CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+            PreparedStatement create = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NULL CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
             create.executeUpdate();
 
             // insert values to table
@@ -135,9 +135,9 @@ public class DatabaseActions {
                         insert.execute();
                     }
                 } catch (SQLException ee) { // do nothing. let main try catch handle
-                    conn.rollback();
                 } finally {
                     if(conn != null) {
+                        conn.rollback();
                         conn.setAutoCommit(true);
                         conn.close();
                     }
