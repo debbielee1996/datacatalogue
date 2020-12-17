@@ -166,7 +166,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable("mock", "mock", dataset, mockOfficer));
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable("mock", "mock", dataset, mockOfficer, false));
 
         Assertions.assertTrue(() -> {
             try {
@@ -245,7 +245,7 @@ public class DataTableServiceTest {
         // act
         doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(dataset));
-        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable("mock", "mock", dataset, mockOfficer));
+        when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable("mock", "mock", dataset, mockOfficer, false));
 
         Assertions.assertTrue(() -> {
             try {

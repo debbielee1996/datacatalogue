@@ -9,7 +9,7 @@ public class DatasetStubFactory {
     }
 
     public static Dataset MOCK_DATASET_NOACCESSLIST() {
-        Dataset dataset = new Dataset("mock", "mock", MOCK_OFFICER());
+        Dataset dataset = new Dataset("mock", "mock", MOCK_OFFICER(), false);
         dataset.setId(Long.parseLong("123"));
         return dataset;
     }

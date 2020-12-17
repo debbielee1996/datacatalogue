@@ -34,6 +34,9 @@ public class Dataset {
     private String description;
 
     @NotNull
+    private boolean isPublic;
+
+    @NotNull
     @OneToMany(mappedBy = "dataset", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<DatasetAccess> datasetAccessList;
@@ -54,9 +57,10 @@ public class Dataset {
     @JsonBackReference
     private Set<Officer> officerCustodianList; // Hashset because of this https://thorben-janssen.com/best-practices-for-many-to-many-associations-with-hibernate-and-jpa/
 
-    public Dataset(String name, String description, Officer officer) {
+    public Dataset(String name, String description, Officer officer, boolean isPublic) {
         this.name=name;
         this.description=description;
+        this.isPublic=isPublic;
         this.officer=officer;
         this.datasetAccessList=new ArrayList<>();
         this.dataTableList=new ArrayList<>();

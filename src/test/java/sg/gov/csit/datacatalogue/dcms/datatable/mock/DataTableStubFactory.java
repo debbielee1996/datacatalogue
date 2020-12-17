@@ -76,13 +76,13 @@ public class DataTableStubFactory {
     }
 
     public static Dataset MOCK_DATASET_NOACCESSLIST() {
-        Dataset dataset = new Dataset("DataTableSericeTest_dataset1", "mock dataset", MOCK_OFFICER());
+        Dataset dataset = new Dataset("DataTableSericeTest_dataset1", "mock dataset", MOCK_OFFICER(), false);
         dataset.setId(Long.parseLong("123"));
         return dataset;
     }
 
     public static DataTable MOCK_DATATABLE_NOACCESSLIST() {
-        DataTable dataTable = new DataTable("mock", "mock", MOCK_DATASET_NOACCESSLIST(), MOCK_OFFICER());
+        DataTable dataTable = new DataTable("mock", "mock", MOCK_DATASET_NOACCESSLIST(), MOCK_OFFICER(), false);
         dataTable.setId(Long.parseLong("123"));
         return dataTable;
     }
