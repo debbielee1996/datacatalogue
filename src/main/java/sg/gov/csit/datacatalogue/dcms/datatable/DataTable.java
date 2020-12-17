@@ -34,6 +34,9 @@ public class DataTable {
     private String description;
 
     @NotNull
+    private boolean isPublic;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "datasetId")
     @JsonBackReference
@@ -55,9 +58,10 @@ public class DataTable {
     @JsonManagedReference
     private List<DataTableColumn> dataTableColumnList;
 
-    public DataTable(String name, String description, Dataset dataset, Officer officer) {
+    public DataTable(String name, String description, Dataset dataset, Officer officer, boolean isPublic) {
          this.name=name;
          this.description=description;
+        this.isPublic=isPublic;
          this.dataset=dataset;
          this.officer=officer;
          this.dataTableAccessList=new ArrayList<>();

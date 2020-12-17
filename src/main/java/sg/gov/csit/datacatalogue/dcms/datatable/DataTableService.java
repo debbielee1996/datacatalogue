@@ -154,7 +154,7 @@ public class DataTableService {
 
         if (hasCreatedDatatable) {
             if (!dataTableExists) { // create dataTable object in db
-                dataTable = new DataTable(tableName, description, dataset.get(), officer.get());
+                dataTable = new DataTable(tableName, description, dataset.get(), officer.get(), false);
                 DataTableAccess dataTableAccess = new DataTableAccess(dataTable, "Pf", pf); // add access for creator of datatable
                 dataTable.getDataTableAccessList().add(dataTableAccess);
             } else { // overwrite existing description with new one
@@ -165,7 +165,7 @@ public class DataTableService {
             // create DataTableColumns
             dataTable.getDataTableColumnList().clear(); // drop existing dataTableColumns
             for (int i=0; i<headerList.size();i++) {
-                DataTableColumn dtc = new DataTableColumn(headerList.get(i), dataColDescriptions.get(i), dataTypes.get(i), dataTable);
+                DataTableColumn dtc = new DataTableColumn(headerList.get(i), dataColDescriptions.get(i), dataTypes.get(i), dataTable, false);
 
                 // add access for dtc. By default creator can view all datatable columns
                 DataTableColumnAccess dataTableColumnAccess = new DataTableColumnAccess(dtc, "Pf", pf); // add access for creator of datatable

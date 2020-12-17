@@ -15,19 +15,19 @@ public class DataTableColumnStubFactory {
     }
 
     public static Dataset MOCK_DATASET_NOACCESSLIST() {
-        Dataset dataset = new Dataset("mock", "mock", MOCK_OFFICER());
+        Dataset dataset = new Dataset("mock", "mock", MOCK_OFFICER(), false);
         dataset.setId(Long.parseLong("123"));
         return dataset;
     }
 
     public static DataTable MOCK_DATATABLE_NOACCESSLIST() {
-        DataTable dataTable = new DataTable("mock", "mock", MOCK_DATASET_NOACCESSLIST(), MOCK_OFFICER());
+        DataTable dataTable = new DataTable("mock", "mock", MOCK_DATASET_NOACCESSLIST(), MOCK_OFFICER(), false);
         dataTable.setId(Long.parseLong("123"));
         return dataTable;
     }
 
     public static DataTableColumn MOCK_DATATABLECOLUMN_NOACCESSLIST() {
-        DataTableColumn dtc = new DataTableColumn("mock", "mock", "Text", MOCK_DATATABLE_NOACCESSLIST());
+        DataTableColumn dtc = new DataTableColumn("mock", "mock", "Text", MOCK_DATATABLE_NOACCESSLIST(), false);
         dtc.setId(Long.parseLong("1"));
         MOCK_DATATABLE_NOACCESSLIST().getDataTableColumnList().add(dtc);
         return dtc;

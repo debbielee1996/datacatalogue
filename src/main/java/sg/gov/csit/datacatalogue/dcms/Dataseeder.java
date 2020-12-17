@@ -76,11 +76,11 @@ public class Dataseeder {
         Officer officer4 = officerRepository.findAll().get(3);
         Officer officer5 = officerRepository.findAll().get(4);
 
-        Dataset dataset1 = new Dataset("dataset1", "this is dataset1", officer1);
-        Dataset dataset2 = new Dataset("dataset2", "this is dataset2", officer2);
-        Dataset dataset3 = new Dataset("dataset3", "this is dataset3", officer3);
-        Dataset dataset4 = new Dataset("dataset4", "this is dataset4", officer4);
-        Dataset dataset5 = new Dataset("dataset5", "this is dataset5", officer5);
+        Dataset dataset1 = new Dataset("dataset1", "this is dataset1", officer1, false);
+        Dataset dataset2 = new Dataset("dataset2", "this is dataset2", officer2, false);
+        Dataset dataset3 = new Dataset("dataset3", "this is dataset3", officer3, false);
+        Dataset dataset4 = new Dataset("dataset4", "this is dataset4", officer4, false);
+        Dataset dataset5 = new Dataset("dataset5", "this is dataset5", officer5, false);
 
         datasetRepository.save(dataset1);
         datasetRepository.save(dataset2);
@@ -148,12 +148,12 @@ public class Dataseeder {
         Dataset dataset4 = datasetRepository.getOne(datasetIdList.get(3));
         Dataset dataset5 = datasetRepository.getOne(datasetIdList.get(4));
 
-        DataTable dataTable1 = new DataTable("datatable1", "Furniture", dataset1, officer1);
-        DataTable dataTable2 = new DataTable("datatable2", "Outings", dataset2, officer2);
-        DataTable dataTable3 = new DataTable("datatable3", "Salary", dataset3, officer3);
-        DataTable dataTable4 = new DataTable("datatable4", "Expenses", dataset4, officer4);
-        DataTable dataTable5 = new DataTable("datatable5", "Operations", dataset5, officer5);
-        DataTable dataTable6 = new DataTable("datatable6", "Transport", dataset1, officer1);
+        DataTable dataTable1 = new DataTable("datatable1", "Furniture", dataset1, officer1, false);
+        DataTable dataTable2 = new DataTable("datatable2", "Outings", dataset2, officer2, false);
+        DataTable dataTable3 = new DataTable("datatable3", "Salary", dataset3, officer3, false);
+        DataTable dataTable4 = new DataTable("datatable4", "Expenses", dataset4, officer4, false);
+        DataTable dataTable5 = new DataTable("datatable5", "Operations", dataset5, officer5, false);
+        DataTable dataTable6 = new DataTable("datatable6", "Transport", dataset1, officer1, false);
 
         dataTableRepository.save(dataTable1);
         dataTableRepository.save(dataTable2);
@@ -179,46 +179,46 @@ public class Dataseeder {
         DataTable dataTable5 = dataTableRepository.getOne(dataTableIdList.get(4));
         DataTable dataTable6 = dataTableRepository.getOne(dataTableIdList.get(5));
 
-        DataTableColumn table1dtc1 = new DataTableColumn("furniture", "table1dtc1", "Text", dataTable1);
-        DataTableColumn table1dtc2 = new DataTableColumn("purchaser", "table1dtc2", "Text", dataTable1);
-        DataTableColumn table1dtc3 = new DataTableColumn("purchase_date", "table1dtc3", "Date", dataTable1);
+        DataTableColumn table1dtc1 = new DataTableColumn("furniture", "table1dtc1", "Text", dataTable1, false);
+        DataTableColumn table1dtc2 = new DataTableColumn("purchaser", "table1dtc2", "Text", dataTable1, false);
+        DataTableColumn table1dtc3 = new DataTableColumn("purchase_date", "table1dtc3", "Date", dataTable1, false);
         dataTableColumnRepository.save(table1dtc1);
         dataTableColumnRepository.save(table1dtc2);
         dataTableColumnRepository.save(table1dtc3);
 
-        DataTableColumn table2dtc1 = new DataTableColumn("planner", "table2dtc1", "Text", dataTable2);
-        DataTableColumn table2dtc2 = new DataTableColumn("outing_date", "table2dtc2", "Date", dataTable2);
+        DataTableColumn table2dtc1 = new DataTableColumn("planner", "table2dtc1", "Text", dataTable2, false);
+        DataTableColumn table2dtc2 = new DataTableColumn("outing_date", "table2dtc2", "Date", dataTable2, false);
         dataTableColumnRepository.save(table2dtc1);
         dataTableColumnRepository.save(table2dtc2);
 
-        DataTableColumn table3dtc1 = new DataTableColumn("officer_id", "table3dtc1", "Whole number (0 decimal places)", dataTable3);
-        DataTableColumn table3dtc2 = new DataTableColumn("name", "table3dtc2", "Text", dataTable3);
-        DataTableColumn table3dtc3 = new DataTableColumn("dob", "table3dtc3", "Date", dataTable3);
-        DataTableColumn table3dtc4 = new DataTableColumn("salary", "table3dtc4", "Number (2 decimal places)", dataTable3);
+        DataTableColumn table3dtc1 = new DataTableColumn("officer_id", "table3dtc1", "Whole number (0 decimal places)", dataTable3, false);
+        DataTableColumn table3dtc2 = new DataTableColumn("name", "table3dtc2", "Text", dataTable3, false);
+        DataTableColumn table3dtc3 = new DataTableColumn("dob", "table3dtc3", "Date", dataTable3, false);
+        DataTableColumn table3dtc4 = new DataTableColumn("salary", "table3dtc4", "Number (2 decimal places)", dataTable3, false);
         dataTableColumnRepository.save(table3dtc1);
         dataTableColumnRepository.save(table3dtc2);
         dataTableColumnRepository.save(table3dtc3);
         dataTableColumnRepository.save(table3dtc4);
 
-        DataTableColumn table4dtc1 = new DataTableColumn("officer_id", "table4dtc1", "Whole number (0 decimal places)", dataTable4);
-        DataTableColumn table4dtc2 = new DataTableColumn("item", "table4dtc2", "Text", dataTable4);
-        DataTableColumn table4dtc3 = new DataTableColumn("expense_date", "table4dtc3", "Date", dataTable4);
-        DataTableColumn table4dtc4 = new DataTableColumn("amount", "table4dtc4", "Number (2 decimal places)", dataTable4);
+        DataTableColumn table4dtc1 = new DataTableColumn("officer_id", "table4dtc1", "Whole number (0 decimal places)", dataTable4, false);
+        DataTableColumn table4dtc2 = new DataTableColumn("item", "table4dtc2", "Text", dataTable4, false);
+        DataTableColumn table4dtc3 = new DataTableColumn("expense_date", "table4dtc3", "Date", dataTable4, false);
+        DataTableColumn table4dtc4 = new DataTableColumn("amount", "table4dtc4", "Number (2 decimal places)", dataTable4, false);
         dataTableColumnRepository.save(table4dtc1);
         dataTableColumnRepository.save(table4dtc2);
         dataTableColumnRepository.save(table4dtc3);
         dataTableColumnRepository.save(table4dtc4);
 
-        DataTableColumn table5dtc1 = new DataTableColumn("operation_num", "table5dtc1", "Whole number (0 decimal places)", dataTable5);
-        DataTableColumn table5dtc2 = new DataTableColumn("alias", "table5dtc2", "Text", dataTable5);
-        DataTableColumn table5dtc3 = new DataTableColumn("op_date", "table5dtc3", "Date", dataTable5);
+        DataTableColumn table5dtc1 = new DataTableColumn("operation_num", "table5dtc1", "Whole number (0 decimal places)", dataTable5, false);
+        DataTableColumn table5dtc2 = new DataTableColumn("alias", "table5dtc2", "Text", dataTable5, false);
+        DataTableColumn table5dtc3 = new DataTableColumn("op_date", "table5dtc3", "Date", dataTable5, false);
         dataTableColumnRepository.save(table5dtc1);
         dataTableColumnRepository.save(table5dtc2);
         dataTableColumnRepository.save(table5dtc3);
 
-        DataTableColumn table6dtc1 = new DataTableColumn("name", "table6dtc1", "Text", dataTable6);
-        DataTableColumn table6dtc2 = new DataTableColumn("bod", "table6dtc2", "Date", dataTable6);
-        DataTableColumn table6dtc3 = new DataTableColumn("amount", "table6dtc3", "Number (2 decimal places)", dataTable6);
+        DataTableColumn table6dtc1 = new DataTableColumn("name", "table6dtc1", "Text", dataTable6, false);
+        DataTableColumn table6dtc2 = new DataTableColumn("bod", "table6dtc2", "Date", dataTable6, false);
+        DataTableColumn table6dtc3 = new DataTableColumn("amount", "table6dtc3", "Number (2 decimal places)", dataTable6, false);
         dataTableColumnRepository.save(table6dtc1);
         dataTableColumnRepository.save(table6dtc2);
         dataTableColumnRepository.save(table6dtc3);

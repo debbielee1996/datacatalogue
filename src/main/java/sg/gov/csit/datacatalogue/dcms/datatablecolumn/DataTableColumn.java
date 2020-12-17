@@ -29,6 +29,9 @@ public class DataTableColumn {
     @NotBlank
     private String description;
 
+    @NotNull
+    private boolean isPublic;
+
     @Enumerated(EnumType.STRING)
     @NotNull
     private DataTableColumnTypeEnum type;
@@ -43,10 +46,11 @@ public class DataTableColumn {
     @JsonManagedReference
     private List<DataTableColumnAccess> dataTableColumnAccessList;
 
-    public DataTableColumn(String name, String description, String dtcType, DataTable dataTable) {
+    public DataTableColumn(String name, String description, String dtcType, DataTable dataTable, boolean isPublic) {
         this.name=name;
         this.description=description;
         this.dataTable=dataTable;
+        this.isPublic=isPublic;
         this.dataTableColumnAccessList=new ArrayList<>();
 
         switch(dtcType) {
