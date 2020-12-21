@@ -22,6 +22,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="DataTable",
+    uniqueConstraints = {@UniqueConstraint(columnNames = {"datasetId", "name"},
+                                            name="datasetId_dataTableName"
+    )}
+)
 public class DataTable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

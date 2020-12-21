@@ -28,6 +28,7 @@ public class Dataset {
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String name;
 
     @NotBlank
@@ -50,7 +51,7 @@ public class Dataset {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "officerId")
     @JsonBackReference
-    private Officer officer;
+    private Officer officer; // data owner
 
     @NotNull
     @ManyToMany(mappedBy = "datasetCustodianList", fetch = FetchType.LAZY)
