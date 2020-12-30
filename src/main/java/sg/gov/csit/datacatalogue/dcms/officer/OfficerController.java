@@ -14,4 +14,9 @@ public class OfficerController {
     @Autowired
     private OfficerService officerService;
 
+    @GetMapping("/get-all-officers")
+    public List<OfficerDto> getAllOfficers() {
+        return officerService.getAllOfficers();
+    }
+
 }

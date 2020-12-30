@@ -50,7 +50,7 @@ public class DatasetServiceTest {
         when(datasetRepository.findByName(anyString())).thenReturn(new Dataset());
 
         // assert
-        assertThrows(DatasetExistsException.class, () -> datasetService.createNewDataset("mock", "", "123"));
+        assertThrows(DatasetExistsException.class, () -> datasetService.createNewDataset("mock", "", "123", new ArrayList<>(), "123"));
     }
 
     @Test
@@ -60,7 +60,21 @@ public class DatasetServiceTest {
         doReturn(Optional.<Officer>empty()).when(officerRepository).findByPf(anyString());
 
         // assert
-        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123"));
+        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123", new ArrayList<>(), "123"));
+    }
+
+    @Test
+    public void createNewDataset_GivenDatasetIdInDbAndCustodianOfficerNotExists_ShouldThrowException() {
+        // arrange
+        List<String> custodianPfs = new ArrayList<>();
+        custodianPfs.add("456");
+
+        // act
+        when(datasetRepository.findByName(anyString())).thenReturn(null);
+        doReturn(Optional.<Officer>empty()).when(officerRepository).findByPf(anyString());
+
+        // assert
+        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123", custodianPfs, "123"));
     }
 
     @Test
@@ -74,6 +88,7 @@ public class DatasetServiceTest {
         GetBean.currentDataBaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=false";
         GetBean.userName = "sa";
         GetBean.password = "Password1";
+        GetBean.maximumPoolSize=10;
 
         Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
         String pf = mockOfficer.getPf();
@@ -82,7 +97,7 @@ public class DatasetServiceTest {
         doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(pf);
 
         // assert
-        assertTrue(() -> datasetService.createNewDataset("DatasetServiceTest_mockDatabase", "", pf));
+        assertTrue(() -> datasetService.createNewDataset("DatasetServiceTest_mockDatabase", "", pf, new ArrayList<>(), "123"));
     }
 
 

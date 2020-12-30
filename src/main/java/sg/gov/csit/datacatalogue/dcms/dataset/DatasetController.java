@@ -15,8 +15,10 @@ public class DatasetController {
     public boolean createNewDataset(@RequestAttribute("txnId") String txnId,
                                     @RequestAttribute("pf") String pf,
                                     @RequestParam("name") String name,
-                                   @RequestParam("description") String description) {
-        return datasetService.createNewDataset(name, description, pf);
+                                   @RequestParam("description") String description,
+                                    @RequestParam("custodianPfs") List<String> custodianPfs,
+                                    @RequestParam("ownerPf") String ownerPf) {
+        return datasetService.createNewDataset(name, description, pf, custodianPfs, ownerPf);
     }
 
     @GetMapping("/dataset/{id}")
