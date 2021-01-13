@@ -19,8 +19,7 @@ import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.constraints.NotNull;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
@@ -45,12 +44,26 @@ public class DatasetService {
     @PersistenceContext
     private EntityManager em;
 
-    public boolean createNewDataset(@NotNull String name, String description, String pf,Boolean isPublic) {
+    public boolean createNewDataset(@NotNull String name, String description, String pf, List<String> custodianPfs, String ownerPf, Boolean isPublic) {
         if (datasetRepository.findByName(name) == null) { // if dataset hasn't exist yet
             Optional<Officer> officer = officerRepository.findByPf(pf);
             if (officer.isEmpty()) {
                 throw new OfficerNotFoundException(pf);
             }
+            // check if owner exists
+            Optional<Officer> owner = officerRepository.findByPf(ownerPf);
+            if (owner.isEmpty()) {
+                throw new OfficerNotFoundException(ownerPf);
+            }
+
+            // check if all custodians exists
+            for (String custodianPf:custodianPfs) {
+                Optional<Officer> custodian = officerRepository.findByPf(custodianPf);
+                if (custodian.isEmpty()) {
+                    throw new OfficerNotFoundException(custodianPf);
+                }
+            }
+
             DatabaseActions databaseActions = new DatabaseActions();
             try {
                 boolean hasCreatedDataset = databaseActions.createDatabase(name);
@@ -60,6 +73,11 @@ public class DatasetService {
                 DatasetAccess datasetAccess = new DatasetAccess(dataset, "Pf", pf); // add access for creator of dataset
                 dataset.getDatasetAccessList().add(datasetAccess);
                 datasetRepository.save(dataset);
+
+                // add custodians
+                for (String custodianPf:custodianPfs) {
+                    addOfficerToCustodianList(custodianPf, dataset.getId());
+                }
                 return hasCreatedDataset; // will get here if its true
             } catch (Exception e) {
                 System.out.println(e);
