@@ -79,12 +79,12 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
         String pf = "123";
-
+        Boolean isPublic=false;
         // act
         doReturn(Optional.<Officer>empty()).when(officerRepository).findByPf(anyString());
 
         // assert
-        Assertions.assertThrows(OfficerNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
+        Assertions.assertThrows(OfficerNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description,new ArrayList<>(), pf, new ArrayList<>(),isPublic));
     }
 
 
@@ -96,13 +96,14 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
         String pf = "123";
+        Boolean isPublic=false;
         Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
         doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(anyString());
 
         // assert
-        Assertions.assertThrows(DatasetNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
+        Assertions.assertThrows(DatasetNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>(),isPublic));
     }
 
     @Test
@@ -113,6 +114,7 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
         String pf = "456";
+        Boolean isPublic=false;
         Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER2();
         Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
@@ -121,7 +123,7 @@ public class DataTableServiceTest {
         when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(dataset));
 
         // assert
-        Assertions.assertThrows(DatasetAccessNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
+        Assertions.assertThrows(DatasetAccessNotFoundException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>(),isPublic));
     }
 
     @Test
@@ -134,6 +136,7 @@ public class DataTableServiceTest {
         String datasetId = "1";
         String description = "This is a mock datatable";
         String pf = "123";
+        Boolean isPublic=false;
         Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
         Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
@@ -143,7 +146,7 @@ public class DataTableServiceTest {
         when(dataTableRepository.findByNameAndDatasetId(anyString(), anyLong())).thenReturn(new DataTable());
 
         // assert
-        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>()));
+        Assertions.assertThrows(IncorrectFileTypeException.class, () -> dataTableService.uploadFile(file, tableName, datasetId, description, new ArrayList<>(), pf, new ArrayList<>(),isPublic));
     }
 
     @Test
@@ -156,7 +159,7 @@ public class DataTableServiceTest {
         String tableName = "DataTableServiceTest_mock1";
         String datasetId = "1";
         String description = "This is a mock datatable";
-
+        Boolean isPublic=false;
         Dataset dataset = DataTableStubFactory.MOCK_DATASET_NOACCESSLIST();
 
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
@@ -170,7 +173,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc,isPublic);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -201,6 +204,7 @@ public class DataTableServiceTest {
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
         String pf = "123";
+        Boolean isPublic=false;
         Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
@@ -210,7 +214,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc,isPublic);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -240,6 +244,7 @@ public class DataTableServiceTest {
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
         String pf = "123";
+        Boolean isPublic=false;
         Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
@@ -249,7 +254,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc,isPublic);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -278,6 +283,7 @@ public class DataTableServiceTest {
         datatablesCreated.add(dataset.getName()+".dbo."+tableName); // add to list of datatables to be dropped after this class's tests is done
 
         String pf = "123";
+        Boolean isPublic=false;
         Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
 
         // act
@@ -287,7 +293,7 @@ public class DataTableServiceTest {
 
         Assertions.assertTrue(() -> {
             try {
-                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc);
+                return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDesc,isPublic);
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
@@ -536,6 +542,73 @@ public class DataTableServiceTest {
         // empty custodian list
         mockDataTable.getDataset().getOfficerCustodianList().remove(mockOfficer2);
     }
+
+//    test case for access level datatable
+@Test
+public void editDataTablePrivacy_DataTableDoesNotExist_ShouldThrowException() {
+    // assert
+    assertThrows(DataTableNotFoundException.class, () -> dataTableService.editDataTablePrivacy(true, anyLong(), "123"));
+}
+
+    @Test
+    public void editDataTablePrivacy_OfficerDoesNotExist_ShouldThrowException() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+
+        // assert
+        assertThrows(OfficerNotFoundException.class, () -> dataTableService.editDataTablePrivacy(true, anyLong(), "123"));
+    }
+
+    @Test
+    public void editDataTablePrivacy_OfficerNotCustodianOrOwner_ShouldThrowException() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        Officer mockOfficer2 = DataTableStubFactory.MOCK_OFFICER2();
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+
+        // assert
+        assertThrows(DatasetAccessNotFoundException.class, () -> dataTableService.editDataTablePrivacy(true, Long.parseLong("123"), "456"));
+    }
+
+    @Test
+    public void editDataTablePrivacy_DataTableExistAndOfficerIsOwner_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        Officer mockOfficer = DataTableStubFactory.MOCK_OFFICER();
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer));
+
+        // assert
+        assertTrue(() -> dataTableService.editDataTablePrivacy(true, Long.parseLong("123"), "123"));
+    }
+
+    @Test
+    public void editDataTablePrivacy_DataTableExistAndOfficerIsCustodian_ShouldReturnTrue() {
+        // arrange
+        DataTable mockDataTable = DataTableStubFactory.MOCK_DATATABLE_NOACCESSLIST();
+        Officer mockOfficer2 = DataTableStubFactory.MOCK_OFFICER2();
+        mockDataTable.getDataset().getOfficerCustodianList().add(mockOfficer2); // add mockOfficer2 temporarily as custodian
+
+        // act
+        when(dataTableRepository.findById(anyLong())).thenReturn(Optional.of(mockDataTable));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+
+        // assert
+        assertTrue(() -> dataTableService.editDataTablePrivacy(true, Long.parseLong("123"), "456"));
+
+        // empty custodian list
+        mockDataTable.getDataset().getOfficerCustodianList().remove(mockOfficer2);
+    }
+
+
 
     // clean up db with new datatables (tables) created
     @AfterAll

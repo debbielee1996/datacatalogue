@@ -17,4 +17,6 @@ public class DataTableDto {
     private String officerPf;
     private Long datasetId;
     private String datasetName;
+    private String datasetDescription;
+    private Boolean isPublic;
 }

@@ -17,9 +17,9 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.databaselink.GetBean;
 import sg.gov.csit.datacatalogue.dcms.dataset.mock.DatasetStubFactory;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetExistsException;
-import sg.gov.csit.datacatalogue.dcms.exception.DatasetNotFoundException;
-import sg.gov.csit.datacatalogue.dcms.exception.OfficerNotFoundException;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatable.mock.DataTableStubFactory;
+import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
@@ -50,7 +50,7 @@ public class DatasetServiceTest {
         when(datasetRepository.findByName(anyString())).thenReturn(new Dataset());
 
         // assert
-        assertThrows(DatasetExistsException.class, () -> datasetService.createNewDataset("mock", "", "123", new ArrayList<>(), "123"));
+        assertThrows(DatasetExistsException.class, () -> datasetService.createNewDataset("mock", "", "123", new ArrayList<>(), "123", false));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class DatasetServiceTest {
         doReturn(Optional.<Officer>empty()).when(officerRepository).findByPf(anyString());
 
         // assert
-        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123", new ArrayList<>(), "123"));
+        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123", new ArrayList<>(), "123", false));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class DatasetServiceTest {
         doReturn(Optional.<Officer>empty()).when(officerRepository).findByPf(anyString());
 
         // assert
-        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123", custodianPfs, "123"));
+        assertThrows(OfficerNotFoundException.class, () -> datasetService.createNewDataset("mock", "", "123", custodianPfs, "123", false));
     }
 
     @Test
@@ -97,7 +97,7 @@ public class DatasetServiceTest {
         doReturn(Optional.of(mockOfficer)).when(officerRepository).findByPf(pf);
 
         // assert
-        assertTrue(() -> datasetService.createNewDataset("DatasetServiceTest_mockDatabase", "", pf, new ArrayList<>(), "123"));
+        assertTrue(() -> datasetService.createNewDataset("DatasetServiceTest_mockDatabase", "", pf, new ArrayList<>(), "123", false));
     }
 
 
@@ -270,6 +270,72 @@ public class DatasetServiceTest {
         assertTrue(datasetService.removeOfficerDatasetAccess("123", "123"));
     }
 
+    //    test case for access level dataset
+    @Test
+    public void editDataSetPrivacy_DatasetDoesNotExist_ShouldThrowException() {
+        // assert
+        assertThrows(DatasetNotFoundException.class, () -> datasetService.editDataSetPrivacy(true, anyLong(), "123"));
+    }
+    @Test
+    public void editDataSetPrivacy_OfficerDoesNotExist_ShouldThrowException() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+
+        // assert
+        assertThrows(OfficerNotFoundException.class, () -> datasetService.editDataSetPrivacy(true, anyLong(), "123"));
+    }
+
+    @Test
+    public void editDataSetPrivacy_OfficerNotCustodianOrOwner_ShouldThrowException() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        Officer mockOfficer2 = DatasetStubFactory.MOCK_OFFICER2();
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+
+        // assert
+        assertThrows(DatasetAccessNotFoundException.class, () -> datasetService.editDataSetPrivacy(true, Long.parseLong("123"), "456"));
+    }
+
+    @Test
+    public void editDataSetPrivacy_DatasetExistAndOfficerIsOwner_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer));
+
+        // assert
+        assertTrue(() -> datasetService.editDataSetPrivacy(true, Long.parseLong("123"), "123"));
+    }
+
+    @Test
+    public void editDatasetPrivacy_DatasetExistAndOfficerIsCustodian_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        Officer mockOfficer2 = DatasetStubFactory.MOCK_OFFICER2();
+        mockDataset.getOfficerCustodianList().add(mockOfficer2); // add mockOfficer2 temporarily as custodian
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+
+        // assert
+        assertTrue(() -> datasetService.editDataSetPrivacy(true, Long.parseLong("123"), "456"));
+
+        // empty custodian list
+        mockDataset.getOfficerCustodianList().remove(mockOfficer2);
+    }
+
+
+
     // clean up db with new datasets (databases) created
     @AfterAll
     public static void tearDown() throws SQLException {
@@ -282,4 +348,6 @@ public class DatasetServiceTest {
         }
         conn.close();
     }
+
+
 }

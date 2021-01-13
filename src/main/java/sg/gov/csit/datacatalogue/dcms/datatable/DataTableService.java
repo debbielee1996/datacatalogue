@@ -22,6 +22,7 @@ import sg.gov.csit.datacatalogue.dcms.dataset.DatasetRepository;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnRepository;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumnaccess.DataTableColumnAccess;
 import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
@@ -41,6 +42,9 @@ public class DataTableService {
     DataTableRepository dataTableRepository;
 
     @Autowired
+    DataTableColumnRepository dataTableColumnRepository;
+
+    @Autowired
     OfficerRepository officerRepository;
 
     @Autowired
@@ -49,7 +53,7 @@ public class DataTableService {
     @Autowired
     ModelMapper modelMapper;
 
-    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf, List<String> dataColDescriptions) throws IOException, CsvException, SQLException {
+    public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf, List<String> dataColDescriptions,Boolean isPublic) throws IOException, CsvException, SQLException {
         // verify officer exists
         Optional<Officer> officer = officerRepository.findByPf(pf);
         if (officer.isEmpty()) {
@@ -154,7 +158,7 @@ public class DataTableService {
 
         if (hasCreatedDatatable) {
             if (!dataTableExists) { // create dataTable object in db
-                dataTable = new DataTable(tableName, description, dataset.get(), officer.get(), false);
+                dataTable = new DataTable(tableName, description, dataset.get(), officer.get(), isPublic);
                 DataTableAccess dataTableAccess = new DataTableAccess(dataTable, "Pf", pf); // add access for creator of datatable
                 dataTable.getDataTableAccessList().add(dataTableAccess);
             } else { // overwrite existing description with new one
@@ -165,7 +169,7 @@ public class DataTableService {
             // create DataTableColumns
             dataTable.getDataTableColumnList().clear(); // drop existing dataTableColumns
             for (int i=0; i<headerList.size();i++) {
-                DataTableColumn dtc = new DataTableColumn(headerList.get(i), dataColDescriptions.get(i), dataTypes.get(i), dataTable, false);
+                DataTableColumn dtc = new DataTableColumn(headerList.get(i), dataColDescriptions.get(i), dataTypes.get(i), dataTable, isPublic);
 
                 // add access for dtc. By default creator can view all datatable columns
                 DataTableColumnAccess dataTableColumnAccess = new DataTableColumnAccess(dtc, "Pf", pf); // add access for creator of datatable
@@ -204,7 +208,18 @@ public class DataTableService {
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
+//get all public datatable
 
+    public List<DataTableDto> getAllPublicDataTableDtos(String pf) {
+        List<DataTable> dataTables = dataTableRepository.findAll();
+        List<DataTable> filteredDataTables = dataTables.stream()
+                .filter(d -> d.getIsPublic()==true)
+                .collect(Collectors.toList());
+
+        return filteredDataTables.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
     public boolean ValidateOfficerDataTableAccess(String pf, Long dataTableId) {
         if (officerRepository.findByPf(pf).isPresent()) { // if officer exists
             Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
@@ -296,6 +311,53 @@ public class DataTableService {
         actualDataTable.setDescription(description);
         dataTableRepository.save(actualDataTable);
         return true;
+    }
+
+//edit datatable privacy
+    public boolean editDataTablePrivacy(Boolean isPublic , Long dataTableId, String pf) {
+        // verify datatable exists
+        Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
+        System.out.println(dataTable.isEmpty());
+        if (dataTable.isEmpty()) {
+            throw new DataTableNotFoundException(dataTableId);
+        }
+        // verify officer exists
+        Optional<Officer> officer = officerRepository.findByPf(pf);
+        if (officer.isEmpty()) {
+            throw new OfficerNotFoundException(pf);
+        }
+        DataTable actualDataTable = dataTable.get();
+        Dataset dataset = actualDataTable.getDataset(); // get parent dataset
+
+        // verify if officer is custodian/owner
+        if (!dataset.getOfficer().getPf().equals(officer.get().getPf()) && // check ownership
+                (dataset.getOfficerCustodianList().stream().filter(custodianOfficer -> custodianOfficer.getPf().equals(officer.get().getPf())).count()==0)) { // check custodianship
+            throw new DatasetAccessNotFoundException(pf, dataset.getId());
+        }
+        List<DataTableColumn> dataTableColumnList = actualDataTable.getDataTableColumnList();
+if(isPublic==true) {
+    actualDataTable.setIsPublic(isPublic);
+    dataTableRepository.save(actualDataTable);
+    dataset.setIsPublic(isPublic);
+    datasetRepository.save(dataset);
+
+    // set each datatablecolumn to public
+    for (DataTableColumn dtc : dataTableColumnList) {
+        dtc.setIsPublic(isPublic);
+        dataTableColumnRepository.save(dtc);
+    }
+}
+else{
+    actualDataTable.setIsPublic(isPublic);
+    dataTableRepository.save(actualDataTable);
+
+    // set each datatablecolumn to private
+    for (DataTableColumn dtc : dataTableColumnList) {
+        dtc.setIsPublic(isPublic);
+        dataTableColumnRepository.save(dtc);
+    }
+}
+return true;
     }
 
     public boolean dataTableNameIsUnique(String dataTableName, Long datasetId) { return dataTableRepository.findByNameAndDatasetId(dataTableName, datasetId)==null; }

@@ -17,4 +17,5 @@ public class DataTableColumnDto implements Serializable {
     private Long dataTableId;
     private String dataTableName;
     private String datasetName;
+    private Boolean isPublic;
 }
