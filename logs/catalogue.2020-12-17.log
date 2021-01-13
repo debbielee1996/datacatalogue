@@ -1,0 +1,1051 @@
+14:33:22.695 [] [] [main] INFO  HikariPool-1 - Starting...
+14:33:23.400 [] [] [main] INFO  HikariPool-1 - Start completed.
+14:33:26.820 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.834 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":13,"TYPE":"END"}
+14:33:26.906 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.907 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.913 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.913 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.917 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.919 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.924 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.924 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.928 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.928 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.934 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.934 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.939 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testingParameterList","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{"mockList":"[ab, cd]"}}
+14:33:26.940 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testingParameterList","CLASS":"ServiceFake","TIMETAKEN":1,"TYPE":"END"}
+14:33:26.945 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{}}
+14:33:26.945 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testing","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.950 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testingParameter","CLASS":"ServiceFake","TYPE":"START","PARAMETER":{"number":1234,"word":"testingWord"}}
+14:33:26.950 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.logging","METHOD":"testingParameter","CLASS":"ServiceFake","TIMETAKEN":0,"TYPE":"END"}
+14:33:26.997 [] [] [main] INFO  Neither @ContextConfiguration nor @ContextHierarchy found for test class [sg.gov.csit.datacatalogue.dcms.DcMsApplicationTests], using SpringBootContextLoader
+14:33:27.002 [] [] [main] INFO  Could not detect default resource locations for test class [sg.gov.csit.datacatalogue.dcms.DcMsApplicationTests]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:33:27.003 [] [] [main] INFO  Could not detect default configuration classes for test class [sg.gov.csit.datacatalogue.dcms.DcMsApplicationTests]: DcMsApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:33:27.143 [] [] [main] INFO  Found @SpringBootConfiguration sg.gov.csit.datacatalogue.dcms.DcMsApplication for test class sg.gov.csit.datacatalogue.dcms.DcMsApplicationTests
+14:33:27.248 [] [] [main] INFO  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:33:27.266 [] [] [main] INFO  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@93bf0e0, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@4981d95b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@656842bc, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6b867ee7, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3dec3f87, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7a606260, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5dbab232, org.springframework.test.context.event.EventPublishingTestExecutionListener@5939e24, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@595f9916, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2055833f, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@28768e25, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@310d57b1, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@143fefaf, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@18ffca6c]
+14:33:28.679 [] [] [background-preinit] INFO  HV000001: Hibernate Validator 6.0.13.Final
+14:33:30.515 [] [] [main] WARN  
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/jiaen/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/jiaen/.m2/repository/org/json/json/20201115/json-20201115.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+14:33:30.522 [] [] [main] INFO  The following profiles are active: development
+14:33:31.278 [] [] [main] INFO  Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+14:33:31.417 [] [] [main] INFO  Finished Spring Data repository scanning in 128ms. Found 8 JPA repository interfaces.
+14:33:31.689 [] [] [main] INFO  BeanFactory id=484ee492-a322-3700-8512-dcd623770308
+14:33:32.339 [] [] [main] INFO  Initializing ExecutorService 'applicationTaskExecutor'
+14:33:32.510 [] [] [task-1] INFO  HHH000204: Processing PersistenceUnitInfo [name: default]
+14:33:32.621 [] [] [task-1] INFO  HHH000412: Hibernate ORM core version 5.4.21.Final
+14:33:32.680 [] [] [task-1] INFO  HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+14:33:32.684 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"modelMapper","CLASS":"ModelMapperConfig$$EnhancerBySpringCGLIB$$58a1223","TYPE":"START","PARAMETER":{}}
+14:33:32.729 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"modelMapper","CLASS":"ModelMapperConfig$$EnhancerBySpringCGLIB$$58a1223","TIMETAKEN":45,"TYPE":"END"}
+14:33:32.900 [] [] [task-1] INFO  HikariPool-2 - Starting...
+14:33:32.912 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"corsConfigurer","CLASS":"CorsConfig$$EnhancerBySpringCGLIB$$f1e9f6dc","TYPE":"START","PARAMETER":{}}
+14:33:32.919 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"corsConfigurer","CLASS":"CorsConfig$$EnhancerBySpringCGLIB$$f1e9f6dc","TIMETAKEN":6,"TYPE":"END"}
+14:33:32.930 [] [] [task-1] INFO  HikariPool-2 - Start completed.
+14:33:32.984 [] [] [task-1] INFO  HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+14:33:33.572 [] [] [main] WARN  spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+14:33:34.334 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addInterceptors","CLASS":"InterceptorConfig$$EnhancerBySpringCGLIB$$576c999e","TYPE":"START","PARAMETER":{"registry":"org.springframework.web.servlet.config.annotation.InterceptorRegistry@1a712f12"}}
+14:33:34.337 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addInterceptors","CLASS":"InterceptorConfig$$EnhancerBySpringCGLIB$$576c999e","TIMETAKEN":3,"TYPE":"END"}
+14:33:34.349 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addCorsMappings","CLASS":"","TYPE":"START","PARAMETER":{"registry":"org.springframework.web.servlet.config.annotation.CorsRegistry@61f08aa9"}}
+14:33:34.353 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addCorsMappings","CLASS":"","TIMETAKEN":3,"TYPE":"END"}
+14:33:34.660 [] [] [task-1] INFO  HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+14:33:34.672 [] [] [task-1] INFO  Initialized JPA EntityManagerFactory for persistence unit 'default'
+14:33:36.310 [] [] [main] INFO  Cannot determine local hostname
+14:33:36.873 [] [] [main] INFO  Triggering deferred initialization of Spring Data repositoriesâ€¦
+14:33:37.825 [] [] [main] INFO  Spring Data repositories initialized!
+14:33:37.826 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms","METHOD":"seed","CLASS":"Dataseeder","TYPE":"START","PARAMETER":{"event":"org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.web.context.support.GenericWebApplicationContext@39a7eca5, started on Thu Dec 17 14:33:30 SGT 2020, parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@7b91d9f]"}}
+14:33:38.433 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms","METHOD":"seed","CLASS":"Dataseeder","TIMETAKEN":607,"TYPE":"END"}
+14:33:38.452 [] [] [main] INFO  Started DcMsApplicationTests in 11.147 seconds (JVM running for 17.391)
+14:33:38.489 [] [] [main] INFO  Neither @ContextConfiguration nor @ContextHierarchy found for test class [sg.gov.csit.datacatalogue.dcms.RestApiIntegrationTest], using SpringBootContextLoader
+14:33:38.490 [] [] [main] INFO  Could not detect default resource locations for test class [sg.gov.csit.datacatalogue.dcms.RestApiIntegrationTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:33:38.491 [] [] [main] INFO  Could not detect default configuration classes for test class [sg.gov.csit.datacatalogue.dcms.RestApiIntegrationTest]: RestApiIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:33:38.492 [] [] [main] INFO  Found @SpringBootConfiguration sg.gov.csit.datacatalogue.dcms.DcMsApplication for test class sg.gov.csit.datacatalogue.dcms.RestApiIntegrationTest
+14:33:38.494 [] [] [main] INFO  Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:33:38.494 [] [] [main] INFO  Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@48463900, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5834298c, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7c070e78, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@63ead376, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1a1d7832, org.springframework.test.context.transaction.TransactionalTestExecutionListener@639c5ab4, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@272cec71, org.springframework.test.context.event.EventPublishingTestExecutionListener@12e8ea81, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6345dc06, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@628d6320, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@22025464, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@77eb0e47, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@3a034950, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@331eb953]
+14:33:40.934 [] [] [main] WARN  
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/jiaen/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/jiaen/.m2/repository/org/json/json/20201115/json-20201115.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+14:33:40.937 [] [] [main] INFO  The following profiles are active: development
+14:33:41.220 [] [] [main] INFO  Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+14:33:41.272 [] [] [main] INFO  Finished Spring Data repository scanning in 52ms. Found 8 JPA repository interfaces.
+14:33:41.358 [] [] [main] INFO  BeanFactory id=8fde24bc-636f-326b-94fe-7baf607fbc81
+14:33:41.831 [] [] [main] INFO  Tomcat initialized with port(s): 0 (http)
+14:33:41.850 [] [] [main] INFO  Initializing ProtocolHandler ["http-nio-auto-1"]
+14:33:41.850 [] [] [main] INFO  Starting service [Tomcat]
+14:33:41.851 [] [] [main] INFO  Starting Servlet engine: [Apache Tomcat/9.0.38]
+14:33:42.097 [] [] [main] INFO  Initializing Spring embedded WebApplicationContext
+14:33:42.097 [] [] [main] INFO  Root WebApplicationContext: initialization completed in 1155 ms
+14:33:42.657 [] [] [main] INFO  Initializing ExecutorService 'applicationTaskExecutor'
+14:33:42.711 [] [] [task-1] INFO  HHH000204: Processing PersistenceUnitInfo [name: default]
+14:33:42.720 [] [] [task-1] INFO  HikariPool-3 - Starting...
+14:33:42.749 [] [] [task-1] INFO  HikariPool-3 - Start completed.
+14:33:42.749 [] [] [task-1] INFO  HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+14:33:42.779 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"modelMapper","CLASS":"ModelMapperConfig$$EnhancerBySpringCGLIB$$58a1223","TYPE":"START","PARAMETER":{}}
+14:33:42.780 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"modelMapper","CLASS":"ModelMapperConfig$$EnhancerBySpringCGLIB$$58a1223","TIMETAKEN":1,"TYPE":"END"}
+14:33:42.842 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"corsConfigurer","CLASS":"CorsConfig$$EnhancerBySpringCGLIB$$f1e9f6dc","TYPE":"START","PARAMETER":{}}
+14:33:42.842 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"corsConfigurer","CLASS":"CorsConfig$$EnhancerBySpringCGLIB$$f1e9f6dc","TIMETAKEN":0,"TYPE":"END"}
+14:33:42.985 [] [] [main] WARN  spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+14:33:43.156 [] [] [task-1] INFO  HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+14:33:43.157 [] [] [task-1] INFO  Initialized JPA EntityManagerFactory for persistence unit 'default'
+14:33:43.356 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addInterceptors","CLASS":"InterceptorConfig$$EnhancerBySpringCGLIB$$576c999e","TYPE":"START","PARAMETER":{"registry":"org.springframework.web.servlet.config.annotation.InterceptorRegistry@4873c645"}}
+14:33:43.357 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addInterceptors","CLASS":"InterceptorConfig$$EnhancerBySpringCGLIB$$576c999e","TIMETAKEN":0,"TYPE":"END"}
+14:33:43.364 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addCorsMappings","CLASS":"","TYPE":"START","PARAMETER":{"registry":"org.springframework.web.servlet.config.annotation.CorsRegistry@4bdec54"}}
+14:33:43.365 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addCorsMappings","CLASS":"","TIMETAKEN":0,"TYPE":"END"}
+14:33:44.895 [] [] [main] INFO  Cannot determine local hostname
+14:33:45.080 [] [] [main] INFO  Starting ProtocolHandler ["http-nio-auto-1"]
+14:33:45.125 [] [] [main] INFO  Tomcat started on port(s): 18835 (http) with context path ''
+14:33:46.262 [] [] [main] INFO  Cannot determine local hostname
+14:33:46.263 [] [] [main] INFO  Triggering deferred initialization of Spring Data repositoriesâ€¦
+14:33:46.752 [] [] [main] INFO  Spring Data repositories initialized!
+14:33:46.753 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms","METHOD":"seed","CLASS":"Dataseeder","TYPE":"START","PARAMETER":{"event":"org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6afdb486, started on Thu Dec 17 14:33:40 SGT 2020, parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@23c0fcf0]"}}
+14:33:47.177 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms","METHOD":"seed","CLASS":"Dataseeder","TIMETAKEN":424,"TYPE":"END"}
+14:33:47.192 [] [] [main] INFO  Started RestApiIntegrationTest in 8.695 seconds (JVM running for 26.132)
+14:33:47.896 [] [] [SpringContextShutdownHook] INFO  Closing JPA EntityManagerFactory for persistence unit 'default'
+14:33:47.897 [] [] [SpringContextShutdownHook] INFO  HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+14:33:47.956 [] [] [SpringContextShutdownHook] INFO  Shutting down ExecutorService 'applicationTaskExecutor'
+14:33:47.957 [] [] [SpringContextShutdownHook] INFO  HikariPool-2 - Shutdown initiated...
+14:33:47.962 [] [] [SpringContextShutdownHook] INFO  HikariPool-2 - Shutdown completed.
+14:33:47.966 [] [] [SpringContextShutdownHook] INFO  Closing JPA EntityManagerFactory for persistence unit 'default'
+14:33:47.966 [] [] [SpringContextShutdownHook] INFO  HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+14:33:47.978 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table dataset drop constraint FKlgv7x7c9rrgw7cjwq29nq8vx8
+14:33:47.981 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table dataset_access drop constraint FKo5ye0uui5wi6lsnb8v2a102hi
+14:33:47.982 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table data_table drop constraint FK13kcivcjkybmyfgblwmx2edkc
+14:33:47.983 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table data_table drop constraint FK5j3wu1p41uuplk0fefy1eqogv
+14:33:47.984 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table data_table_access drop constraint FKon7hal4galnw380ujrmaum49j
+14:33:47.986 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table data_table_column drop constraint FKj1skcwm3nbkuxbmcxu274rkdr
+14:33:47.987 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table data_table_column_access drop constraint FK14nw9vyrfksva6e6p1hy6rp55
+14:33:47.988 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table officer drop constraint FKm4sk42oa0pphxld2iy7d45ypt
+14:33:47.989 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table officer_dataset_custodians drop constraint FKmc07u9ak7q5x3rm9k8ss4baip
+14:33:47.990 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: alter table officer_dataset_custodians drop constraint FK8wh85aysjer5e69xnefbj3rxo
+14:33:47.993 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table acl
+14:33:47.994 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table dataset
+14:33:47.994 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table dataset_access
+14:33:47.995 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table data_table
+14:33:47.996 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table data_table_access
+14:33:47.997 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table data_table_column
+14:33:47.998 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table data_table_column_access
+14:33:47.999 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table officer
+14:33:48.000 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop table officer_dataset_custodians
+14:33:48.001 [] [] [SpringContextShutdownHook] ERROR HHH000478: Unsuccessful: drop sequence hibernate_sequence
+14:33:48.002 [] [] [SpringContextShutdownHook] INFO  Shutting down ExecutorService 'applicationTaskExecutor'
+14:33:48.002 [] [] [SpringContextShutdownHook] INFO  HikariPool-3 - Shutdown initiated...
+14:33:48.005 [] [] [SpringContextShutdownHook] INFO  HikariPool-3 - Shutdown completed.
+14:46:06.028 [] [] [background-preinit] INFO  HV000001: Hibernate Validator 6.0.13.Final
+14:46:07.588 [] [] [main] INFO  The following profiles are active: development
+14:46:08.221 [] [] [main] INFO  Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+14:46:08.331 [] [] [main] INFO  Finished Spring Data repository scanning in 99ms. Found 8 JPA repository interfaces.
+14:46:08.546 [] [] [main] INFO  BeanFactory id=e1ba4da7-7253-37a0-9640-51279db5ca7a
+14:46:09.234 [] [] [main] INFO  Tomcat initialized with port(s): 8080 (http)
+14:46:09.247 [] [] [main] INFO  Initializing ProtocolHandler ["http-nio-8080"]
+14:46:09.247 [] [] [main] INFO  Starting service [Tomcat]
+14:46:09.247 [] [] [main] INFO  Starting Servlet engine: [Apache Tomcat/9.0.38]
+14:46:09.429 [] [] [main] INFO  Initializing Spring embedded WebApplicationContext
+14:46:09.429 [] [] [main] INFO  Root WebApplicationContext: initialization completed in 1828 ms
+14:46:09.907 [] [] [main] INFO  Initializing ExecutorService 'applicationTaskExecutor'
+14:46:09.981 [] [] [task-1] INFO  HHH000204: Processing PersistenceUnitInfo [name: default]
+14:46:10.081 [] [] [task-1] INFO  HHH000412: Hibernate ORM core version 5.4.21.Final
+14:46:10.116 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"modelMapper","CLASS":"ModelMapperConfig$$EnhancerBySpringCGLIB$$df136d87","TYPE":"START","PARAMETER":{}}
+14:46:10.174 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"modelMapper","CLASS":"ModelMapperConfig$$EnhancerBySpringCGLIB$$df136d87","TIMETAKEN":58,"TYPE":"END"}
+14:46:10.305 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"corsConfigurer","CLASS":"CorsConfig$$EnhancerBySpringCGLIB$$cb735240","TYPE":"START","PARAMETER":{}}
+14:46:10.311 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"corsConfigurer","CLASS":"CorsConfig$$EnhancerBySpringCGLIB$$cb735240","TIMETAKEN":5,"TYPE":"END"}
+14:46:10.344 [] [] [task-1] INFO  HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+14:46:10.442 [] [] [main] WARN  spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+14:46:10.520 [] [] [task-1] INFO  HikariPool-1 - Starting...
+14:46:10.801 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addInterceptors","CLASS":"InterceptorConfig$$EnhancerBySpringCGLIB$$30f5f502","TYPE":"START","PARAMETER":{"registry":"org.springframework.web.servlet.config.annotation.InterceptorRegistry@4b5ad306"}}
+14:46:10.803 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addInterceptors","CLASS":"InterceptorConfig$$EnhancerBySpringCGLIB$$30f5f502","TIMETAKEN":1,"TYPE":"END"}
+14:46:10.808 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addCorsMappings","CLASS":"","TYPE":"START","PARAMETER":{"registry":"org.springframework.web.servlet.config.annotation.CorsRegistry@6ef1c3f7"}}
+14:46:10.810 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.config","METHOD":"addCorsMappings","CLASS":"","TIMETAKEN":2,"TYPE":"END"}
+14:46:10.972 [] [] [task-1] INFO  HikariPool-1 - Start completed.
+14:46:11.027 [] [] [task-1] INFO  HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+14:46:12.289 [] [] [main] INFO  Cannot determine local hostname
+14:46:12.323 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table dataset drop constraint FKlgv7x7c9rrgw7cjwq29nq8vx8" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table dataset drop constraint FKlgv7x7c9rrgw7cjwq29nq8vx8" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "dataset" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.326 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table dataset_access drop constraint FKo5ye0uui5wi6lsnb8v2a102hi" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table dataset_access drop constraint FKo5ye0uui5wi6lsnb8v2a102hi" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "dataset_access" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.328 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table data_table drop constraint FK13kcivcjkybmyfgblwmx2edkc" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table data_table drop constraint FK13kcivcjkybmyfgblwmx2edkc" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "data_table" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.330 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table data_table drop constraint FK5j3wu1p41uuplk0fefy1eqogv" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table data_table drop constraint FK5j3wu1p41uuplk0fefy1eqogv" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "data_table" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.332 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table data_table_access drop constraint FKon7hal4galnw380ujrmaum49j" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table data_table_access drop constraint FKon7hal4galnw380ujrmaum49j" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "data_table_access" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.334 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table data_table_column drop constraint FKj1skcwm3nbkuxbmcxu274rkdr" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table data_table_column drop constraint FKj1skcwm3nbkuxbmcxu274rkdr" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "data_table_column" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.337 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table data_table_column_access drop constraint FK14nw9vyrfksva6e6p1hy6rp55" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table data_table_column_access drop constraint FK14nw9vyrfksva6e6p1hy6rp55" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "data_table_column_access" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.339 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table officer drop constraint FKm4sk42oa0pphxld2iy7d45ypt" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table officer drop constraint FKm4sk42oa0pphxld2iy7d45ypt" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "officer" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.341 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table officer_dataset_custodians drop constraint FKmc07u9ak7q5x3rm9k8ss4baip" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table officer_dataset_custodians drop constraint FKmc07u9ak7q5x3rm9k8ss4baip" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "officer_dataset_custodians" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.343 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "alter table officer_dataset_custodians drop constraint FK8wh85aysjer5e69xnefbj3rxo" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table officer_dataset_custodians drop constraint FK8wh85aysjer5e69xnefbj3rxo" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applyConstraintDropping(SchemaDropperImpl.java:331)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:230)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot find the object "officer_dataset_custodians" because it does not exist or you do not have permissions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 19 common frames omitted
+14:46:12.349 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table acl" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table acl" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'acl', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.351 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table dataset" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table dataset" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'dataset', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.353 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table dataset_access" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table dataset_access" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'dataset_access', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.355 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table data_table" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table data_table" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'data_table', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.357 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table data_table_access" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table data_table_access" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'data_table_access', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.359 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table data_table_column" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table data_table_column" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'data_table_column', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.360 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table data_table_column_access" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table data_table_column_access" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'data_table_column_access', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.361 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table officer" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table officer" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'officer', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.362 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop table officer_dataset_custodians" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop table officer_dataset_custodians" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:241)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the table 'officer_dataset_custodians', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.365 [] [] [task-1] WARN  GenerationTarget encountered exception accepting command : Error executing DDL "drop sequence hibernate_sequence" via JDBC Statement
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "drop sequence hibernate_sequence" via JDBC Statement
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:67)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlString(SchemaDropperImpl.java:375)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.applySqlStrings(SchemaDropperImpl.java:359)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.dropFromMetadata(SchemaDropperImpl.java:249)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.performDrop(SchemaDropperImpl.java:154)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:126)
+	at org.hibernate.tool.schema.internal.SchemaDropperImpl.doDrop(SchemaDropperImpl.java:112)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:145)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:316)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:469)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:391)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at java.base/java.lang.Thread.run(Thread.java:832)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the sequence 'hibernate_sequence', because it does not exist or you do not have permission.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:262)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1624)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:868)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:768)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7194)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:2979)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:248)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:223)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:744)
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:54)
+	... 18 common frames omitted
+14:46:12.452 [] [] [main] INFO  Starting ProtocolHandler ["http-nio-8080"]
+14:46:12.501 [] [] [main] INFO  Tomcat started on port(s): 8080 (http) with context path ''
+14:46:12.573 [] [] [task-1] INFO  HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+14:46:12.582 [] [] [task-1] INFO  Initialized JPA EntityManagerFactory for persistence unit 'default'
+14:46:13.646 [] [] [main] INFO  Cannot determine local hostname
+14:46:13.650 [] [] [main] INFO  Triggering deferred initialization of Spring Data repositories…
+14:46:14.566 [] [] [main] INFO  Spring Data repositories initialized!
+14:46:14.567 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms","METHOD":"seed","CLASS":"Dataseeder","TYPE":"START","PARAMETER":{"event":"org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@76ba13c, started on Thu Dec 17 14:46:07 SGT 2020, parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@52815fa3]"}}
+14:46:15.276 [] [] [main] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms","METHOD":"seed","CLASS":"Dataseeder","TIMETAKEN":709,"TYPE":"END"}
+14:46:15.293 [] [] [main] INFO  Started DcMsApplication in 10.686 seconds (JVM running for 11.473)
+14:48:36.409 [] [] [http-nio-8080-exec-1] INFO  Initializing Spring DispatcherServlet 'dispatcherServlet'
+14:48:36.409 [] [] [http-nio-8080-exec-1] INFO  Initializing Servlet 'dispatcherServlet'
+14:48:36.421 [] [] [http-nio-8080-exec-1] INFO  Completed initialization in 12 ms
+14:57:58.369 [f398b968c0fca124] [f398b968c0fca124] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.dataset.DatasetController#getDatasetsCreatedByOfficer(String, String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+14:57:58.387 [f398b968c0fca124] [f398b968c0fca124] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":15,"TYPE":"END"}
+14:57:58.447 [f398b968c0fca124] [f398b968c0fca124] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetController","TYPE":"START","PARAMETER":{"pf":"1001","txnId":"3e09a8de-4e61-4cf0-b3d7-14de451f4c4c"}}
+14:57:58.450 [f398b968c0fca124] [f398b968c0fca124] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+14:57:58.615 [f398b968c0fca124] [f398b968c0fca124] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetService","TIMETAKEN":164,"TYPE":"END"}
+14:57:58.615 [f398b968c0fca124] [f398b968c0fca124] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetController","TIMETAKEN":168,"TYPE":"END"}
+14:57:59.102 [201f165888674eb4] [201f165888674eb4] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"ResourceHttpRequestHandler [\"classpath:/META-INF/resources/\", \"classpath:/resources/\", \"classpath:/static/\", \"classpath:/public/\", \"/\"]","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+14:57:59.102 [201f165888674eb4] [201f165888674eb4] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+14:57:59.117 [201f165888674eb4] [201f165888674eb4] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.core.ApplicationHttpRequest@6f3b0379","handler":"org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+14:57:59.117 [201f165888674eb4] [201f165888674eb4] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+14:58:30.564 [52d23788cfa86c7a] [52d23788cfa86c7a] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.dataset.DatasetController#getDatasetsCreatedByOfficer(String, String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+14:58:30.565 [52d23788cfa86c7a] [52d23788cfa86c7a] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":1,"TYPE":"END"}
+14:58:30.565 [52d23788cfa86c7a] [52d23788cfa86c7a] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetController","TYPE":"START","PARAMETER":{"pf":"1001","txnId":"c720997b-43fd-4a0a-94ae-ad77bcae8be4"}}
+14:58:30.566 [52d23788cfa86c7a] [52d23788cfa86c7a] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+14:58:30.576 [52d23788cfa86c7a] [52d23788cfa86c7a] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetService","TIMETAKEN":9,"TYPE":"END"}
+14:58:30.577 [52d23788cfa86c7a] [52d23788cfa86c7a] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getDatasetsCreatedByOfficer","CLASS":"DatasetController","TIMETAKEN":10,"TYPE":"END"}
+15:04:24.632 [c37117812c0bbb85] [c37117812c0bbb85] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#getAllDataTableDtos(String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:04:24.632 [c37117812c0bbb85] [c37117812c0bbb85] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:04:24.634 [c37117812c0bbb85] [c37117812c0bbb85] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"pf":"1001"}}
+15:04:24.643 [c37117812c0bbb85] [c37117812c0bbb85] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+15:04:24.807 [c37117812c0bbb85] [c37117812c0bbb85] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableService","TIMETAKEN":164,"TYPE":"END"}
+15:04:24.808 [c37117812c0bbb85] [c37117812c0bbb85] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableController","TIMETAKEN":174,"TYPE":"END"}
+15:37:30.133 [e74136e462284650] [e74136e462284650] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#getAllDataTableDtos(String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:30.149 [e74136e462284650] [e74136e462284650] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":3,"TYPE":"END"}
+15:37:30.214 [e74136e462284650] [e74136e462284650] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"pf":"1001"}}
+15:37:30.215 [e74136e462284650] [e74136e462284650] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+15:37:30.415 [e74136e462284650] [e74136e462284650] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableService","TIMETAKEN":200,"TYPE":"END"}
+15:37:30.415 [e74136e462284650] [e74136e462284650] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableController","TIMETAKEN":200,"TYPE":"END"}
+15:37:37.616 [d0c44e0963a0f5fc] [d0c44e0963a0f5fc] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.dataset.DatasetController#getAllDatasetDtos(String, String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:37.616 [d0c44e0963a0f5fc] [d0c44e0963a0f5fc] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:37.642 [d0c44e0963a0f5fc] [d0c44e0963a0f5fc] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetController","TYPE":"START","PARAMETER":{"pf":"1001","txnId":"0d8cfca1-69f2-458a-853f-2fa49b4f4791"}}
+15:37:37.648 [d0c44e0963a0f5fc] [d0c44e0963a0f5fc] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+15:37:37.780 [d0c44e0963a0f5fc] [d0c44e0963a0f5fc] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetService","TIMETAKEN":132,"TYPE":"END"}
+15:37:37.780 [d0c44e0963a0f5fc] [d0c44e0963a0f5fc] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetController","TIMETAKEN":138,"TYPE":"END"}
+15:37:43.606 [392edb7ab0a1b2a9] [392edb7ab0a1b2a9] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#getDataTablesCreatedByOfficer(String, String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:43.606 [392edb7ab0a1b2a9] [392edb7ab0a1b2a9] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:43.609 [392edb7ab0a1b2a9] [392edb7ab0a1b2a9] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getDataTablesCreatedByOfficer","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"pf":"1001","txnId":"20cbc1d1-7c73-4a8d-aaa8-143d7157bd33"}}
+15:37:43.610 [392edb7ab0a1b2a9] [392edb7ab0a1b2a9] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getDataTablesCreatedByOfficer","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+15:37:43.655 [392edb7ab0a1b2a9] [392edb7ab0a1b2a9] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getDataTablesCreatedByOfficer","CLASS":"DataTableService","TIMETAKEN":45,"TYPE":"END"}
+15:37:43.655 [392edb7ab0a1b2a9] [392edb7ab0a1b2a9] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getDataTablesCreatedByOfficer","CLASS":"DataTableController","TIMETAKEN":46,"TYPE":"END"}
+15:37:45.533 [76a9766242ea7de0] [76a9766242ea7de0] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.dataset.DatasetController#getAllDatasetDtos(String, String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:45.533 [76a9766242ea7de0] [76a9766242ea7de0] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:45.534 [76a9766242ea7de0] [76a9766242ea7de0] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetController","TYPE":"START","PARAMETER":{"pf":"1001","txnId":"b129c811-35ae-4c2a-9716-9bd8a49c761e"}}
+15:37:45.534 [76a9766242ea7de0] [76a9766242ea7de0] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+15:37:45.589 [76a9766242ea7de0] [76a9766242ea7de0] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetService","TIMETAKEN":55,"TYPE":"END"}
+15:37:45.589 [76a9766242ea7de0] [76a9766242ea7de0] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.dataset","METHOD":"getAllDatasetDtos","CLASS":"DatasetController","TIMETAKEN":55,"TYPE":"END"}
+15:37:49.419 [524675ea261fd6dc] [524675ea261fd6dc] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:49.420 [524675ea261fd6dc] [524675ea261fd6dc] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:49.479 [524675ea261fd6dc] [524675ea261fd6dc] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"","pf":"1001","datasetId":1,"txnId":"431fd483-0f1e-4179-a172-56c527dddd0c"}}
+15:37:49.480 [524675ea261fd6dc] [524675ea261fd6dc] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"","datasetId":1}}
+15:37:49.504 [524675ea261fd6dc] [524675ea261fd6dc] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":24,"TYPE":"END"}
+15:37:49.504 [524675ea261fd6dc] [524675ea261fd6dc] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":24,"TYPE":"END"}
+15:37:51.188 [405f34853ccb020f] [405f34853ccb020f] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:51.188 [405f34853ccb020f] [405f34853ccb020f] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:51.189 [405f34853ccb020f] [405f34853ccb020f] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"2","pf":"1001","datasetId":1,"txnId":"5697287c-308a-4d9f-aa00-b05d6070117a"}}
+15:37:51.189 [405f34853ccb020f] [405f34853ccb020f] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"2","datasetId":1}}
+15:37:51.193 [405f34853ccb020f] [405f34853ccb020f] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":4,"TYPE":"END"}
+15:37:51.193 [405f34853ccb020f] [405f34853ccb020f] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":4,"TYPE":"END"}
+15:37:51.590 [7a3b82c94d8df5f3] [7a3b82c94d8df5f3] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:51.590 [7a3b82c94d8df5f3] [7a3b82c94d8df5f3] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:51.591 [7a3b82c94d8df5f3] [7a3b82c94d8df5f3] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"","pf":"1001","datasetId":1,"txnId":"8874c973-e34e-4db4-b4a5-592b43d758a4"}}
+15:37:51.591 [7a3b82c94d8df5f3] [7a3b82c94d8df5f3] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"","datasetId":1}}
+15:37:51.595 [7a3b82c94d8df5f3] [7a3b82c94d8df5f3] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":4,"TYPE":"END"}
+15:37:51.596 [7a3b82c94d8df5f3] [7a3b82c94d8df5f3] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":5,"TYPE":"END"}
+15:37:53.140 [f3999fe4f888b120] [f3999fe4f888b120] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:53.145 [f3999fe4f888b120] [f3999fe4f888b120] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:53.145 [f3999fe4f888b120] [f3999fe4f888b120] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"t","pf":"1001","datasetId":1,"txnId":"75106876-8648-47b3-9ccb-b3dd544898fd"}}
+15:37:53.146 [f3999fe4f888b120] [f3999fe4f888b120] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"t","datasetId":1}}
+15:37:53.149 [f3999fe4f888b120] [f3999fe4f888b120] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":3,"TYPE":"END"}
+15:37:53.150 [f3999fe4f888b120] [f3999fe4f888b120] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":4,"TYPE":"END"}
+15:37:53.441 [f18c32a94f4d69cd] [f18c32a94f4d69cd] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:53.442 [f18c32a94f4d69cd] [f18c32a94f4d69cd] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:53.442 [f18c32a94f4d69cd] [f18c32a94f4d69cd] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tab","pf":"1001","datasetId":1,"txnId":"148208c7-6ce6-4d05-9d63-2261a7c7c756"}}
+15:37:53.442 [f18c32a94f4d69cd] [f18c32a94f4d69cd] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tab","datasetId":1}}
+15:37:53.445 [f18c32a94f4d69cd] [f18c32a94f4d69cd] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":3,"TYPE":"END"}
+15:37:53.445 [f18c32a94f4d69cd] [f18c32a94f4d69cd] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":3,"TYPE":"END"}
+15:37:53.524 [d26475fd326c6a62] [d26475fd326c6a62] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:53.524 [d26475fd326c6a62] [d26475fd326c6a62] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:53.530 [d26475fd326c6a62] [d26475fd326c6a62] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tab","pf":"1001","datasetId":1,"txnId":"3e52b8e2-32e9-494c-8dda-ad4ac445db89"}}
+15:37:53.530 [d26475fd326c6a62] [d26475fd326c6a62] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tab","datasetId":1}}
+15:37:53.534 [d26475fd326c6a62] [d26475fd326c6a62] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":4,"TYPE":"END"}
+15:37:53.534 [d26475fd326c6a62] [d26475fd326c6a62] [http-nio-8080-exec-2] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":4,"TYPE":"END"}
+15:37:53.825 [b7d6c04fb3af3e10] [b7d6c04fb3af3e10] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:53.830 [b7d6c04fb3af3e10] [b7d6c04fb3af3e10] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:53.832 [b7d6c04fb3af3e10] [b7d6c04fb3af3e10] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"table","pf":"1001","datasetId":1,"txnId":"072729cc-8710-4568-95c1-411bf36fae47"}}
+15:37:53.832 [b7d6c04fb3af3e10] [b7d6c04fb3af3e10] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"table","datasetId":1}}
+15:37:53.837 [b7d6c04fb3af3e10] [b7d6c04fb3af3e10] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":5,"TYPE":"END"}
+15:37:53.837 [b7d6c04fb3af3e10] [b7d6c04fb3af3e10] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":5,"TYPE":"END"}
+15:37:53.946 [e19b85b20e57ade6] [e19b85b20e57ade6] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:53.946 [e19b85b20e57ade6] [e19b85b20e57ade6] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:53.946 [e19b85b20e57ade6] [e19b85b20e57ade6] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"table","pf":"1001","datasetId":1,"txnId":"3246913b-2f9a-4e09-8360-263324970d5f"}}
+15:37:53.947 [e19b85b20e57ade6] [e19b85b20e57ade6] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"table","datasetId":1}}
+15:37:53.948 [e19b85b20e57ade6] [e19b85b20e57ade6] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":1,"TYPE":"END"}
+15:37:53.948 [e19b85b20e57ade6] [e19b85b20e57ade6] [http-nio-8080-exec-6] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":2,"TYPE":"END"}
+15:37:54.378 [b8a634304620a19a] [b8a634304620a19a] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:54.379 [b8a634304620a19a] [b8a634304620a19a] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:54.380 [b8a634304620a19a] [b8a634304620a19a] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tablena","pf":"1001","datasetId":1,"txnId":"b4c8ec1a-02d8-4932-b159-1b8bbb31fb3d"}}
+15:37:54.380 [b8a634304620a19a] [b8a634304620a19a] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tablena","datasetId":1}}
+15:37:54.387 [b8a634304620a19a] [b8a634304620a19a] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":7,"TYPE":"END"}
+15:37:54.387 [b8a634304620a19a] [b8a634304620a19a] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":7,"TYPE":"END"}
+15:37:54.509 [089909c2d978b38f] [089909c2d978b38f] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:54.509 [089909c2d978b38f] [089909c2d978b38f] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:54.510 [089909c2d978b38f] [089909c2d978b38f] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tablenam","pf":"1001","datasetId":1,"txnId":"52cfc73f-4fa2-46aa-92b3-ccefcd3aa74b"}}
+15:37:54.510 [089909c2d978b38f] [089909c2d978b38f] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tablenam","datasetId":1}}
+15:37:54.515 [089909c2d978b38f] [089909c2d978b38f] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":5,"TYPE":"END"}
+15:37:54.515 [089909c2d978b38f] [089909c2d978b38f] [http-nio-8080-exec-10] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":5,"TYPE":"END"}
+15:37:54.608 [2a7f04fd7cb2f115] [2a7f04fd7cb2f115] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:54.609 [2a7f04fd7cb2f115] [2a7f04fd7cb2f115] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:54.610 [2a7f04fd7cb2f115] [2a7f04fd7cb2f115] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tablename","pf":"1001","datasetId":1,"txnId":"26caca30-6ff0-48ec-b064-c2330df2127b"}}
+15:37:54.610 [2a7f04fd7cb2f115] [2a7f04fd7cb2f115] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tablename","datasetId":1}}
+15:37:54.616 [2a7f04fd7cb2f115] [2a7f04fd7cb2f115] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":6,"TYPE":"END"}
+15:37:54.617 [2a7f04fd7cb2f115] [2a7f04fd7cb2f115] [http-nio-8080-exec-3] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":6,"TYPE":"END"}
+15:37:54.792 [aa8a3922eeed4843] [aa8a3922eeed4843] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:54.792 [aa8a3922eeed4843] [aa8a3922eeed4843] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:54.793 [aa8a3922eeed4843] [aa8a3922eeed4843] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tablename","pf":"1001","datasetId":1,"txnId":"319fe3f5-5647-4be6-9dbc-b83cb3ac0357"}}
+15:37:54.793 [aa8a3922eeed4843] [aa8a3922eeed4843] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tablename","datasetId":1}}
+15:37:54.796 [aa8a3922eeed4843] [aa8a3922eeed4843] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":3,"TYPE":"END"}
+15:37:54.796 [aa8a3922eeed4843] [aa8a3922eeed4843] [http-nio-8080-exec-4] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":3,"TYPE":"END"}
+15:37:56.547 [6f1c46827fce482b] [6f1c46827fce482b] [http-nio-8080-exec-7] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:56.547 [6f1c46827fce482b] [6f1c46827fce482b] [http-nio-8080-exec-7] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:56.548 [6f1c46827fce482b] [6f1c46827fce482b] [http-nio-8080-exec-7] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tablename6","pf":"1001","datasetId":1,"txnId":"a63721c1-0b05-4a4c-872e-63ffb5ba1964"}}
+15:37:56.548 [6f1c46827fce482b] [6f1c46827fce482b] [http-nio-8080-exec-7] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tablename6","datasetId":1}}
+15:37:56.552 [6f1c46827fce482b] [6f1c46827fce482b] [http-nio-8080-exec-7] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":4,"TYPE":"END"}
+15:37:56.552 [6f1c46827fce482b] [6f1c46827fce482b] [http-nio-8080-exec-7] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":4,"TYPE":"END"}
+15:37:57.223 [f42587b3e578fdba] [f42587b3e578fdba] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:57.223 [f42587b3e578fdba] [f42587b3e578fdba] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:57.224 [f42587b3e578fdba] [f42587b3e578fdba] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tablename","pf":"1001","datasetId":1,"txnId":"414ef2a6-2e5e-48cb-9693-7f818ba8240b"}}
+15:37:57.224 [f42587b3e578fdba] [f42587b3e578fdba] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tablename","datasetId":1}}
+15:37:57.231 [f42587b3e578fdba] [f42587b3e578fdba] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":7,"TYPE":"END"}
+15:37:57.231 [f42587b3e578fdba] [f42587b3e578fdba] [http-nio-8080-exec-8] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":7,"TYPE":"END"}
+15:37:57.545 [d6977412af746a1e] [d6977412af746a1e] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#dataTableNameIsUnique(String, String, String, long)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:37:57.546 [d6977412af746a1e] [d6977412af746a1e] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":0,"TYPE":"END"}
+15:37:57.546 [d6977412af746a1e] [d6977412af746a1e] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTableName":"tablename9","pf":"1001","datasetId":1,"txnId":"cbc5091f-184e-4cb4-8e68-63145773215d"}}
+15:37:57.547 [d6977412af746a1e] [d6977412af746a1e] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTableName":"tablename9","datasetId":1}}
+15:37:57.552 [d6977412af746a1e] [d6977412af746a1e] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableService","TIMETAKEN":5,"TYPE":"END"}
+15:37:57.552 [d6977412af746a1e] [d6977412af746a1e] [http-nio-8080-exec-1] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"dataTableNameIsUnique","CLASS":"DataTableController","TIMETAKEN":5,"TYPE":"END"}
+15:39:42.934 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.springframework.web.multipart.support.StandardMultipartHttpServletRequest@5a56d6c8","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#uploadFile(MultipartFile, String, String, String, List, List, String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+15:39:42.935 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":1,"TYPE":"END"}
+15:39:42.963 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"uploadFile","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"dataTypes":["Text","Text","Text"],"file":"org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@61e653d7","pf":"1001","datasetId":"1","description":"tablename9","dataColDescriptions":["1","2","3"],"tableName":"tablename9"}}
+15:39:42.964 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"uploadFile","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"dataTypes":["Text","Text","Text"],"file":"org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@61e653d7","pf":"1001","datasetId":"1","description":"tablename9","dataColDescriptions":["1","2","3"],"tableName":"tablename9"}}
+15:39:43.236 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  HikariPool-2 - Starting...
+15:39:43.362 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  HikariPool-2 - Start completed.
+15:39:43.931 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"uploadFile","CLASS":"DataTableService","TIMETAKEN":966,"TYPE":"END"}
+15:39:43.931 [0da1fa63645cbd6e] [0da1fa63645cbd6e] [http-nio-8080-exec-5] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"uploadFile","CLASS":"DataTableController","TIMETAKEN":968,"TYPE":"END"}
+17:22:26.731 [083d6fead79fb0c1] [083d6fead79fb0c1] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TYPE":"START","PARAMETER":{"request":"org.apache.catalina.connector.RequestFacade@36bfdfd0","handler":"sg.gov.csit.datacatalogue.dcms.datatable.DataTableController#getAllDataTableDtos(String)","response":"org.apache.catalina.connector.ResponseFacade@4358eb39"}}
+17:22:26.762 [083d6fead79fb0c1] [083d6fead79fb0c1] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.interceptors","METHOD":"preHandle","CLASS":"LoginInterceptor","TIMETAKEN":2,"TYPE":"END"}
+17:22:26.888 [083d6fead79fb0c1] [083d6fead79fb0c1] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableController","TYPE":"START","PARAMETER":{"pf":"1001"}}
+17:22:26.889 [083d6fead79fb0c1] [083d6fead79fb0c1] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableService","TYPE":"START","PARAMETER":{"pf":"1001"}}
+17:22:27.301 [083d6fead79fb0c1] [083d6fead79fb0c1] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableService","TIMETAKEN":412,"TYPE":"END"}
+17:22:27.301 [083d6fead79fb0c1] [083d6fead79fb0c1] [http-nio-8080-exec-9] INFO  {"PACKAGE":"sg.gov.csit.datacatalogue.dcms.datatable","METHOD":"getAllDataTableDtos","CLASS":"DataTableController","TIMETAKEN":413,"TYPE":"END"}
+18:50:16.807 [] [] [HikariPool-1 housekeeper] WARN  HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=47m4s55ms119µs300ns).
+18:50:17.831 [] [] [HikariPool-2 housekeeper] WARN  HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=47m4s55ms7µs600ns).
+23:41:18.915 [] [] [HikariPool-1 housekeeper] WARN  HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4h51m10s774ms762µs).
+23:41:19.789 [] [] [HikariPool-2 housekeeper] WARN  HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=4h51m9s390ms264µs100ns).

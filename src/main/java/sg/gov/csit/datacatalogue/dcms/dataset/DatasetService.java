@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccessTypeEnum;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
+import sg.gov.csit.datacatalogue.dcms.datatable.DataTableRepository;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
+import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumnRepository;
 import sg.gov.csit.datacatalogue.dcms.exception.*;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
@@ -27,6 +31,12 @@ public class DatasetService {
     private DatasetRepository datasetRepository;
 
     @Autowired
+    private DataTableRepository dataTableRepository;
+
+    @Autowired
+    private DataTableColumnRepository dataTableColumnRepository;
+
+    @Autowired
     private OfficerRepository officerRepository;
 
     @Autowired
@@ -35,7 +45,7 @@ public class DatasetService {
     @PersistenceContext
     private EntityManager em;
 
-    public boolean createNewDataset(@NotNull String name, String description, String pf) {
+    public boolean createNewDataset(@NotNull String name, String description, String pf,Boolean isPublic) {
         if (datasetRepository.findByName(name) == null) { // if dataset hasn't exist yet
             Optional<Officer> officer = officerRepository.findByPf(pf);
             if (officer.isEmpty()) {
@@ -46,7 +56,7 @@ public class DatasetService {
                 boolean hasCreatedDataset = databaseActions.createDatabase(name);
 
                 // create dataset JPA entity only if hasCreatedDataset is true
-                Dataset dataset = new Dataset(name, description, officer.get(), false);
+                Dataset dataset = new Dataset(name, description, officer.get(), isPublic);
                 DatasetAccess datasetAccess = new DatasetAccess(dataset, "Pf", pf); // add access for creator of dataset
                 dataset.getDatasetAccessList().add(datasetAccess);
                 datasetRepository.save(dataset);
@@ -102,15 +112,22 @@ public class DatasetService {
                 .collect(Collectors.toList());
     }
 
+    public List<DatasetDto> getAllPublicDatasetDtos(String pf) {
+//filter get dataset that can be view by public and get dataset that user have access to which is private.
+        List<Dataset> datasets = datasetRepository.findAll();
+        List<Dataset> filteredDatasets = datasets.stream()
+                .filter(d -> d.getIsPublic()==true)
+                .collect(Collectors.toList());
+
+        return filteredDatasets.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList()) ;
+    }
+
     // converts Dataset to DatasetDto
     private DatasetDto convertToDto(Dataset dataset) {
         DatasetDto datasetDto = modelMapper.map(dataset, DatasetDto.class);
         return datasetDto;
-    }
-
-    public boolean deleteDataset(String datasetId) {
-        datasetRepository.deleteById(Long.parseLong(datasetId));
-        return true;
     }
 
     public boolean addOfficerDatasetAccess(String officerPf, String datasetId) {
@@ -163,5 +180,46 @@ public class DatasetService {
 
     public boolean datasetNameIsUnique(String name) {
         return datasetRepository.findByName(name)==null;
+    }
+
+    public boolean editDataSetPrivacy(Boolean isPublic , long datasetId, String pf) {
+        // verify dataset exists
+        Optional<Dataset> dataset = datasetRepository.findById(datasetId);
+        System.out.println(dataset.isEmpty());
+        if (dataset.isEmpty()) {
+            throw new DatasetNotFoundException(datasetId);
+        }
+        // verify officer exists
+        Optional<Officer> officer = officerRepository.findByPf(pf);
+        if (officer.isEmpty()) {
+            throw new OfficerNotFoundException(pf);
+        }
+        Dataset actualDataset = dataset.get(); // get dataset
+        List<DataTable> dataTableList = actualDataset.getDataTableList();
+        // verify if officer is custodian/owner
+        if (!actualDataset.getOfficer().getPf().equals(officer.get().getPf()) && // check ownership
+                (actualDataset.getOfficerCustodianList().stream().filter(custodianOfficer -> custodianOfficer.getPf().equals(officer.get().getPf())).count()==0)) { // check custodianship
+            throw new DatasetAccessNotFoundException(pf, actualDataset.getId());
+        }
+//        if it is private, set dataset and its datatable as private
+
+//            set dataset to public/private
+            actualDataset.setIsPublic(isPublic);
+            datasetRepository.save(actualDataset);
+//            set each datatable of the dataset to private
+            for (DataTable dt : dataTableList) {
+                dt.setIsPublic(isPublic);
+                dataTableRepository.save(dt);
+                List<DataTableColumn> dataTableColumnList = dt.getDataTableColumnList();
+
+                // set each datatablecolumn to private
+                for (DataTableColumn dtc : dataTableColumnList) {
+                    dtc.setIsPublic(isPublic);
+                    dataTableColumnRepository.save(dtc);
+                }
+            }
+
+
+        return true;
     }
 }

@@ -1,5 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.datatablecolumn;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,11 @@ public class DataTableColumnController {
         return dataTableColumnService.getAllColumnDtos(pf, dataTableId);
     }
 
+    @GetMapping("/get-all-public-columns-dtos/{dataTableId}")
+    public List<DataTableColumnDto> getAllPublicColumnDtos(@PathVariable("dataTableId") String dataTableId) {
+        return dataTableColumnService.getAllPublicColumnDtos(dataTableId);
+    }
+
     @GetMapping("/datatablecolumn/{id}")
     public boolean ValidateOfficerDatasetAccess(@RequestAttribute("txnId") String txnId,
                                                 @RequestAttribute("pf") String pf,
@@ -30,5 +37,12 @@ public class DataTableColumnController {
                                             @RequestParam("dataTableColumnId") long dataTableColumnId,
                                             @RequestParam("description") String description) {
         return dataTableColumnService.editDataTableColumnDescription(description, dataTableColumnId, pf);
+    }
+
+    @PostMapping("/edit-privacy")
+    public boolean editDataTableColumnPrivacy(@RequestAttribute("txnId") String txnId,
+                                                  @RequestAttribute("pf") String pf,
+                                                  @RequestParam("dataTableColumnPrivacyList") List<String> dataTableColumnPrivacyList) {
+        return dataTableColumnService.editDataTableColumnPrivacy(dataTableColumnPrivacyList, pf);
     }
 }

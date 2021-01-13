@@ -39,7 +39,7 @@ public class DataTable {
     private String description;
 
     @NotNull
-    private boolean isPublic;
+    private Boolean isPublic;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -63,13 +63,14 @@ public class DataTable {
     @JsonManagedReference
     private List<DataTableColumn> dataTableColumnList;
 
-    public DataTable(String name, String description, Dataset dataset, Officer officer, boolean isPublic) {
+    public DataTable(String name, String description, Dataset dataset, Officer officer, Boolean isPublic) {
          this.name=name;
          this.description=description;
-        this.isPublic=isPublic;
+         this.isPublic=isPublic;
          this.dataset=dataset;
          this.officer=officer;
          this.dataTableAccessList=new ArrayList<>();
          this.dataTableColumnList=new ArrayList<>();
      }
+
 }

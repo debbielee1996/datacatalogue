@@ -23,13 +23,19 @@ public class DataTableController {
                              @RequestParam("description") String description,
                              @RequestParam("dataTypes") List<String> dataTypes,
                              @RequestParam("dataColDescriptions") List<String> dataColDescriptions,
+                              @RequestParam("isPublic") Boolean isPublic ,
                               @RequestAttribute("pf") String pf) throws IOException, CsvException, SQLException {
-        return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDescriptions);
+        return dataTableService.uploadFile(file, tableName, datasetId, description, dataTypes, pf, dataColDescriptions,isPublic);
     }
 
     @GetMapping("/get-all-datatable-dtos")
     public List<DataTableDto> getAllDataTableDtos(@RequestAttribute("pf") String pf) {
         return dataTableService.getAllDataTableDtos(pf);
+    }
+
+    @GetMapping("/get-all-public-datatable-dtos")
+    public List<DataTableDto> getAllPublicDataTableDtos(@RequestAttribute("pf") String pf) {
+        return dataTableService.getAllPublicDataTableDtos(pf);
     }
 
     @GetMapping("/get-dataset-datatables/{datasetId}")
@@ -57,6 +63,14 @@ public class DataTableController {
                                             @RequestParam("dataTableId") long dataTableId,
                                             @RequestParam("description") String description) {
         return dataTableService.editDataTableDescription(description, dataTableId, pf);
+    }
+//    je code datatable privacy
+    @PostMapping("/edit-privacy")
+    public boolean editDataTablePrivacy(@RequestAttribute("txnId") String txnId,
+                                            @RequestAttribute("pf") String pf,
+                                            @RequestParam("dataTableId") long dataTableId,
+                                            @RequestParam("isPublic") Boolean isPublic) {
+        return dataTableService.editDataTablePrivacy(isPublic, dataTableId, pf);
     }
 
     @GetMapping("/datatablename-isunique")

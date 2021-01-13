@@ -15,8 +15,9 @@ public class DatasetController {
     public boolean createNewDataset(@RequestAttribute("txnId") String txnId,
                                     @RequestAttribute("pf") String pf,
                                     @RequestParam("name") String name,
-                                   @RequestParam("description") String description) {
-        return datasetService.createNewDataset(name, description, pf);
+                                   @RequestParam("description") String description,
+                                    @RequestParam("isPublic") Boolean isPublic ) {
+        return datasetService.createNewDataset(name, description, pf,isPublic);
     }
 
     @GetMapping("/dataset/{id}")
@@ -38,9 +39,10 @@ public class DatasetController {
         return datasetService.getAllDatasetDtos(pf);
     }
 
-    @DeleteMapping("/delete-dataset/{datasetId}")
-    public boolean deleteDataset(@PathVariable("datasetId") String datasetId) {
-        return datasetService.deleteDataset(datasetId);
+    @GetMapping("/get-all-public-dataset-dtos")
+    public List<DatasetDto> getAllPublicDatasetDtos(@RequestAttribute("txnId") String txnId,
+                                              @RequestAttribute("pf") String pf) {
+        return datasetService.getAllPublicDatasetDtos(pf);
     }
 
     @PostMapping("/add-officer-to-custodian-list")
@@ -56,5 +58,13 @@ public class DatasetController {
                                      @RequestAttribute("pf") String pf,
                                      @RequestParam("datasetName") String datasetName) {
         return datasetService.datasetNameIsUnique(datasetName);
+    }
+//    edit access level of the dataset
+    @PostMapping("/edit-privacy")
+    public boolean editDataSetPrivacy(@RequestAttribute("txnId") String txnId,
+                                    @RequestAttribute("pf") String pf,
+                                      @RequestParam("datasetId") long datasetId,
+                                    @RequestParam("isPublic") Boolean isPublic) {
+        return datasetService.editDataSetPrivacy(isPublic,datasetId, pf);
     }
 }
