@@ -99,23 +99,89 @@ public class DatabaseActions {
         }
     }
 
-    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn, boolean dataTableExists, PreparedStatement drop, PreparedStatement create) throws SQLException {
+//    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn, boolean dataTableExists, PreparedStatement drop, PreparedStatement create) throws SQLException {
+//        //create a string of the headers for the preparedStatement - comma separated
+//        String headerListCommaSeparated = String.join(",", headerList);
+//
+//        for (int i = 0; i < records.size(); i++) {
+//            PreparedStatement insert = null;
+//            List<String> subRecordList = records.get(i); // every row of data
+//            String subRecords = String.join("," ,
+//                    records.get(i)
+//                    .stream()
+//                    .map(x -> x.contains("'") ? x.replace("'", "''"): x) // goes through every string to check for single quotes. if yes then escape it
+//                    .map(name -> ("'" + name + "'")) // add double quotes to all strings for insert statement
+//                    .collect(Collectors.toList())
+//            );
+//            try {
+//                insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
+//                insert.executeUpdate();
+//            } catch (SQLException e) {
+//                // row number i caused the error
+//                // iterate each column casting
+//                int problematicColumnNum = -1;
+//                String problematicColumnName = "";
+//                subRecordList= Arrays.asList(subRecords.split(",")); // subRecords has every cell appended with '' and escaped '
+//
+//                // simulate creation of table for the trial-and-error to detect problematic column
+//                if (dataTableExists) { drop.executeUpdate(); }
+//                create.executeUpdate();
+//
+//                try {
+//                    for (int j=0; j<headerTypes.size();j++) { // iterate current row and identify the column giving issue
+//                        problematicColumnNum=j+1;
+//                        problematicColumnName=headerList.get(j);
+//                        insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerList.get(j) +  ")" + " VALUES" + "(" + subRecordList.get(j) + ")");
+//                        insert.execute();
+//                    }
+//                } catch (SQLException ee) { // do nothing. let main try catch handle
+//                } finally {
+//                    if(conn != null) {
+//                        conn.rollback();
+//                        conn.setAutoCommit(true);
+//                        conn.close();
+//                    }
+//                    System.out.println("Closed connection for creating datatable (with errors)");
+//                }
+//                throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
+//            }
+//        }
+//
+//        if(conn != null) {
+//            conn.commit();
+//            conn.setAutoCommit(true);
+//            conn.close();
+//        }
+//        System.out.println("Closed connection for creating datatable");
+//        System.out.println("Inserting of values completed");
+//        return true;
+//    }
+
+//  batch insert
+    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn, boolean dataTableExists, PreparedStatement drop, PreparedStatement create) throws SQLException  {
         //create a string of the headers for the preparedStatement - comma separated
         String headerListCommaSeparated = String.join(",", headerList);
-
+        int batchSize = 20;
+        int count= 0;
         for (int i = 0; i < records.size(); i++) {
             PreparedStatement insert = null;
             List<String> subRecordList = records.get(i); // every row of data
             String subRecords = String.join("," ,
                     records.get(i)
-                    .stream()
-                    .map(x -> x.contains("'") ? x.replace("'", "''"): x) // goes through every string to check for single quotes. if yes then escape it
-                    .map(name -> ("'" + name + "'")) // add double quotes to all strings for insert statement
-                    .collect(Collectors.toList())
+                            .stream()
+                            .map(x -> x.contains("'") ? x.replace("'", "''"): x) // goes through every string to check for single quotes. if yes then escape it
+                            .map(name -> ("'" + name + "'")) // add double quotes to all strings for insert statement
+                            .collect(Collectors.toList())
             );
+
             try {
                 insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
-                insert.executeUpdate();
+                insert.addBatch();
+
+                if (count % batchSize == 0) {
+                    insert.executeBatch();
+                }
+
             } catch (SQLException e) {
                 // row number i caused the error
                 // iterate each column casting
@@ -156,6 +222,8 @@ public class DatabaseActions {
         System.out.println("Inserting of values completed");
         return true;
     }
+
+
 
     //creates table string eg. firstname varchar(200), lastname varchar(200)
     public static String createTableString(List<String> headerList , List<String> headerTypes) {

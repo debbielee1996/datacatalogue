@@ -31,7 +31,7 @@ public class DatasetController {
 
     @GetMapping("/get-all-datasets-created")
     public List<DatasetDto> getDatasetsCreatedByOfficer(@RequestAttribute("txnId") String txnId,
-                                                    @RequestAttribute("pf") String pf) {
+                                                        @RequestAttribute("pf") String pf) {
         return datasetService.getDatasetsCreatedByOfficer(pf);
     }
 
@@ -64,9 +64,9 @@ public class DatasetController {
 //    edit access level of the dataset
     @PostMapping("/edit-privacy")
     public boolean editDataSetPrivacy(@RequestAttribute("txnId") String txnId,
-                                    @RequestAttribute("pf") String pf,
+                                      @RequestAttribute("pf") String pf,
                                       @RequestParam("datasetId") long datasetId,
-                                    @RequestParam("isPublic") Boolean isPublic) {
+                                      @RequestParam("isPublic") Boolean isPublic) {
         return datasetService.editDataSetPrivacy(isPublic,datasetId, pf);
     }
 }
