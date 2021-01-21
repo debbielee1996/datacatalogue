@@ -313,11 +313,10 @@ public class DataTableService {
         return true;
     }
 
-//edit datatable privacy
+    //edit datatable privacy
     public boolean editDataTablePrivacy(Boolean isPublic , Long dataTableId, String pf) {
         // verify datatable exists
         Optional<DataTable> dataTable = dataTableRepository.findById(dataTableId);
-        System.out.println(dataTable.isEmpty());
         if (dataTable.isEmpty()) {
             throw new DataTableNotFoundException(dataTableId);
         }
@@ -334,30 +333,29 @@ public class DataTableService {
                 (dataset.getOfficerCustodianList().stream().filter(custodianOfficer -> custodianOfficer.getPf().equals(officer.get().getPf())).count()==0)) { // check custodianship
             throw new DatasetAccessNotFoundException(pf, dataset.getId());
         }
+
         List<DataTableColumn> dataTableColumnList = actualDataTable.getDataTableColumnList();
-if(isPublic==true) {
-    actualDataTable.setIsPublic(isPublic);
-    dataTableRepository.save(actualDataTable);
-    dataset.setIsPublic(isPublic);
-    datasetRepository.save(dataset);
+        /*
+            if isPublic is true:
+                set datatable and dataset to public. no changes to cols isPublic
 
-    // set each datatablecolumn to public
-    for (DataTableColumn dtc : dataTableColumnList) {
-        dtc.setIsPublic(isPublic);
-        dataTableColumnRepository.save(dtc);
-    }
-}
-else{
-    actualDataTable.setIsPublic(isPublic);
-    dataTableRepository.save(actualDataTable);
+            if isPublic is false:
+                set datatable and cols to private. no changes to dataset isPublic
+        */
+        actualDataTable.setIsPublic(isPublic);
+        dataTableRepository.save(actualDataTable);
 
-    // set each datatablecolumn to private
-    for (DataTableColumn dtc : dataTableColumnList) {
-        dtc.setIsPublic(isPublic);
-        dataTableColumnRepository.save(dtc);
-    }
-}
-return true;
+        if(isPublic) {
+            dataset.setIsPublic(isPublic);
+            datasetRepository.save(dataset);
+        } else {
+            // set each datatablecolumn to private
+            for (DataTableColumn dtc : dataTableColumnList) {
+                dtc.setIsPublic(isPublic);
+                dataTableColumnRepository.save(dtc);
+            }
+        }
+        return true;
     }
 
     public boolean dataTableNameIsUnique(String dataTableName, Long datasetId) { return dataTableRepository.findByNameAndDatasetId(dataTableName, datasetId)==null; }

@@ -42,7 +42,8 @@ public class DataTableColumnController {
     @PostMapping("/edit-privacy")
     public boolean editDataTableColumnPrivacy(@RequestAttribute("txnId") String txnId,
                                                   @RequestAttribute("pf") String pf,
-                                                  @RequestParam("dataTableColumnPrivacyList") List<String> dataTableColumnPrivacyList) {
-        return dataTableColumnService.editDataTableColumnPrivacy(dataTableColumnPrivacyList, pf);
+                                                  @RequestParam("dataTableColumnIdList") List<Long> dataTableColumnIdList,
+                                                  @RequestParam("dataTableColumnPrivacyList") List<Boolean> dataTableColumnPrivacyList) {
+        return dataTableColumnService.editDataTableColumnPrivacy(dataTableColumnIdList, dataTableColumnPrivacyList, pf);
     }
 }

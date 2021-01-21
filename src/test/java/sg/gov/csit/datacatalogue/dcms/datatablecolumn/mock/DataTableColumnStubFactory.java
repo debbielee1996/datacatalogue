@@ -5,6 +5,9 @@ import sg.gov.csit.datacatalogue.dcms.datatable.DataTable;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
 import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataTableColumnStubFactory {
     public static Officer MOCK_OFFICER() {
         return new Officer("123","test","testEmail", "123", "System Admin");
@@ -31,5 +34,17 @@ public class DataTableColumnStubFactory {
         dtc.setId(Long.parseLong("1"));
         MOCK_DATATABLE_NOACCESSLIST().getDataTableColumnList().add(dtc);
         return dtc;
+    }
+
+    public static List<Boolean> MOCK_DATATABLECOLUMNPRIVACYLIST_MIXED() {
+        List<Boolean> dataTableColumnPrivacyList = new ArrayList<>();
+        dataTableColumnPrivacyList.add(true);
+        return dataTableColumnPrivacyList;
+    }
+
+    public static List<Long> MOCK_DATATABLECOLUMNIDLIST() {
+        List<Long> dataTableColumnIdList = new ArrayList<>();
+        dataTableColumnIdList.add(MOCK_DATATABLECOLUMN_NOACCESSLIST().getId());
+        return dataTableColumnIdList;
     }
 }
