@@ -1,6 +1,7 @@
 package sg.gov.csit.datacatalogue.dcms.dataset;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -43,6 +44,16 @@ public class DatasetServiceTest {
     @InjectMocks
     DatasetService datasetService;
 
+    @BeforeAll
+    public static void setUp() throws SQLException {
+        // create test db for DataTableSericeTest_dataset1 from DataTableStubFactory
+        GetBean.currentMavenProfile = "test";
+        GetBean.currentDataBaseDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        GetBean.currentDataBaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=false";
+        GetBean.userName = "sa";
+        GetBean.password = "Password1";
+        GetBean.maximumPoolSize = 10;
+    }
 
     @Test
     public void createNewDataset_GivenDatasetIdInDb_ShouldThrowException() {
@@ -82,13 +93,6 @@ public class DatasetServiceTest {
         // arrange & act
         when(datasetRepository.findByName(anyString())).thenReturn(null);
         datasetsCreated.add("DatasetServiceTest_mockDatabase"); // add to list of datasets to be dropped after this class's tests is done
-        // should change it soon
-        GetBean.currentMavenProfile = "test";
-        GetBean.currentDataBaseDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        GetBean.currentDataBaseUrl = "jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=false";
-        GetBean.userName = "sa";
-        GetBean.password = "Password1";
-        GetBean.maximumPoolSize=10;
 
         Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
         String pf = mockOfficer.getPf();
@@ -276,6 +280,7 @@ public class DatasetServiceTest {
         // assert
         assertThrows(DatasetNotFoundException.class, () -> datasetService.editDataSetPrivacy(true, anyLong(), "123"));
     }
+
     @Test
     public void editDataSetPrivacy_OfficerDoesNotExist_ShouldThrowException() {
         // arrange
@@ -303,7 +308,7 @@ public class DatasetServiceTest {
     }
 
     @Test
-    public void editDataSetPrivacy_DatasetExistAndOfficerIsOwner_ShouldReturnTrue() {
+    public void editDataSetPrivacy_isPublicDatasetExistAndOfficerIsOwner_ShouldReturnTrue() {
         // arrange
         Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
         Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
@@ -317,7 +322,7 @@ public class DatasetServiceTest {
     }
 
     @Test
-    public void editDatasetPrivacy_DatasetExistAndOfficerIsCustodian_ShouldReturnTrue() {
+    public void editDatasetPrivacy_isPublicDatasetExistAndOfficerIsCustodian_ShouldReturnTrue() {
         // arrange
         Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
         Officer mockOfficer2 = DatasetStubFactory.MOCK_OFFICER2();
@@ -334,7 +339,37 @@ public class DatasetServiceTest {
         mockDataset.getOfficerCustodianList().remove(mockOfficer2);
     }
 
+    @Test
+    public void editDataSetPrivacy_isPrivateDatasetExistAndOfficerIsOwner_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        Officer mockOfficer = DatasetStubFactory.MOCK_OFFICER();
 
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer));
+
+        // assert
+        assertTrue(() -> datasetService.editDataSetPrivacy(false, Long.parseLong("123"), "123"));
+    }
+
+    @Test
+    public void editDatasetPrivacy_isPrivateDatasetExistAndOfficerIsCustodian_ShouldReturnTrue() {
+        // arrange
+        Dataset mockDataset = DatasetStubFactory.MOCK_DATASET_NOACCESSLIST();
+        Officer mockOfficer2 = DatasetStubFactory.MOCK_OFFICER2();
+        mockDataset.getOfficerCustodianList().add(mockOfficer2); // add mockOfficer2 temporarily as custodian
+
+        // act
+        when(datasetRepository.findById(anyLong())).thenReturn(Optional.of(mockDataset));
+        when(officerRepository.findByPf(anyString())).thenReturn(Optional.of(mockOfficer2));
+
+        // assert
+        assertTrue(() -> datasetService.editDataSetPrivacy(false, Long.parseLong("123"), "456"));
+
+        // empty custodian list
+        mockDataset.getOfficerCustodianList().remove(mockOfficer2);
+    }
 
     // clean up db with new datasets (databases) created
     @AfterAll
