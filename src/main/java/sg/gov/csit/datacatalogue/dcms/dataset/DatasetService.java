@@ -219,12 +219,21 @@ public class DatasetService {
                 (actualDataset.getOfficerCustodianList().stream().filter(custodianOfficer -> custodianOfficer.getPf().equals(officer.get().getPf())).count()==0)) { // check custodianship
             throw new DatasetAccessNotFoundException(pf, actualDataset.getId());
         }
-//        if it is private, set dataset and its datatable as private
 
-//            set dataset to public/private
-            actualDataset.setIsPublic(isPublic);
-            datasetRepository.save(actualDataset);
-//            set each datatable of the dataset to private
+        /*
+            if isPublic is true:
+                set dataset to public. no changes to datatable/cols isPublic
+
+            if isPublic is false:
+                set dataset, datatable and cols to private
+        */
+
+        // set dataset to public/private
+        actualDataset.setIsPublic(isPublic);
+        datasetRepository.save(actualDataset);
+
+        // dataset is private: set each datatable of the dataset to private
+        if (!isPublic) {
             for (DataTable dt : dataTableList) {
                 dt.setIsPublic(isPublic);
                 dataTableRepository.save(dt);
@@ -236,8 +245,7 @@ public class DatasetService {
                     dataTableColumnRepository.save(dtc);
                 }
             }
-
-
+        }
         return true;
     }
 }
