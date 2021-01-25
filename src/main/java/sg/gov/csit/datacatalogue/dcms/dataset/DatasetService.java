@@ -69,7 +69,7 @@ public class DatasetService {
                 boolean hasCreatedDataset = databaseActions.createDatabase(name);
 
                 // create dataset JPA entity only if hasCreatedDataset is true
-                Dataset dataset = new Dataset(name, description, officer.get(), isPublic);
+                Dataset dataset = new Dataset(name, description, owner.get(), isPublic);
                 DatasetAccess datasetAccess = new DatasetAccess(dataset, "Pf", pf); // add access for creator of dataset
                 dataset.getDatasetAccessList().add(datasetAccess);
                 datasetRepository.save(dataset);
