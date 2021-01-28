@@ -2,11 +2,16 @@ package sg.gov.csit.datacatalogue.dcms.databaselink;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.apache.poi.hpsf.Decimal;
 
 import javax.sql.DataSource;
+import java.math.RoundingMode;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -98,6 +103,49 @@ public class DatabaseActions {
             System.out.println("Closed connection for creating datatable");
         }
     }
+//    public boolean createDatatableForDataAnalysis(String tableName, int numOfRow,int numOfColumn,int TimeTaken, String datasetName, boolean dataTableExists) throws SQLException {
+//        Connection conn = getConnection();
+//        conn.setAutoCommit(false);
+//        List<String> headerList=Arrays.asList("NumOfRow","NumOfColumn","TimeTaken");
+//        List<String> headerTypes=Arrays.asList("int","int","int");
+//        String tableString = createTableString(headerList, headerTypes);
+//
+//        try {
+//            PreparedStatement drop = null;
+//            PreparedStatement createe = null;
+//            if (dataTableExists) {
+////                drop = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NOT NULL DROP TABLE "+ datasetName + ".dbo."+ tableName +"");
+////                drop.executeUpdate();
+//                boolean insert = insertValuesToDataAnalayis("dataanalysis", headerList,numOfRow,numOfColumn,TimeTaken,"dataanalysis", headerTypes, conn, drop, createe);
+//                if (insert) {
+//                    System.out.println("Table creation function completed");
+//                    return true;
+//                }else{
+//                    return false;
+//                }
+//            }
+//            System.out.println("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NULL CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+//            // create table for insertion
+//            PreparedStatement create = conn.prepareStatement("IF OBJECT_ID('"+ datasetName +".dbo."+ tableName +"', 'U') IS NULL CREATE TABLE "+ datasetName + ".dbo."+ tableName +" (id int NOT NULL IDENTITY(1,1), " + tableString + " )");
+//            create.executeUpdate();
+//
+//            // insert values to table
+//            boolean insert = insertValuesToDataAnalayis("dataanalysis", headerList,numOfRow,numOfColumn,TimeTaken,"dataanalysis", headerTypes, conn, drop, create);
+//            if (insert) {
+//                System.out.println("Table creation function completed");
+//                return true;
+//            }else{
+//                return false;
+//            }
+//        } finally {
+//            if(conn != null && !conn.isClosed()) {
+//                conn.setAutoCommit(true);
+//                conn.close();
+//            }
+//            System.out.println("Closed connection for creating datatable");
+//        }
+//    }
+
 
 //    private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn, boolean dataTableExists, PreparedStatement drop, PreparedStatement create) throws SQLException {
 //        //create a string of the headers for the preparedStatement - comma separated
@@ -161,8 +209,17 @@ public class DatabaseActions {
     private boolean insertValuesToTable(String tableName, List<String> headerList, List<List<String>> records, String datasetName, List<String> headerTypes, Connection conn, boolean dataTableExists, PreparedStatement drop, PreparedStatement create) throws SQLException  {
         //create a string of the headers for the preparedStatement - comma separated
         String headerListCommaSeparated = String.join(",", headerList);
-        int batchSize = 20;
+        int batchSize = 100;
         int count= 0;
+        //Making it dynamic. Can add as many value as u want
+        List<String> numOfQuestionMarksList=new ArrayList<>();
+        for (int j = 0; j < headerList.size(); j++){
+            numOfQuestionMarksList.add("?");
+        }
+        String numOfQuestionMarks=numOfQuestionMarksList.toString();
+        numOfQuestionMarks=numOfQuestionMarks.replaceAll("\\[", "").replaceAll("\\]","");
+        String sqlQuery = "INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" +"(" + numOfQuestionMarks + ")";
+        PreparedStatement ps = conn.prepareStatement(sqlQuery);
         for (int i = 0; i < records.size(); i++) {
             PreparedStatement insert = null;
             List<String> subRecordList = records.get(i); // every row of data
@@ -173,15 +230,40 @@ public class DatabaseActions {
                             .map(name -> ("'" + name + "'")) // add double quotes to all strings for insert statement
                             .collect(Collectors.toList())
             );
-
+            count+=1;
             try {
-                insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
-                insert.addBatch();
+                for(int k = 0; k < subRecordList.size(); k++){
+                    if(headerTypes.get(k)==" varChar(255)"){
+                        ps.setString(k+1, subRecordList.get(k));
+                    }
+               if(headerTypes.get(k)==" DATE"){
+                        ps.setDate(k+1, Date.valueOf(subRecordList.get(k)));
+                    }
+               if(headerTypes.get(k)==" decimal(18, 5)"){
+                   DecimalFormat df = new DecimalFormat("#.#####");
+                   df.setRoundingMode(RoundingMode.CEILING);
+                   ps.setFloat(k+1,Float.valueOf(df.format(Float.valueOf(subRecordList.get(k)).floatValue())).floatValue());
+               }
 
-                if (count % batchSize == 0) {
-                    insert.executeBatch();
+               if(headerTypes.get(k)==" decimal(18, 2)"){
+                   ps.setLong(k+1, (long)Double.parseDouble(subRecordList.get(k)));
+               }
+
+               if(headerTypes.get(k)==" decimal(18, 0)"){
+                   DecimalFormat df = new DecimalFormat("#");
+                   df.setRoundingMode(RoundingMode.CEILING);
+                   ps.setFloat(k+1,Float.valueOf(df.format(Float.valueOf(subRecordList.get(k)).floatValue())).floatValue());
+                    }
+               else{
+                   ps.setString(k+1, subRecordList.get(k));
+                    }
                 }
-
+                insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + subRecords + ")");
+                ps.addBatch();
+                if (count % batchSize == 0) {
+                    System.out.println("here:"+count);
+                    ps.executeBatch();
+                }
             } catch (SQLException e) {
                 // row number i caused the error
                 // iterate each column casting
@@ -212,6 +294,8 @@ public class DatabaseActions {
                 throw new SQLException("row "+(i+2)+ " column "+ problematicColumnNum + " (" + problematicColumnName +") issue: " + e.getMessage(),e);
             }
         }
+        ps.executeBatch(); // insert remaining records
+
 
         if(conn != null) {
             conn.commit();
@@ -222,6 +306,26 @@ public class DatabaseActions {
         System.out.println("Inserting of values completed");
         return true;
     }
+
+
+//    private boolean insertValuesToDataAnalayis(String tableName, List<String> headerList, int numOfRow,int numOfColumn, int TimeTaken, String datasetName, List<String> headerTypes, Connection conn) throws SQLException  {
+//        //create a string of the headers for the preparedStatement - comma separated
+//        String headerListCommaSeparated = String.join(",", headerList);
+//
+//            try {
+//                PreparedStatement insert = conn.prepareStatement("INSERT INTO " + datasetName + ".dbo." + tableName + "(" + headerListCommaSeparated +  ")" + " VALUES" + "(" + numOfRow,numOfColumn, Integer.parseInt(TimeTaken + ")"));
+//                insert.executeUpdate();
+//            } catch (SQLException e) {
+//        if(conn != null) {
+//            conn.commit();
+//            conn.setAutoCommit(true);
+//            conn.close();
+//        }}
+//        System.out.println("Closed connection for creating datatable");
+//        System.out.println("Inserting of values completed");
+//        return true;
+//    }
+//
 
 
 
