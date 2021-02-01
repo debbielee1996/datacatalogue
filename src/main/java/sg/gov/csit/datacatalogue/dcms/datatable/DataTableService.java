@@ -19,6 +19,7 @@ import sg.gov.csit.datacatalogue.dcms.databaselink.DatabaseActions;
 import sg.gov.csit.datacatalogue.dcms.dataset.Dataset;
 import sg.gov.csit.datacatalogue.dcms.dataset.DatasetRepository;
 
+import sg.gov.csit.datacatalogue.dcms.datasetaccess.DatasetAccess;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccess;
 import sg.gov.csit.datacatalogue.dcms.datatableaccess.DataTableAccessTypeEnum;
 import sg.gov.csit.datacatalogue.dcms.datatablecolumn.DataTableColumn;
@@ -29,6 +30,7 @@ import sg.gov.csit.datacatalogue.dcms.officer.Officer;
 import sg.gov.csit.datacatalogue.dcms.officer.OfficerRepository;
 
 import java.io.*;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,6 +56,9 @@ public class DataTableService {
     ModelMapper modelMapper;
 
     public boolean uploadFile(MultipartFile file, String tableName, String datasetId, String description, List<String> dataTypes, String pf, List<String> dataColDescriptions,Boolean isPublic) throws IOException, CsvException, SQLException {
+        var numofrow=0;
+        //start timer
+        final float startTime = System.currentTimeMillis();
         // verify officer exists
         Optional<Officer> officer = officerRepository.findByPf(pf);
         if (officer.isEmpty()) {
@@ -104,6 +109,7 @@ public class DataTableService {
                 Row row = rowIterator.next();
                 Iterator<Cell> cellIterator = row.cellIterator();
                 List<String> rowList = new ArrayList<>();
+                numofrow+=1;
 
                 while(cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
@@ -155,7 +161,6 @@ public class DataTableService {
         // create table and insert values
         DatabaseActions databaseActions = new DatabaseActions();
         boolean hasCreatedDatatable = databaseActions.createDatatable(tableName, headerList, headerTypes, stringRecords, dataset.get().getName(), dataTableExists);
-
         if (hasCreatedDatatable) {
             if (!dataTableExists) { // create dataTable object in db
                 dataTable = new DataTable(tableName, description, dataset.get(), officer.get(), isPublic);
@@ -181,10 +186,16 @@ public class DataTableService {
             dataTableRepository.save(dataTable);
 
             System.out.println("Successfully uploaded data file into db");
+            //end timer
+            final float endTime = System.currentTimeMillis();
+            //show total execution time in milisec
+            System.out.println("Total execution time: " + (endTime - startTime));
             return true;
         } else {
             return false;
         }
+
+
     }
 
     public List<DataTableDto> getDataTablesOfDataset(String pf, String datasetId) {
